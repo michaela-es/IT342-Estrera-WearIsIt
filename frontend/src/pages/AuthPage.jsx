@@ -7,6 +7,7 @@ import '../AuthPage.css';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+    const [success, setSuccess] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,6 +42,8 @@ const AuthPage = () => {
       }
       result = await register(formData);
       if (result.success) {
+        setSuccess("Account created successfully! You can now sign in.");
+        
         setIsLogin(true);
         setFormData({
           name: '',
