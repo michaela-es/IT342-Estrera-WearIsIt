@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
-import ForbiddenPage from './pages/ForbiddenPage';
 import './App.css';
 
 const ProtectedRoute = ({ children }) => {
@@ -33,7 +32,6 @@ function AppContent() {
           </ProtectedRoute>
         } 
       />
-      <Route path="/403" element={<ForbiddenPage />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
