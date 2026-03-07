@@ -1,6 +1,8 @@
 package edu.cit.estrera.wearisit.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +23,8 @@ public class RefreshToken {
     @Column(name = "issued_at", nullable = false)
     private LocalDateTime issuedAt;
 
-    @Column(name = "created_at", nullable = false)
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "expires_at", nullable = false)
