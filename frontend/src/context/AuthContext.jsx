@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
         password
       });
 
-      const { accessToken, user: userData } = response.data;
+      const { accessToken, user: userData } = response;
       
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('user', JSON.stringify(userData));
