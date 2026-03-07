@@ -1,7 +1,6 @@
 package edu.cit.estrera.wearisit.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,49 +15,52 @@ public class RefreshToken {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "token_hash", nullable = false, unique = true)
     private String tokenHash;
 
-    @Column(nullable = false)
+    @Column(name = "issued_at", nullable = false)
     private LocalDateTime issuedAt;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "expires_at", nullable = false)
     private LocalDateTime expiresAt;
 
-    @Column
+    @Column(name = "revoked_at")
     private LocalDateTime revokedAt;
 
     public RefreshToken() {}
 
-    public RefreshToken(Long id, User user, String tokenHash, LocalDateTime issuedAt,
-                        LocalDateTime expiresAt, LocalDateTime revokedAt) {
+    public RefreshToken(Long id, User user, String tokenHash,
+                        LocalDateTime issuedAt,
+                        LocalDateTime createdAt,
+                        LocalDateTime expiresAt,
+                        LocalDateTime revokedAt) {
         this.id = id;
         this.user = user;
         this.tokenHash = tokenHash;
         this.issuedAt = issuedAt;
+        this.createdAt = createdAt;
         this.expiresAt = expiresAt;
         this.revokedAt = revokedAt;
     }
 
-    // Getters
     public Long getId() { return id; }
     public User getUser() { return user; }
     public String getTokenHash() { return tokenHash; }
     public LocalDateTime getIssuedAt() { return issuedAt; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
     public LocalDateTime getExpiresAt() { return expiresAt; }
     public LocalDateTime getRevokedAt() { return revokedAt; }
 
-    // Setters
     public void setId(Long id) { this.id = id; }
     public void setUser(User user) { this.user = user; }
     public void setTokenHash(String tokenHash) { this.tokenHash = tokenHash; }
     public void setIssuedAt(LocalDateTime issuedAt) { this.issuedAt = issuedAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public void setExpiresAt(LocalDateTime expiresAt) { this.expiresAt = expiresAt; }
     public void setRevokedAt(LocalDateTime revokedAt) { this.revokedAt = revokedAt; }
-
-    // ❌ REMOVE these broken methods:
-    // public void setToken(String token) { this. }
-    // public void setExpiryDate(Date date) { }
 
     public static Builder builder() {
         return new Builder();
@@ -69,6 +71,7 @@ public class RefreshToken {
         private User user;
         private String tokenHash;
         private LocalDateTime issuedAt;
+        private LocalDateTime createdAt;
         private LocalDateTime expiresAt;
         private LocalDateTime revokedAt;
 
@@ -76,11 +79,12 @@ public class RefreshToken {
         public Builder user(User user) { this.user = user; return this; }
         public Builder tokenHash(String tokenHash) { this.tokenHash = tokenHash; return this; }
         public Builder issuedAt(LocalDateTime issuedAt) { this.issuedAt = issuedAt; return this; }
+        public Builder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
         public Builder expiresAt(LocalDateTime expiresAt) { this.expiresAt = expiresAt; return this; }
         public Builder revokedAt(LocalDateTime revokedAt) { this.revokedAt = revokedAt; return this; }
 
         public RefreshToken build() {
-            return new RefreshToken(id, user, tokenHash, issuedAt, expiresAt, revokedAt);
+            return new RefreshToken(id, user, tokenHash, issuedAt, createdAt, expiresAt, revokedAt);
         }
     }
 }
