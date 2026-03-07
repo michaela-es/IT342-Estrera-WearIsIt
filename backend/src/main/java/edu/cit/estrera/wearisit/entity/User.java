@@ -1,6 +1,8 @@
 package edu.cit.estrera.wearisit.entity;
 
 import jakarta.persistence.*;
+
+import java.net.ProtocolFamily;
 import java.time.LocalDateTime;
 
 @Entity
@@ -112,5 +114,8 @@ public class User {
     public boolean isEnabled() {
         return enabled;
     }
-    
+
+    public String getRole(){
+        return role;
+    }
 }

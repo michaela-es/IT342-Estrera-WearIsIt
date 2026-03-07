@@ -1,45 +1,36 @@
 package edu.cit.estrera.wearisit.service;
 
-import edu.cit.estrera.wearisit.dto.AuthResponse;
-import edu.cit.estrera.wearisit.dto.LoginRequest;
-import edu.cit.estrera.wearisit.dto.RegisterRequest;
-import edu.cit.estrera.wearisit.dto.UserResponse;
+import edu.cit.estrera.wearisit.api.ApiException;
+import edu.cit.estrera.wearisit.api.ErrorCode;
+import edu.cit.estrera.wearisit.dto.*;
 import edu.cit.estrera.wearisit.entity.User;
 import edu.cit.estrera.wearisit.repository.UserRepository;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Map;
 
 @Service
-@Transactional
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final TokenService tokenService;
+    private final JwtService jwtService;
+    private final RefreshTokenService refreshTokenService;
 
-    public AuthService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder,
-                       TokenService tokenService) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                       JwtService jwtService, RefreshTokenService refreshTokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.tokenService = tokenService;
+        this.jwtService = jwtService;
+        this.refreshTokenService = refreshTokenService;
     }
 
-    public Map<String, Object> register(RegisterRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new IllegalArgumentException("Username already exists");
-        }
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("Email already registered");
+    public AuthResponse register(RegisterRequest request) {
+
+        if(userRepository.existsByEmail(request.getEmail())){
+            throw new ApiException(ErrorCode.AUTH_004);
         }
 
         User user = new User();
@@ -51,72 +42,73 @@ public class AuthService {
 
         user = userRepository.save(user);
 
-        return Map.of(
-                "message", "Registration successful! Please verify your email.",
-                "userId", user.getUser_id(),
-                "email", user.getEmail()
-        );
+        String accessToken = jwtService.generateAccessToken(user.getUser_id());
+        String refreshToken = refreshTokenService.createRefreshToken(user.getUser_id());
+
+        UserResponse userResponse = mapToUserResponse(user);
+
+        return AuthResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .user(userResponse)
+                .build();
     }
 
-    public AuthResponse login(LoginRequest request, HttpServletResponse response) {
-        User user = findUserByUsernameOrEmail(request.getUsernameOrEmail());
+    public AuthResponse login(LoginRequest request) {
+        User user = userRepository.findByUsername(request.getUsernameOrEmail())
+                .orElseGet(() -> {
+                    if (request.getUsernameOrEmail().contains("@")) {
+                        return userRepository.findByEmail(request.getUsernameOrEmail()).orElse(null);
+                    }
+                    return null;
+                });
+
+        if (user == null) {
+            throw new ApiException(ErrorCode.AUTH_001);
+        }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid credentials");
+            throw new ApiException(ErrorCode.AUTH_001);
         }
 
         user.setLast_login(LocalDateTime.now());
         userRepository.save(user);
 
-        String accessToken = tokenService.generateAccessToken(user);
-        String refreshToken = tokenService.generateRefreshToken(user);
+        String accessToken = jwtService.generateAccessToken(user.getUser_id());
+        String refreshToken = refreshTokenService.createRefreshToken(user.getUser_id());
+
+        UserResponse userResponse = mapToUserResponse(user);
 
         return AuthResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .tokenType("Bearer")
-                .expiresIn(86400L)
-                .user(mapToUserResponse(user))
+                .user(userResponse)
                 .build();
+    }
+
+    public void logout(String refreshToken) {
+        refreshTokenService.revokeRefreshToken(refreshToken);
     }
 
     public UserResponse getCurrentUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new ApiException(ErrorCode.AUTH_005));
         return mapToUserResponse(user);
     }
 
-    public String extractTokenFromCookies(HttpServletRequest request, String cookieName) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            return Arrays.stream(cookies)
-                    .filter(cookie -> cookieName.equals(cookie.getName()))
-                    .map(Cookie::getValue)
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException(cookieName + " not found"));
-        }
-        throw new IllegalArgumentException("No cookies found");
-    }
-
-    private User findUserByUsernameOrEmail(String usernameOrEmail) {
-        return userRepository.findByUsername(usernameOrEmail)
-                .orElseGet(() -> {
-                    if (usernameOrEmail.contains("@")) {
-                        return userRepository.findByEmail(usernameOrEmail)
-                                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
-                    }
-                    throw new IllegalArgumentException("Invalid credentials");
-                });
-    }
-
     private UserResponse mapToUserResponse(User user) {
-        return UserResponse.builder()
-                .user_id(user.getUser_id())
-                .username(user.getUsername())
+        UserResponse userResponse = UserResponse.builder()
                 .email(user.getEmail())
-                .isActive(user.getIs_active())
-                .enabled(user.isEnabled())
+                .username(user.getUsername())
+                .role(user.getRole())
                 .build();
+        return userResponse;
     }
+
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.DB_001));
+    }
+
 }

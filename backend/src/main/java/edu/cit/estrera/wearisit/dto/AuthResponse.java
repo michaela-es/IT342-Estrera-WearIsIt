@@ -1,21 +1,17 @@
 package edu.cit.estrera.wearisit.dto;
 
 public class AuthResponse {
+
     private String accessToken;
     private String refreshToken;
-    private String tokenType = "Bearer";
-    private Long expiresIn;
     private UserResponse user;
 
     public AuthResponse() {}
 
-    public AuthResponse(String accessToken, String refreshToken, String tokenType,
-                        Long expiresIn, UserResponse user) {
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-        this.tokenType = tokenType;
-        this.expiresIn = expiresIn;
-        this.user = user;
+    private AuthResponse(Builder builder) {
+        this.accessToken = builder.accessToken;
+        this.refreshToken = builder.refreshToken;
+        this.user = builder.user;
     }
 
     public String getAccessToken() {
@@ -24,14 +20,6 @@ public class AuthResponse {
 
     public String getRefreshToken() {
         return refreshToken;
-    }
-
-    public String getTokenType() {
-        return tokenType;
-    }
-
-    public Long getExpiresIn() {
-        return expiresIn;
     }
 
     public UserResponse getUser() {
@@ -46,14 +34,6 @@ public class AuthResponse {
         this.refreshToken = refreshToken;
     }
 
-    public void setTokenType(String tokenType) {
-        this.tokenType = tokenType;
-    }
-
-    public void setExpiresIn(Long expiresIn) {
-        this.expiresIn = expiresIn;
-    }
-
     public void setUser(UserResponse user) {
         this.user = user;
     }
@@ -63,10 +43,9 @@ public class AuthResponse {
     }
 
     public static class Builder {
+
         private String accessToken;
         private String refreshToken;
-        private String tokenType = "Bearer";
-        private Long expiresIn;
         private UserResponse user;
 
         public Builder accessToken(String accessToken) {
@@ -79,23 +58,13 @@ public class AuthResponse {
             return this;
         }
 
-        public Builder tokenType(String tokenType) {
-            this.tokenType = tokenType;
-            return this;
-        }
-
-        public Builder expiresIn(Long expiresIn) {
-            this.expiresIn = expiresIn;
-            return this;
-        }
-
         public Builder user(UserResponse user) {
             this.user = user;
             return this;
         }
 
         public AuthResponse build() {
-            return new AuthResponse(accessToken, refreshToken, tokenType, expiresIn, user);
+            return new AuthResponse(this);
         }
     }
 }
