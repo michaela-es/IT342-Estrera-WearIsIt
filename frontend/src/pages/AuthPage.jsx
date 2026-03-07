@@ -71,6 +71,12 @@ const AuthPage = () => {
           </div>
         )}
 
+        {success && (
+          <div className="success-message">
+            {success}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="auth-form">
           {isLogin ? (
             <LoginForm 
