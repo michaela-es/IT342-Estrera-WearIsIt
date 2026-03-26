@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardMedia,
@@ -9,20 +10,28 @@ import {
   Box,
   Button
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import useTags from '../../hooks/useTags';
 
 const ImageCard = ({ image }) => {
-  const { visibleTags, hasMore, hiddenCount, toggleTags } = useTags(image.tags, 5);
-
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const { visibleTags, hasMore, hiddenCount, toggleTags, showAll } = useTags(image.tags, 5);
+  
+  const handleClick = () => {
+    navigate(`/image/${image.id}`, { state: { image } });
+  };
+  
   return (
     <Card 
+      onClick={handleClick}
       sx={{ 
         borderRadius: 2,
         overflow: 'hidden',
         transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
         '&:hover': {
           transform: 'translateY(-8px)',
-          boxShadow: '0 20px 25px -12px rgba(0,0,0,0.2)',
+          boxShadow: theme.shadows[10],
           cursor: 'pointer'
         },
         height: '100%',
@@ -30,7 +39,7 @@ const ImageCard = ({ image }) => {
         flexDirection: 'column'
       }}
     >
-      <Box sx={{ position: 'relative', paddingTop: '75%' }}>
+<Box sx={{ position: 'relative', paddingTop: '100%' }}>
         <CardMedia
           component="img"
           image={image.url}
@@ -57,7 +66,8 @@ const ImageCard = ({ image }) => {
           sx={{ 
             fontWeight: 700,
             fontSize: '1.1rem',
-            mb: 1.5
+            mb: 1.5,
+            color: theme.palette.text.primary
           }}
         >
           {image.name}
@@ -69,26 +79,15 @@ const ImageCard = ({ image }) => {
               key={index} 
               label={tag} 
               size="small"
-              sx={{
-                fontSize: '0.7rem',
-                fontWeight: 500,
-                backgroundColor: '#f0f2f5'
-              }}
             />
           ))}
           
           {hasMore && (
             <Button
               size="small"
-              onClick={toggleTags}
-              sx={{
-                fontSize: '0.7rem',
-                minWidth: 'auto',
-                textTransform: 'none',
-                color: '#666',
-                '&:hover': {
-                  backgroundColor: '#f0f2f5'
-                }
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleTags();
               }}
             >
               {showAll ? 'Show less' : `+${hiddenCount} more`}

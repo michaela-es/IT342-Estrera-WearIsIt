@@ -4,18 +4,11 @@ import Navbar from '../components/layout/Navbar';
 import SearchBar from '../components/common/SearchBar';
 import ImageCard from '../components/image/ImageCard';
 import { getImages } from '../api/mockApi'; 
+import { useImages } from '../hooks/useImages';
 
 const HomePage = () => {
   const [search, setSearch] = useState('');
-  const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      const data = await getImages();
-      setImages(data);
-    };
-    fetchImages();
-  }, []);
+  const { images, loading, error } = useImages();
 
   const filteredImages = images.filter(
     (img) =>
@@ -45,18 +38,23 @@ const HomePage = () => {
         </Box>
       </Box>
 
-      <Container sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ py: 4 }}>
         {filteredImages.length ? (
-          <Grid container spacing={3}>
+          <Box sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: 3,
+            justifyContent: 'center'
+          }}>
             {filteredImages.map((img, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+              <Box key={index} sx={{ maxWidth: 380, mx: 'auto', width: '100%' }}>
                 <ImageCard image={img} />
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         ) : (
-          <Typography variant="body1" color="text.secondary">
-            No images found.
+          <Typography variant="body1" color="text.secondary" textAlign="center">
+            No items found.
           </Typography>
         )}
       </Container>

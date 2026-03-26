@@ -1,9 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
 import HomePage from './pages/HomePage';
+import ItemDetails from './pages/ItemDetails';
+import theme from './theme';
 
 import './App.css';
 
@@ -24,10 +28,9 @@ const ProtectedRoute = ({ children }) => {
 function AppContent() {
   return (
     <Routes>
-            <Route path="/" element={<HomePage />} />
-
-      {/* <Route path="/" element={<Navigate to="/login" replace />} /> */}
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<AuthPage />} />
+      <Route path="/image/:id" element={<ItemDetails />} />
       <Route 
         path="/profile" 
         element={
@@ -44,9 +47,12 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
