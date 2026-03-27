@@ -38,7 +38,7 @@ const AuthPage = () => {
         const data = await login(formData.emailOrUsername, formData.password);
         if (data) {
           setSuccess("Welcome back!");
-          navigate('/profile');
+          navigate('/');
         }
       } else {
         if (formData.password !== formData.confirmPassword) return;
