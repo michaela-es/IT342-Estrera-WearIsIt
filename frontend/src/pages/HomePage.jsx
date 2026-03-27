@@ -5,16 +5,14 @@ import SearchBar from '../components/common/SearchBar';
 import ImageCard from '../components/image/ImageCard';
 import { getImages } from '../api/mockApi'; 
 import { useImages } from '../hooks/useImages';
+import useSearch from '../hooks/useSearch';
 
 const HomePage = () => {
   const [search, setSearch] = useState('');
   const { images, loading, error } = useImages();
 
-  const filteredImages = images.filter(
-    (img) =>
-      img.name.toLowerCase().includes(search.toLowerCase()) ||
-      img.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase()))
-  );
+  const filteredImages = useSearch(images, search, ['name', 'tags']);
+
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#e3e3e3' }}>
