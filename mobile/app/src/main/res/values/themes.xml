@@ -1,0 +1,12 @@
+<resources>
+    <style name="Theme.MobileAuth" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_gradient_end</item>
+        <item name="colorOnPrimary">@color/text_white</item>
+
+
+        <item name="android:colorBackground">@color/bg_page</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
+</resources>
