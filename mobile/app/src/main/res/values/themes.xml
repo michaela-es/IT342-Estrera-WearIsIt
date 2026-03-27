@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.MobileAuth" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.WearIsIt" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/primary_gradient_end</item>
         <item name="colorOnPrimary">@color/text_white</item>

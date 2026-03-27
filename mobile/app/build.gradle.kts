@@ -3,19 +3,11 @@ plugins {
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-    }
-
-    namespace = "com.systems.mobileauth"
-    compileSdk {
-        version = release(34) {
-            minorApiLevel = 1
-        }
-    }
+    namespace = "edu.cit.estrera.wearisit"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.systems.mobileauth"
+        applicationId = "edu.cit.estrera.wearisit"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -25,12 +17,8 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080/\"")
-        }
         release {
             isMinifyEnabled = false
-            buildConfigField("String", "BASE_URL", "\"https://api.yourdomain.com/\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -38,13 +26,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
 dependencies {
-    // Android Core (from libs)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

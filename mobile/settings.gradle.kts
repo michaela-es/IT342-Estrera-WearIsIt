@@ -22,5 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "mobileauth"
+rootProject.name = "WearIsIt"
 include(":app")
+ 
