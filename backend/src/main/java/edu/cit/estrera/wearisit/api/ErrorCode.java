@@ -14,6 +14,13 @@ public enum ErrorCode {
     DB_001("DB-001", "Resource not found"),
     DB_002("DB-002", "Duplicate entry"),
 
+    // Add clothing item specific errors
+    ITEM_001("ITEM-001", "Item not found"),
+    ITEM_002("ITEM-002", "You don't own this item"),
+    ITEM_003("ITEM-003", "Type not found"),
+    ITEM_004("ITEM-004", "Category not found"),
+    ITEM_005("ITEM-005", "Tag not found"),
+
     FILE_001("FILE-001", "File too large"),
     FILE_002("FILE-002", "Invalid file type"),
 

@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
-const useTags = (tags, maxVisible = 5) => {
+const useTags = (tags, initialLimit = 5) => {
   const [showAll, setShowAll] = useState(false);
   
-  const visibleTags = showAll ? tags : tags.slice(0, maxVisible);
-  const hasMore = tags.length > maxVisible;
-  const hiddenCount = tags.length - maxVisible;
+  const tagList = useMemo(() => {
+    return tags.map(tag => typeof tag === 'string' ? tag : tag.name || String(tag));
+  }, [tags]);
+  
+  const visibleTags = showAll ? tagList : tagList.slice(0, initialLimit);
+  const hasMore = tagList.length > initialLimit;
+  const hiddenCount = tagList.length - initialLimit;
   
   const toggleTags = () => setShowAll(!showAll);
   
@@ -13,8 +17,8 @@ const useTags = (tags, maxVisible = 5) => {
     visibleTags,
     hasMore,
     hiddenCount,
-    showAll,
-    toggleTags
+    toggleTags,
+    showAll
   };
 };
 

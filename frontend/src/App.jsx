@@ -5,10 +5,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
-import HomePage from './pages/HomePage';
+import GalleryPage from './pages/GalleryPage';
 import ItemDetails from './pages/ItemDetails';
 import theme from './theme';
-
+import './colors.css';
 import './App.css';
 
 const ProtectedRoute = ({ children }) => {
@@ -28,9 +28,25 @@ const ProtectedRoute = ({ children }) => {
 function AppContent() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route 
+        path="/" 
+        element={
+          <ProtectedRoute>
+            <GalleryPage />
+          </ProtectedRoute>
+        } 
+      />
       <Route path="/login" element={<AuthPage />} />
-      <Route path="/image/:id" element={<ItemDetails />} />
+      
+      <Route 
+        path="/items/:id" 
+        element={
+          <ProtectedRoute>
+            <ItemDetails />
+          </ProtectedRoute>
+        } 
+      />
+      
       <Route 
         path="/profile" 
         element={
