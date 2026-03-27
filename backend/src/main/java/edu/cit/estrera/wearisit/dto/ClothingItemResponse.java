@@ -15,7 +15,9 @@ public class ClothingItemResponse {
     private Integer itemWc;
     private Long typeId;
     private String typeName;
-    private Map<String, List<String>> properties;
+    private List<CategoryDto> categories;
+    private List<TagDto> tags;
     private LocalDateTime lastWorn;
     private LocalDateTime createdAt;
 }
+

@@ -2,8 +2,10 @@ package edu.cit.estrera.wearisit.service;
 
 import edu.cit.estrera.wearisit.api.ApiException;
 import edu.cit.estrera.wearisit.api.ErrorCode;
+import edu.cit.estrera.wearisit.dto.CategoryDto;
 import edu.cit.estrera.wearisit.dto.ClothingItemResponse;
 import edu.cit.estrera.wearisit.dto.CreateClothingItemRequest;
+import edu.cit.estrera.wearisit.dto.TagDto;
 import edu.cit.estrera.wearisit.entity.*;
 import edu.cit.estrera.wearisit.repository.CategoryRepository;
 import edu.cit.estrera.wearisit.repository.ClothingItemRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,7 +85,63 @@ public class ClothingItemService {
         }
         return properties;
     }
+//    private ClothingItemResponse mapToResponse(ClothingItem item) {
+//        return ClothingItemResponse.builder()
+//                .id(item.getId())
+//                .itemName(item.getItemName())
+//                .imageUrl(item.getImageUrl())
+//                .itemWc(item.getItemWc())
+//                .typeId(item.getType() != null ? item.getType().getId() : null)
+//                .typeName(item.getType() != null ? item.getType().getName() : null)
+//                .properties(buildProperties(item.getTags()))
+//                .lastWorn(item.getLastWorn())
+//                .createdAt(item.getCreatedAt())
+//                .build();
+//    }
+
+    @Transactional(readOnly = true)
+    public ClothingItemResponse getClothingItem(Long id) {
+        User currentUser = securityUtil.getCurrentUser();
+
+        ClothingItem item = clothingItemRepository.findByIdAndUser(id, currentUser)
+                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+
+        return mapToResponse(item);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ClothingItemResponse> getUserClothingItems() {
+        User currentUser = securityUtil.getCurrentUser();
+
+        List<ClothingItem> items = clothingItemRepository.findByUser(currentUser);
+
+        return items.stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
     private ClothingItemResponse mapToResponse(ClothingItem item) {
+        Map<Long, Category> categoryMap = item.getTags().stream()
+                .map(Tag::getCategory)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(Category::getId, Function.identity(), (a, b) -> a));
+
+        List<CategoryDto> categories = categoryMap.values().stream()
+                .map(c -> CategoryDto.builder()
+                        .id(c.getId())
+                        .name(c.getName())
+                        .build())
+                .collect(Collectors.toList());
+
+        List<TagDto> tags = item.getTags().stream()
+                .map(t -> TagDto.builder()
+                        .id(t.getId())
+                        .name(t.getName())
+                        .categoryId(t.getCategory() != null ? t.getCategory().getId() : null)
+                        .categoryName(t.getCategory() != null ? t.getCategory().getName() : null)
+                        .build())
+                .collect(Collectors.toList());
+
         return ClothingItemResponse.builder()
                 .id(item.getId())
                 .itemName(item.getItemName())
@@ -90,7 +149,8 @@ public class ClothingItemService {
                 .itemWc(item.getItemWc())
                 .typeId(item.getType() != null ? item.getType().getId() : null)
                 .typeName(item.getType() != null ? item.getType().getName() : null)
-                .properties(buildProperties(item.getTags()))
+                .categories(categories)
+                .tags(tags)
                 .lastWorn(item.getLastWorn())
                 .createdAt(item.getCreatedAt())
                 .build();
