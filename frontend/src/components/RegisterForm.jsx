@@ -1,81 +1,132 @@
-import React from 'react';
-
-const inputClass = `
-  w-full px-4 py-3 border-2 border-[#d1d5db] rounded-xl text-sm
-  bg-white shadow-sm transition-colors duration-300
-  focus:outline-none focus:border-[#4F46E5]
-  disabled:bg-gray-100 disabled:cursor-not-allowed
-  placeholder:text-[#9ca3af]
-`;
-
-const labelClass = "block mb-1.5 text-[#4b5563] font-medium text-sm";
-const groupClass = "mb-5 w-full";
+import React, { useState } from 'react';
+import {
+  TextField,
+  Box,
+  InputAdornment,
+  IconButton
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const RegisterForm = ({ formData, handleChange, loading }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [touched, setTouched] = useState({});
+
+  const handleBlur = (e) => {
+    setTouched({ ...touched, [e.target.name]: true });
+  };
+
+  // Validation
+  const nameError = touched.name && !formData.name;
+
+  const emailError =
+    touched.email &&
+    (!formData.email || !/\S+@\S+\.\S+/.test(formData.email));
+
+  const passwordError =
+    touched.password && formData.password.length < 6;
+
+  const confirmPasswordError =
+    touched.confirmPassword &&
+    formData.confirmPassword !== formData.password;
+
   return (
-    <>
-      <div className={groupClass}>
-        <label htmlFor="name" className={labelClass}>Username</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Enter your username"
-          disabled={loading}
-          required
-          className={inputClass}
-        />
-      </div>
+    <Box>
+      {/* Username */}
+      <TextField
+        fullWidth
+        label="Username"
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        margin="normal"
+        disabled={loading}
+        required
+        error={!!nameError}
+        helperText={nameError ? 'Username is required' : ''}
+      />
 
-      <div className={groupClass}>
-        <label htmlFor="email" className={labelClass}>Email Address</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Enter your email"
-          disabled={loading}
-          required
-          className={inputClass}
-        />
-      </div>
+      {/* Email */}
+      <TextField
+        fullWidth
+        label="Email Address"
+        name="email"
+        type="email"
+        value={formData.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        margin="normal"
+        disabled={loading}
+        required
+        error={!!emailError}
+        helperText={
+          emailError ? 'Enter a valid email address' : ''
+        }
+      />
 
-      <div className={groupClass}>
-        <label htmlFor="password" className={labelClass}>Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Enter your password"
-          disabled={loading}
-          required
-          minLength="6"
-          className={inputClass}
-        />
-      </div>
+      {/* Password */}
+      <TextField
+        fullWidth
+        label="Password"
+        name="password"
+        type={showPassword ? 'text' : 'password'}
+        value={formData.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        margin="normal"
+        disabled={loading}
+        required
+        error={!!passwordError}
+        helperText={
+          passwordError ? 'Minimum 6 characters' : ''
+        }
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+                disabled={loading}
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
+      />
 
-      <div className={groupClass}>
-        <label htmlFor="confirmPassword" className={labelClass}>Confirm Password</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          placeholder="Confirm your password"
-          disabled={loading}
-          required
-          minLength="6"
-          className={inputClass}
-        />
-      </div>
-    </>
+      {/* Confirm Password */}
+      <TextField
+        fullWidth
+        label="Confirm Password"
+        name="confirmPassword"
+        type={showConfirm ? 'text' : 'password'}
+        value={formData.confirmPassword}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        margin="normal"
+        disabled={loading}
+        required
+        error={!!confirmPasswordError}
+        helperText={
+          confirmPasswordError ? 'Passwords do not match' : ''
+        }
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => setShowConfirm(!showConfirm)}
+                edge="end"
+                disabled={loading}
+              >
+                {showConfirm ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
+      />
+    </Box>
   );
 };
 

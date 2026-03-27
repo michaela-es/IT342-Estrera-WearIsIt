@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Sunset",
+    "url": "https://i.pinimg.com/236x/41/1a/7a/411a7a657da68812cf59c73dc3fa2368.jpg",
+    "tags": ["nature", "sunset"]
+  },
+  {
+    "name": "City",
+    "url": "https://i.pinimg.com/236x/41/1a/7a/411a7a657da68812cf59c73dc3fa2368.jpg",
+    "tags": ["urban", "night"]
+  },
+  {
+    "name": "Mountain",
+    "url": "https://i.pinimg.com/236x/41/1a/7a/411a7a657da68812cf59c73dc3fa2368.jpg",
+    "tags": ["nature", "mountain"]
+  },
+  {
+    "name": "Beach",
+    "url": "https://static0.srcdn.com/wordpress/wp-content/uploads/2025/12/genshin-impact-zibai-ascension-materials-talents-prefarm-guide.jpg?w=1600&h=1200&fit=crop",
+    "tags": ["ocean", "sand", "vacation"]
+  }
+]

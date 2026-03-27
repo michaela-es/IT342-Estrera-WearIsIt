@@ -1,57 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  TextField,
+  Box,
+  InputAdornment,
+  IconButton
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const LoginForm = ({ formData, handleChange, loading }) => {
-  return (
-    <>
-      <div className="mb-5 w-full">
-        <label
-          htmlFor="emailOrUsername"
-          className="block mb-1.5 text-[#4b5563] font-medium text-sm"
-        >
-          Username or Email
-        </label>
-        <input
-          type="text"
-          id="emailOrUsername"
-          name="emailOrUsername"
-          value={formData.emailOrUsername}
-          onChange={handleChange}
-          placeholder="Enter your username or email"
-          disabled={loading}
-          required
-          className="w-full px-4 py-3 border-2 border-[#d1d5db] rounded-xl text-sm
-                     bg-white shadow-sm transition-colors duration-300
-                     focus:outline-none focus:border-[#4F46E5]
-                     disabled:bg-gray-100 disabled:cursor-not-allowed
-                     placeholder:text-[#9ca3af]"
-        />
-      </div>
+  const [showPassword, setShowPassword] = useState(false);
+  const [touched, setTouched] = useState({});
 
-      <div className="mb-5 w-full">
-        <label
-          htmlFor="password"
-          className="block mb-1.5 text-[#4b5563] font-medium text-sm"
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Enter your password"
-          disabled={loading}
-          required
-          minLength="6"
-          className="w-full px-4 py-3 border-2 border-[#d1d5db] rounded-xl text-sm
-                     bg-white shadow-sm transition-colors duration-300
-                     focus:outline-none focus:border-[#4F46E5]
-                     disabled:bg-gray-100 disabled:cursor-not-allowed
-                     placeholder:text-[#9ca3af]"
-        />
-      </div>
-    </>
+  const handleBlur = (e) => {
+    setTouched({ ...touched, [e.target.name]: true });
+  };
+
+  const emailOrUsernameError =
+    touched.emailOrUsername && !formData.emailOrUsername;
+
+  const passwordError =
+    touched.password && formData.password.length < 6;
+
+  return (
+    <Box>
+      {/* Email / Username */}
+      <TextField
+        fullWidth
+        label="Username or Email"
+        name="emailOrUsername"
+        value={formData.emailOrUsername}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        margin="normal"
+        disabled={loading}
+        required
+        error={!!emailOrUsernameError}
+        helperText={
+          emailOrUsernameError ? 'This field is required' : ''
+        }
+      />
+
+      {/* Password */}
+      <TextField
+        fullWidth
+        label="Password"
+        name="password"
+        type={showPassword ? 'text' : 'password'}
+        value={formData.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        margin="normal"
+        disabled={loading}
+        required
+        error={!!passwordError}
+        helperText={
+          passwordError ? 'Password must be at least 6 characters' : ''
+        }
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+                disabled={loading}
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
+      />
+    </Box>
   );
 };
 
