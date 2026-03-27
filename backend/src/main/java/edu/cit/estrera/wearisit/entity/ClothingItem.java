@@ -28,7 +28,7 @@ public class ClothingItem {
     @Column(name = "item_wc")
     private Integer itemWc = 0;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "type_id")
     private ItemType type;
 
