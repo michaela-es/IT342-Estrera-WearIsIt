@@ -43,13 +43,8 @@ public class SecurityUtil {
     public String getCurrentUsername() {
         return getCurrentUser().getUsername();
     }
-    public boolean isClothingItemOwner(Long itemId) {
-        try {
-            User currentUser = getCurrentUser();
-            return clothingItemRepository.existsByIdAndUser(itemId, currentUser);
-        } catch (Exception e) {
-            return false;
-        }
+    public boolean isItemOwner(Long itemId) {
+        return clothingItemRepository.existsByIdAndUser(itemId, getCurrentUser());
     }
     public boolean isCategoryOwner(Long categoryId) {
         try {
