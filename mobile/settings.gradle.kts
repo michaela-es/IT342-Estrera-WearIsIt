@@ -24,4 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "WearIsIt"
 include(":app")
- 

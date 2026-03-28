@@ -14,7 +14,11 @@ enum class AuthScreen {
     LOGIN, REGISTER, PROFILE
 }
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(
+    var authRepository: AuthRepository,
+    var tokenManager: TokenManager
+) : ViewModel() {
+
     private val _currentScreen = MutableLiveData(AuthScreen.LOGIN)
     val currentScreen: LiveData<AuthScreen> = _currentScreen
 
@@ -32,8 +36,7 @@ class AuthViewModel : ViewModel() {
 
     private val _successMessage = MutableLiveData<String?>()
     val successMessage: LiveData<String?> = _successMessage
-    lateinit var authRepository: AuthRepository
-    lateinit var tokenManager: TokenManager
+
 
     fun showLogin() {
         _currentScreen.value = AuthScreen.LOGIN
@@ -55,6 +58,11 @@ class AuthViewModel : ViewModel() {
             try {
                 val response = authRepository.login(username, password)
                 _authResponse.value = response
+
+                response.accessToken?.let { token ->
+                    tokenManager.saveAccessToken(token)
+                }
+
                 showProfile()
             } catch (e: Exception) {
                 _error.value = e.message ?: "Login failed"
@@ -71,6 +79,10 @@ class AuthViewModel : ViewModel() {
             try {
                 val response = authRepository.register(username, email, password)
                 _authResponse.value = response
+
+                response.accessToken?.let { token ->
+                    tokenManager.saveAccessToken(token)
+                }
 
                 val message = try {
                     val gson = com.google.gson.Gson()
@@ -91,8 +103,8 @@ class AuthViewModel : ViewModel() {
     }
 
     fun getProfile() {
+        _isLoading.value = true
         viewModelScope.launch {
-            _isLoading.value = true
             try {
                 val result = authRepository.getProfile()
                 _profile.value = result
@@ -106,6 +118,7 @@ class AuthViewModel : ViewModel() {
 
     fun logout() {
         authRepository.logout()
+        tokenManager.clear()
         _profile.value = null
         _authResponse.value = null
         showLogin()
