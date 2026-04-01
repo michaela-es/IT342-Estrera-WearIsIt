@@ -46,7 +46,7 @@ class ClothingItemServiceUnitTest {
                 openMocks(this); // lightweight mock setup
 
         testUser = new User();
-        testUser.setUser_id(1L);
+        testUser.setId(1L);
         testUser.setUsername("testuser");
 
         testType = new ItemType();

@@ -5,6 +5,7 @@ import edu.cit.estrera.wearisit.api.ErrorCode;
 import edu.cit.estrera.wearisit.dto.*;
 import edu.cit.estrera.wearisit.entity.User;
 import edu.cit.estrera.wearisit.repository.UserRepository;
+import edu.cit.estrera.wearisit.util.regex.EmailValidator;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,22 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
+        if (request.getEmail() == null || !EmailValidator.isValid(request.getEmail()))
+            throw new ApiException(ErrorCode.AUTH_006);
 
-        if(userRepository.existsByEmail(request.getEmail())){
+        if (request.getPassword() == null || request.getPassword().isEmpty())
+            throw new ApiException(ErrorCode.AUTH_007);
+
+        if (userRepository.existsByEmail(request.getEmail())){
             throw new ApiException(ErrorCode.AUTH_004);
         }
 
+        if (request.getUsername() == null || request.getUsername().isEmpty()) {
+            throw new ApiException(ErrorCode.AUTH_008);
+        }
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new ApiException(ErrorCode.AUTH_009);
+        }
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
