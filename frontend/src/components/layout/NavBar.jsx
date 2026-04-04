@@ -8,9 +8,32 @@ import {
   Box
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleNavigation = (text) => {
+    setOpen(false);
+    
+    switch(text) {
+      case 'Home':
+        navigate('/home');
+        break;
+      case 'Profile':
+        navigate('/profile');
+        break;
+      case 'Logout':
+        logout();
+        navigate('/login');
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <>
@@ -30,7 +53,11 @@ const Navbar = () => {
       <Drawer open={open} onClose={() => setOpen(false)}>
         <List sx={{ width: 250 }}>
           {['Home', 'Profile', 'Logout'].map((text) => (
-            <ListItem button key={text} onClick={() => setOpen(false)}>
+            <ListItem 
+              button 
+              key={text} 
+              onClick={() => handleNavigation(text)}
+            >
               <ListItemText primary={text} />
             </ListItem>
           ))}

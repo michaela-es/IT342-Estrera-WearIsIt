@@ -18,6 +18,9 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     const savedUser = localStorage.getItem('user');
+
+    checkOAuthCallback();
+
     if (token && savedUser) {
       try {
         setUser(JSON.parse(savedUser));
@@ -38,14 +41,15 @@ export const AuthProvider = ({ children }) => {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  const handleApiError = (err, fallback = 'An error occurred') => {
-    const message =
-      err?.response?.data?.error?.message ||
-      err?.response?.data?.message ||
-      fallback;
-    setError(message);
-    return { success: false, error: message };
-  };
+const handleApiError = (err, fallback = 'An error occurred') => {
+  const message =
+    err?.response?.data?.error?.message ||
+    err?.response?.data?.message ||      
+    fallback;
+
+  setError(message); 
+  return { success: false, error: message };
+};
 
   const login = async (usernameOrEmail, password) => {
     setLoading(true);
@@ -65,7 +69,45 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+const handleOAuthLogin = async (idToken) => {
+  setLoading(true);
+  setError(null);
+  try {
+    const response = await api.post('/auth/google', { idToken });
+    const { accessToken, user: userData } = response;
 
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+
+    return { success: true, data: userData };
+  } catch (err) {
+    return handleApiError(err, 'Google login failed');
+  } finally {
+    setLoading(false);
+  }
+};
+const checkOAuthCallback = () => {
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  const accessToken = params.get('accessToken');
+  
+  if (accessToken) {
+    window.location.hash = '';
+    
+    api.get('/user/me', {
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    }).then(response => {
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('user', JSON.stringify(response));
+      setUser(response);
+      window.location.href = '/profile';
+    }).catch(() => {
+      localStorage.removeItem('accessToken');
+      window.location.href = '/login?error=oauth_failed';
+    });
+  }
+};
   const register = async ({ name, email, password }) => {
     setLoading(true);
     setError(null);
@@ -93,7 +135,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
+  
   const updateUser = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
@@ -113,7 +155,8 @@ export const AuthProvider = ({ children }) => {
         register,
         logout,
         updateUser,
-        clearError
+        clearError,
+        handleOAuthLogin  
       }}
     >
       {children}

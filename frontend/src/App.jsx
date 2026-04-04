@@ -8,9 +8,10 @@ import ProfilePage from './pages/ProfilePage';
 import HomePage from './pages/HomePage';
 import ItemDetails from './pages/ItemDetails';
 import theme from './theme';
+import OAuthCallback from './pages/OAuthCallback'; 
 
 import './App.css';
-
+import { Home } from '@mui/icons-material';
 const ProtectedRoute = ({ children }) => {
   const { user, initializing } = useAuth();
   
@@ -28,8 +29,10 @@ const ProtectedRoute = ({ children }) => {
 function AppContent() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<AuthPage />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/login" element={<AuthPage />} />
+       <Route path="/oauth-callback" element={<OAuthCallback />} />
       <Route path="/image/:id" element={<ItemDetails />} />
       <Route 
         path="/profile" 
