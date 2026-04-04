@@ -1,6 +1,8 @@
 package edu.cit.estrera.wearisit.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.net.ProtocolFamily;
 import java.time.LocalDateTime;
@@ -19,15 +21,18 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
 
+    @Getter
     @Column(nullable = false)
     private String role = "USER";
 
+    @Setter
     @Column(length = 20)
     private String provider;
 
+    @Setter
     @Column(length = 255)
     private String providerId;
 
@@ -44,6 +49,7 @@ public class User {
     @Column(nullable = false, updatable = false)
     private LocalDateTime created_at = LocalDateTime.now();
 
+    @Getter
     @Column(nullable = false)
     private Boolean enabled = true;
 
@@ -70,7 +76,6 @@ public class User {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
@@ -90,6 +95,7 @@ public class User {
     public String getPassword() {
         return password;
     }
+    public String getRole(){ return role;}
 
     public LocalDateTime getLast_login() {
         return last_login;
@@ -107,15 +113,20 @@ public class User {
         return created_at;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
     public boolean isEnabled() {
         return enabled;
     }
+    public void setProviderId(String providerId){
+        this.providerId = providerId;
+    }
+    public void setProvider(String provider){
+        this.provider = provider;
+    }
+    public boolean getEnabled() {
+        return enabled;
+    }
 
-    public String getRole(){
-        return role;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

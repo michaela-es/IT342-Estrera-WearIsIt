@@ -7,6 +7,11 @@ public enum ErrorCode {
     AUTH_003("AUTH-003", "Insufficient permissions"),
     AUTH_004("AUTH-004", "Email already registered"),
     AUTH_005("AUTH-005", "Account not found"),
+    AUTH_006("AUTH-006", "Email format is invalid"),
+    AUTH_007("AUTH-007", "Password cannot be empty"),
+    AUTH_008("AUTH-008", "Username cannot be empty"),
+    AUTH_009("AUTH-009", "Username already exists"),
+
 
     VALID_001("VALID-001", "Validation failed"),
     VALID_002("VALID-002", "Missing required field"),
