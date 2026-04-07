@@ -21,11 +21,15 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response) => {
-    return response.data.data;  
-  },
+  (response) => response.data,
   (error) => {
-    return Promise.reject(error);
+    if (error.response?.data?.error?.message) {
+      return Promise.reject(error);
+    }
+    return Promise.reject({
+      success: false,
+      errorMessage: 'Network error or server not reachable',
+    });
   }
 );
 

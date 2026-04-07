@@ -1,4 +1,5 @@
 package edu.cit.estrera.wearisit.util.regex;
+
 import java.util.regex.Pattern;
 
 public final class EmailValidator {

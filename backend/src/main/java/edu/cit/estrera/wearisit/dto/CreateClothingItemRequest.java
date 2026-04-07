@@ -11,11 +11,10 @@ public class CreateClothingItemRequest {
     @NotBlank(message = "Item name is required")
     private String itemName;
 
-    @NotNull(message = "Type ID is required")
+    @NotNull(message = "Type is required")
     private Long typeId;
 
     private List<Long> categoryIds;
 
     private List<Long> tagIds;
-    private Map<String, String> properties;
 }

@@ -1,7 +1,9 @@
 package edu.cit.estrera.wearisit.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
@@ -12,7 +14,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "items")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class ClothingItem {
 
     @Id

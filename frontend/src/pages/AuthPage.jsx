@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import MessageBox from '../components/MessageBox';
+import GoogleSignInButton from '../components/GoogleSignInButton';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -31,24 +32,32 @@ const AuthPage = () => {
     if (error) clearError();
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (isLogin) {
-        const data = await login(formData.emailOrUsername, formData.password);
-        if (data) {
-          setSuccess("Welcome back!");
-          navigate('/');
-        }
-      } else {
-        if (formData.password !== formData.confirmPassword) return;
-        const data = await register(formData);
-        if (data.success) {
-          setSuccess("Account created successfully! You can now sign in.");
-        }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    if (isLogin) {
+      await login(formData.emailOrUsername, formData.password);
+      if (!error) {
+        setSuccess("Welcome back!");
+        navigate('/home');
       }
-    } catch (err) {}
-  };
+    } else {
+      if (formData.password !== formData.confirmPassword) {
+        setError("Passwords do not match");
+        return;
+      }
+
+      await register({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+      if (!error) setSuccess("Account created successfully! You can now sign in.");
+    }
+  } catch (err) {
+    setError(err.message || "An unexpected error occurred");
+  }
+};
 
   const messageText = error || success;
   const messageType = error ? 'error' : success ? 'success' : null;
@@ -73,24 +82,21 @@ const AuthPage = () => {
           borderRadius: 3
         }}
       >
-        {/* Title */}
         <Box textAlign="center" mb={3}>
           <Typography variant="h5" fontWeight={600}>
             {isLogin ? 'Sign In' : 'Create Account'}
           </Typography>
         </Box>
 
-        {/* Message */}
         <MessageBox
-          type={messageType}
-          text={messageText}
+          type={error ? 'error' : success ? 'success' : null}
+          text={error || success}        // <- error from AuthContext
           onClose={() => {
             if (error) clearError();
             if (success) setSuccess(null);
           }}
         />
 
-        {/* Form */}
         <Box component="form" onSubmit={handleSubmit}>
           {isLogin ? (
             <LoginForm formData={formData} handleChange={handleChange} loading={loading} />
@@ -117,7 +123,6 @@ const AuthPage = () => {
           </Button>
         </Box>
 
-        {/* Toggle */}
         <Box textAlign="center" mt={3}>
           <Divider sx={{ mb: 2 }} />
           <Typography variant="body2" color="text.secondary">
@@ -133,8 +138,10 @@ const AuthPage = () => {
             disabled={loading}
             sx={{ textTransform: 'none', fontWeight: 600 }}
           >
+
             {isLogin ? 'Sign up' : 'Sign in'}
           </Button>
+          <GoogleSignInButton /> 
         </Box>
       </Paper>
     </Box>
