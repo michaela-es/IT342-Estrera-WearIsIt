@@ -26,7 +26,7 @@ public class RefreshTokenService {
     @Transactional
     public String createRefreshToken(Long userId) {
         User user = new User();
-        user.setUser_id(userId);
+        user.setId(userId);
 
         revokeAllUserTokens(userId);
 

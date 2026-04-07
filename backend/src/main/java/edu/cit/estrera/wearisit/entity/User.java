@@ -13,7 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -53,8 +53,8 @@ public class User {
     @Column(nullable = false)
     private Boolean enabled = true;
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setEmail(String email) {
@@ -81,7 +81,7 @@ public class User {
     }
 
     public Long getUser_id() {
-        return user_id;
+        return id;
     }
 
     public String getEmail() {

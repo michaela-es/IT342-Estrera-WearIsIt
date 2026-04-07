@@ -16,10 +16,12 @@ import useTags from '../../hooks/useTags';
 const ImageCard = ({ image }) => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const { visibleTags, hasMore, hiddenCount, toggleTags, showAll } = useTags(image.tags, 5);
+  
+  const tagNames = image.tags?.map(tag => tag.name) || [];
+  const { visibleTags, hasMore, hiddenCount, toggleTags, showAll } = useTags(tagNames, 5);
   
   const handleClick = () => {
-    navigate(`/image/${image.id}`, { state: { image } });
+    navigate(`/items/${image.id}`);
   };
   
   return (
@@ -39,11 +41,11 @@ const ImageCard = ({ image }) => {
         flexDirection: 'column'
       }}
     >
-<Box sx={{ position: 'relative', paddingTop: '100%' }}>
+      <Box sx={{ position: 'relative', paddingTop: '100%' }}>
         <CardMedia
           component="img"
-          image={image.url}
-          alt={image.name}
+          image={image.imageUrl || 'https://via.placeholder.com/300x300?text=No+Image'}
+          alt={image.itemName}
           sx={{
             position: 'absolute',
             top: 0,
@@ -70,7 +72,7 @@ const ImageCard = ({ image }) => {
             color: theme.palette.text.primary
           }}
         >
-          {image.name}
+          {image.itemName}
         </Typography>
 
         <Stack direction="row" flexWrap="wrap" sx={{ gap: 0.75, alignItems: 'center' }}>

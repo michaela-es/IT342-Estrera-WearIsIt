@@ -5,35 +5,43 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
+import androidx.lifecycle.ViewModelProvider
 import edu.cit.estrera.wearisit.R
 import edu.cit.estrera.wearisit.ui.viewmodel.AuthScreen
 import edu.cit.estrera.wearisit.ui.viewmodel.AuthViewModel
-import androidx.activity.viewModels
+import edu.cit.estrera.wearisit.ui.viewmodel.AuthViewModelFactory
 import edu.cit.estrera.wearisit.data.local.TokenManager
 import edu.cit.estrera.wearisit.data.remote.RetrofitClient
 import edu.cit.estrera.wearisit.data.repository.AuthRepository
 
 class AuthActivity : AppCompatActivity() {
 
-    private val viewModel: AuthViewModel by viewModels()
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
+        // Initialize dependencies
         val tokenManager = TokenManager(this)
         val apiService = RetrofitClient.createApiService(tokenManager)
         val authRepository = AuthRepository(apiService, tokenManager)
 
-        viewModel.authRepository = authRepository
-        viewModel.tokenManager = tokenManager
+        // Create ViewModel with factory
+        val factory = AuthViewModelFactory(authRepository, tokenManager)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+
+        // Check for existing token
         viewModel.checkForToken()
+
+        // Observe errors
         viewModel.error.observe(this) { error ->
             error?.let {
                 android.widget.Toast.makeText(this, it, android.widget.Toast.LENGTH_SHORT).show()
             }
         }
 
+        // Observe success messages
         viewModel.successMessage.observe(this) { message ->
             message?.let {
                 android.widget.Toast.makeText(this, it, android.widget.Toast.LENGTH_SHORT).show()
@@ -42,6 +50,7 @@ class AuthActivity : AppCompatActivity() {
 
         val switchLink: TextView = findViewById(R.id.tv_switch)
 
+        // Observe screen changes
         viewModel.currentScreen.observe(this) { screen ->
             val fragment = when (screen) {
                 AuthScreen.LOGIN -> LoginFragment()
