@@ -17,4 +17,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
     List<Tag> findByIdsAndUserId(@Param("tagIds") List<Long> tagIds, @Param("userId") Long userId);
 
     Optional<Tag> findByNameAndCategoryIdAndUserId(String tagName, Long id, Long userId);
+
+    List<Tag> findByCategoryIdAndUser_Id(Long id, Long userId);
 }

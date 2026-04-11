@@ -2,22 +2,29 @@ package edu.cit.estrera.wearisit.service;
 
 import edu.cit.estrera.wearisit.api.ApiException;
 import edu.cit.estrera.wearisit.api.ErrorCode;
+import edu.cit.estrera.wearisit.dto.CategoryWithTagsDTO;
+import edu.cit.estrera.wearisit.dto.TagDto;
 import edu.cit.estrera.wearisit.entity.Category;
+import edu.cit.estrera.wearisit.entity.Tag;
 import edu.cit.estrera.wearisit.entity.User;
 import edu.cit.estrera.wearisit.repository.CategoryRepository;
+import edu.cit.estrera.wearisit.repository.TagRepository;
+import edu.cit.estrera.wearisit.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-
+    private final TagRepository tagRepository;
+    private final SecurityUtil securityUtil;
     @Transactional
     public Category getOrCreateCategory(String name, User user, Long userId) {
         return categoryRepository.findByNameAndUser_Id (name, userId)
@@ -49,5 +56,33 @@ public class CategoryService {
         }
 
         return categories;
+    }
+
+    @Transactional(readOnly = true)
+    public List<CategoryWithTagsDTO> getCategoriesWithTagsForCurrentUser() {
+        Long userId = securityUtil.getCurrentUser().getUser_id();
+
+        List<Category> categories = categoryRepository.findByUser_Id(userId);
+
+        return categories.stream()
+                .map(category -> {
+                    List<Tag> tags = tagRepository.findByCategoryIdAndUser_Id(category.getId(), userId);
+
+                    List<TagDto> tagDtos = tags.stream()
+                            .map(tag -> TagDto.builder()
+                                    .id(tag.getId())
+                                    .name(tag.getName())
+                                    .categoryId(category.getId())
+                                    .categoryName(category.getName())
+                                    .build())
+                            .collect(Collectors.toList());
+
+                    return CategoryWithTagsDTO.builder()
+                            .id(category.getId())
+                            .name(category.getName())
+                            .tags(tagDtos)
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
 }

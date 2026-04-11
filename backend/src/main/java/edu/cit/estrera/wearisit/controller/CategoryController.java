@@ -1,6 +1,7 @@
 package edu.cit.estrera.wearisit.controller;
 
 import edu.cit.estrera.wearisit.api.ApiResponse;
+import edu.cit.estrera.wearisit.dto.CategoryWithTagsDTO;
 import edu.cit.estrera.wearisit.dto.CreateCategoryRequest;
 import edu.cit.estrera.wearisit.entity.Category;
 import edu.cit.estrera.wearisit.service.CategoryService;
@@ -12,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -39,5 +41,11 @@ public class CategoryController {
         categoryData.put("createdAt", category.getCreatedAt());
 
         return ResponseEntity.ok(ApiResponse.success(categoryData));
+    }
+
+    @GetMapping("/with-tags")
+    public ResponseEntity<List<CategoryWithTagsDTO>> getCategoriesWithTags() {
+        List<CategoryWithTagsDTO> categories = categoryService.getCategoriesWithTagsForCurrentUser();
+        return ResponseEntity.ok(categories);
     }
 }
