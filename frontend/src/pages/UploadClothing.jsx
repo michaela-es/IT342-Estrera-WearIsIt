@@ -18,6 +18,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import api from '../api/apiClient';
 import TypeSelector from '../components/TypeSelector';
 import CategoryField from '../components/CategoryField';
+import UploadZone from '../components/UploadZone';
 
 const UploadClothing = () => {
   const [loading, setLoading] = useState(false);
@@ -195,61 +196,12 @@ const UploadClothing = () => {
 
         <Grid container spacing={3} justifyContent="center" alignItems="flex-start">
           {/* LEFT */}
-          <Grid item xs={12} md={4}>
-            <Typography variant="subtitle1" gutterBottom fontWeight="bold">
-              Item Image
-            </Typography>
-
-            <Box
-              {...getRootProps()}
-              sx={{
-                border: '2px dashed',
-                borderColor: isDragActive ? 'var(--primary)' : 'var(--border-default)',
-                borderRadius: 2,
-                p: 4,
-                minHeight: 450,
-                textAlign: 'center',
-                cursor: 'pointer',
-                bgcolor: isDragActive ? 'var(--bg-info)' : 'var(--bg-container)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: '0.2s',
-                '&:hover': {
-                  borderColor: 'var(--primary)',
-                  bgcolor: 'var(--bg-page)'
-                }
-              }}
-            >
-              <input {...getInputProps()} />
-
-              {imagePreview ? (
-                <img 
-                  src={imagePreview} 
-                  alt="Preview" 
-                  style={{ 
-                    maxWidth: '100%', 
-                    maxHeight: '400px', 
-                    borderRadius: '8px',
-                    objectFit: 'contain'
-                  }} 
-                />
-              ) : (
-                <>
-                  <CloudUploadIcon sx={{ fontSize: 64, color: 'var(--primary)', mb: 2 }} />
-                  <Typography>Drag & drop a PNG or JPEG image here</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    or click to select
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ mt: 1 }}>
-                    PNG or JPEG only (Max 10MB)
-                  </Typography>
-                </>
-              )}
-            </Box>
-          </Grid>
-
+            <UploadZone 
+                imagePreview={imagePreview}
+                setImageFile={setImageFile}
+                setImagePreview={setImagePreview}
+                setError={setError}
+              />
           {/* RIGHT */}
           <Grid item xs={12} md={8}>
             <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
