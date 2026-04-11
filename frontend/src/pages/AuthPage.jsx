@@ -39,7 +39,7 @@ const handleSubmit = async (e) => {
       await login(formData.emailOrUsername, formData.password);
       if (!error) {
         setSuccess("Welcome back!");
-        navigate('/home');
+        navigate('/');
       }
     } else {
       if (formData.password !== formData.confirmPassword) {

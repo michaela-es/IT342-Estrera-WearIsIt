@@ -7,15 +7,12 @@ import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
 import GalleryPage from './pages/GalleryPage';
 import ItemDetails from './pages/ItemDetails';
+import UploadClothing from './pages/UploadClothing'; 
 import theme from './theme';
-<<<<<<< HEAD
-import OAuthCallback from './pages/OAuthCallback'; 
-
-=======
+import OAuthCallback from './pages/OAuthCallback';
 import './colors.css';
->>>>>>> 23f831332e47161b355e918db849a2b2dd4ba5f3
 import './App.css';
-import { Home } from '@mui/icons-material';
+
 const ProtectedRoute = ({ children }) => {
   const { user, initializing } = useAuth();
   
@@ -33,13 +30,6 @@ const ProtectedRoute = ({ children }) => {
 function AppContent() {
   return (
     <Routes>
-<<<<<<< HEAD
-      <Route path="/" element={<AuthPage />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/login" element={<AuthPage />} />
-       <Route path="/oauth-callback" element={<OAuthCallback />} />
-      <Route path="/image/:id" element={<ItemDetails />} />
-=======
       <Route 
         path="/" 
         element={
@@ -49,6 +39,16 @@ function AppContent() {
         } 
       />
       <Route path="/login" element={<AuthPage />} />
+      <Route path="/oauth-callback" element={<OAuthCallback />} />
+      
+      <Route 
+        path="/image/:id" 
+        element={
+          <ProtectedRoute>
+            <ItemDetails />
+          </ProtectedRoute>
+        } 
+      />
       
       <Route 
         path="/items/:id" 
@@ -59,12 +59,19 @@ function AppContent() {
         } 
       />
       
->>>>>>> 23f831332e47161b355e918db849a2b2dd4ba5f3
       <Route 
         path="/profile" 
         element={
           <ProtectedRoute>
             <ProfilePage />
+          </ProtectedRoute>
+        } 
+      />
+       <Route 
+        path="/upload" 
+        element={
+          <ProtectedRoute>
+            <UploadClothing />
           </ProtectedRoute>
         } 
       />

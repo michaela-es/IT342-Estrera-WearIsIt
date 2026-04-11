@@ -5,7 +5,8 @@ import {
   List,
   ListItem,
   ListItemText,
-  Box
+  Box,
+  Divider
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
@@ -21,10 +22,13 @@ const Navbar = () => {
     
     switch(text) {
       case 'Home':
-        navigate('/home');
+        navigate('/');
         break;
       case 'Profile':
         navigate('/profile');
+        break;
+      case 'Upload Clothing':
+        navigate('/upload');
         break;
       case 'Logout':
         logout();
@@ -38,7 +42,7 @@ const Navbar = () => {
   return (
     <>
       <IconButton
-        color="dark"
+        color="default"
         onClick={() => setOpen(true)}
         sx={{ 
           p: 1,
@@ -52,14 +56,16 @@ const Navbar = () => {
 
       <Drawer open={open} onClose={() => setOpen(false)}>
         <List sx={{ width: 250 }}>
-          {['Home', 'Profile', 'Logout'].map((text) => (
-            <ListItem 
-              button 
-              key={text} 
-              onClick={() => handleNavigation(text)}
-            >
-              <ListItemText primary={text} />
-            </ListItem>
+          {['Home', 'Profile', 'Upload Clothing', 'Logout'].map((text, index) => (
+            <React.Fragment key={text}>
+              <ListItem 
+                button 
+                onClick={() => handleNavigation(text)}
+              >
+                <ListItemText primary={text} />
+              </ListItem>
+              {text === 'Profile' && <Divider />}
+            </React.Fragment>
           ))}
         </List>
       </Drawer>
