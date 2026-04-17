@@ -1,13 +1,11 @@
 package edu.cit.estrera.wearisit.ui.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import edu.cit.estrera.wearisit.core.Result
 import edu.cit.estrera.wearisit.data.local.TokenManager
-import edu.cit.estrera.wearisit.data.repository.AuthRepository
 import edu.cit.estrera.wearisit.data.models.AuthResponse
 import edu.cit.estrera.wearisit.data.models.ProfileResponse
+import edu.cit.estrera.wearisit.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 
 enum class AuthScreen {
@@ -15,8 +13,8 @@ enum class AuthScreen {
 }
 
 class AuthViewModel(
-    var authRepository: AuthRepository,
-    var tokenManager: TokenManager
+    private val authRepository: AuthRepository,
+    private val tokenManager: TokenManager
 ) : ViewModel() {
 
     private val _currentScreen = MutableLiveData(AuthScreen.LOGIN)
@@ -28,15 +26,11 @@ class AuthViewModel(
     private val _authResponse = MutableLiveData<AuthResponse?>()
     val authResponse: LiveData<AuthResponse?> = _authResponse
 
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> = _isLoading
-
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
     private val _successMessage = MutableLiveData<String?>()
     val successMessage: LiveData<String?> = _successMessage
-
 
     fun showLogin() {
         _currentScreen.value = AuthScreen.LOGIN
@@ -53,87 +47,59 @@ class AuthViewModel(
 
     fun login(username: String, password: String) {
         viewModelScope.launch {
-            _isLoading.value = true
-            _error.value = null
-            try {
-                val response = authRepository.login(username, password)
-                _authResponse.value = response
-
-                response.accessToken?.let { token ->
-                    tokenManager.saveAccessToken(token)
+            when (val result = authRepository.login(username, password)) {
+                is Result.Success -> {
+                    val auth = result.data
+                    _authResponse.value = auth
+                    _successMessage.value = "Login successful"
+                    showProfile()
                 }
-
-                showProfile()
-            } catch (e: Exception) {
-                _error.value = e.message ?: "Login failed"
-            } finally {
-                _isLoading.value = false
+                is Result.Error -> {
+                    _error.value = result.message
+                }
             }
         }
     }
 
     fun register(username: String, email: String, password: String) {
         viewModelScope.launch {
-            _isLoading.value = true
-            _error.value = null
-            try {
-                val response = authRepository.register(username, email, password)
-                _authResponse.value = response
-
-                response.accessToken?.let { token ->
-                    tokenManager.saveAccessToken(token)
+            when (val result = authRepository.register(username, email, password)) {
+                is Result.Success -> {
+                    _authResponse.value = result.data
+                    _successMessage.value = "Registration successful"
                 }
-
-                val message = try {
-                    val gson = com.google.gson.Gson()
-                    val jsonString = gson.toJson(response)
-                    val jsonObject = gson.fromJson(jsonString, com.google.gson.JsonObject::class.java)
-                    jsonObject.get("message")?.asString
-                } catch (e: Exception) {
-                    null
+                is Result.Error -> {
+                    _error.value = result.message
                 }
-
-                _successMessage.value = message ?: "Registration successful"
-            } catch (e: Exception) {
-                _error.value = e.message ?: "Registration failed"
-            } finally {
-                _isLoading.value = false
             }
         }
     }
 
     fun getProfile() {
-        _isLoading.value = true
         viewModelScope.launch {
-            try {
-                val result = authRepository.getProfile()
-                _profile.value = result
-            } catch (e: Exception) {
-                _error.value = e.message ?: "Failed to load profile"
-            } finally {
-                _isLoading.value = false
+            when (val result = authRepository.getProfile()) {
+                is Result.Success -> {
+                    _profile.value = result.data
+                }
+                is Result.Error -> {
+                    _error.value = result.message
+                }
             }
         }
     }
 
     fun logout() {
         authRepository.logout()
-        tokenManager.clear()
         _profile.value = null
         _authResponse.value = null
         showLogin()
     }
 
     fun checkForToken() {
-        viewModelScope.launch {
-            try {
-                val result = authRepository.getProfile()
-                _profile.value = result
-                showProfile()
-            } catch (e: Exception) {
-                authRepository.logout()
-                showLogin()
-            }
+        if (tokenManager.getAccessToken() != null) {
+            showProfile()
+        } else {
+            showLogin()
         }
     }
 }
