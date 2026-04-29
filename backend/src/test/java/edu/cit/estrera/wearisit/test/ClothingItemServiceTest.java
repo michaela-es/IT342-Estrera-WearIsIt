@@ -99,7 +99,7 @@ class ClothingItemServiceUnitTest {
         ApiException ex = assertThrows(ApiException.class,
                 () -> clothingItemService.createClothingItem(request));
 
-        assertEquals(ErrorCode.ITEM_002.getCode(), ex.getErrorCode().getCode());
+        assertEquals(ErrorCode.ITEM_003.getCode(), ex.getErrorCode().getCode());
         verify(clothingItemRepository, never()).save(any());
     }
 }

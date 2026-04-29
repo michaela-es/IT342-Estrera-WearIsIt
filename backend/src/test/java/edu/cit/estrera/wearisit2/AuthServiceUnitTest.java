@@ -58,7 +58,7 @@ class AuthServiceUnitTest {
         when(passwordEncoder.encode(validRequest.getPassword())).thenReturn("encodedPassword");
 
         User savedUser = new User();
-        savedUser.setUser_id(1L);
+        savedUser.setId(1L);
         savedUser.setEmail(validRequest.getEmail());
         savedUser.setUsername(validRequest.getUsername());
         savedUser.setEnabled(false);
