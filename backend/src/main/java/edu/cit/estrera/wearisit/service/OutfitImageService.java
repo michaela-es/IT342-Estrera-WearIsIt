@@ -1,6 +1,6 @@
 //package edu.cit.estrera.wearisit.service;
-//import edu.cit.estrera.wearisit.api.ApiException;
-//import edu.cit.estrera.wearisit.api.ErrorCode;
+//import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
+//import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //import org.springframework.web.multipart.MultipartFile;
@@ -27,3 +27,5 @@
 //        return imageUrl;
 //    }
 //}
+
+// TODO: implement

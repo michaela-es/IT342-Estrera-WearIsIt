@@ -1,16 +1,14 @@
 package edu.cit.estrera.wearisit2;
 
-import edu.cit.estrera.wearisit.api.ApiException;
-import edu.cit.estrera.wearisit.api.ErrorCode;
-import edu.cit.estrera.wearisit.dto.AuthResponse;
-import edu.cit.estrera.wearisit.dto.RegisterRequest;
-import edu.cit.estrera.wearisit.dto.UserResponse;
-import edu.cit.estrera.wearisit.entity.User;
-import edu.cit.estrera.wearisit.repository.UserRepository;
-import edu.cit.estrera.wearisit.service.JwtService;
-import edu.cit.estrera.wearisit.service.AuthService;
-import edu.cit.estrera.wearisit.service.RefreshTokenService;
-import edu.cit.estrera.wearisit.util.regex.EmailValidator;
+import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
+import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
+import edu.cit.estrera.wearisit.features.auth.AuthResponse;
+import edu.cit.estrera.wearisit.features.auth.RegisterRequest;
+import edu.cit.estrera.wearisit.features.user_management.User;
+import edu.cit.estrera.wearisit.features.user_management.UserRepository;
+import edu.cit.estrera.wearisit.infrastructure.security.jwt.JwtService;
+import edu.cit.estrera.wearisit.features.auth.AuthService;
+import edu.cit.estrera.wearisit.infrastructure.security.jwt.RefreshTokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

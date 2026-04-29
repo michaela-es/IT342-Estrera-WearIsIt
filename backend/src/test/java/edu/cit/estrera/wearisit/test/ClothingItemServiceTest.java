@@ -1,16 +1,16 @@
 package edu.cit.estrera.wearisit.test;
 
-import edu.cit.estrera.wearisit.api.ApiException;
-import edu.cit.estrera.wearisit.api.ErrorCode;
-import edu.cit.estrera.wearisit.dto.ClothingItemResponse;
-import edu.cit.estrera.wearisit.dto.CreateClothingItemRequest;
-import edu.cit.estrera.wearisit.entity.ClothingItem;
-import edu.cit.estrera.wearisit.entity.ItemType;
-import edu.cit.estrera.wearisit.entity.User;
-import edu.cit.estrera.wearisit.repository.ClothingItemRepository;
-import edu.cit.estrera.wearisit.repository.ItemTypeRepository;
-import edu.cit.estrera.wearisit.service.ClothingItemService;
-import edu.cit.estrera.wearisit.util.SecurityUtil;
+import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
+import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
+import edu.cit.estrera.wearisit.features.clothing_item_management.create_item.ClothingItemResponse;
+import edu.cit.estrera.wearisit.features.clothing_item_management.create_item.CreateClothingItemRequest;
+import edu.cit.estrera.wearisit.features.clothing_item_management.ClothingItem;
+import edu.cit.estrera.wearisit.features.clothing_item_management.item_type.ItemType;
+import edu.cit.estrera.wearisit.features.user_management.User;
+import edu.cit.estrera.wearisit.features.clothing_item_management.ClothingItemRepository;
+import edu.cit.estrera.wearisit.features.clothing_item_management.item_type.ItemTypeRepository;
+import edu.cit.estrera.wearisit.features.clothing_item_management.ClothingItemService;
+import edu.cit.estrera.wearisit.infrastructure.security.SecurityUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
