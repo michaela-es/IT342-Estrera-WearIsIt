@@ -1,6 +1,6 @@
 import { useReducer, useCallback } from 'react';
-import api from '../../shared/api/apiClient';
-import { ACTIONS, authReducer, initialState } from '../types/authTypes';
+import api from '@features/shared/api/apiClient';
+import { ACTIONS, authReducer, initialState } from '@features/auth/types/authTypes';
 
 export const useAuth = () => {
   const [state, dispatch] = useReducer(authReducer, initialState);

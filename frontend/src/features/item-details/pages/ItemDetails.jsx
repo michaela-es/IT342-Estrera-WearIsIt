@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import ItemTag from '../../shared/components/ItemTag';
+import ItemTag from '@features/shared/components/ItemTag';
 import {
   Container,
   Box,
@@ -13,7 +13,7 @@ import {
   CircularProgress
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import api from '../../shared/api/apiClient';
+import api from '@features/shared/api/apiClient';
 
 const ItemDetails = () => {
   const { id } = useParams();

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Container, Box, Typography } from '@mui/material';
-import Navbar from '../../shared/components/NavBar';
-import SearchBar from '../../search/components/SearchBar';
-import ImageCard from '../components/ImageCard';
-import api from '../../shared/api/apiClient';
+import Navbar from '@features/shared/components/NavBar';
+import SearchBar from '@features/search/components/SearchBar';
+import ImageCard from '@features/gallery/components/ImageCard';
+import api from '@features/shared/api/apiClient';
 
 const GalleryPage = () => {
   const [search, setSearch] = useState('');

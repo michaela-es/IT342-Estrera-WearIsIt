@@ -14,7 +14,7 @@ import {
   Divider,
   Checkbox
 } from '@mui/material';
-import api from '../../shared/api/apiClient';
+import api from '@features/shared/api/apiClient';
 
 const CategoryField = ({ onTagsChange, initialSelectedTags = [] }) => {
   const [categories, setCategories] = useState([]);

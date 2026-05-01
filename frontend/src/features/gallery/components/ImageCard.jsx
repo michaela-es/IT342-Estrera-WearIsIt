@@ -11,7 +11,7 @@ import {
   Button
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import useTags from '../../../hooks/useTags';
+import useTags from '@features/shared/hooks/useTags';
 
 const ImageCard = ({ image }) => {
   const navigate = useNavigate();

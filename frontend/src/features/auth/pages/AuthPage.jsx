@@ -6,12 +6,12 @@ import {
   Button,
   Divider
 } from '@mui/material';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '@features/auth/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import LoginForm from '../components/LoginForm';
-import RegisterForm from '../components/RegisterForm';
-import MessageBox from '../../../components/MessageBox';
-import GoogleSignInButton from '../components/GoogleSignInButton';
+import LoginForm from '@features/auth/components/LoginForm';
+import RegisterForm from '@features/auth/components/RegisterForm';
+import MessageBox from '@features/shared/components/MessageBox';
+import GoogleSignInButton from '@features/auth/components/GoogleSignInButton';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);

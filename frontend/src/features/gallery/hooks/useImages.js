@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getImages } from '../api/mockApi';
+import { getImages } from '@features/gallery/api/mockApi';
 
 export const useImages = () => {
   const [images, setImages] = useState([]);

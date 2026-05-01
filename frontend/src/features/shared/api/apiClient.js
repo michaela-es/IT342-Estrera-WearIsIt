@@ -54,7 +54,7 @@ api.interceptors.response.use(
                     error.response.data.errorMessage ||
                     `Server error: ${error.response.status}`;
     } else if (error.request) {
-      errorMessage = 'No response from server. Please check if backend is running.';
+      errorMessage = 'No response from server.';
     }
     
     return Promise.reject({

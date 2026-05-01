@@ -1,5 +1,5 @@
 
-import Navbar from '../../shared/components/NavBar';
+import Navbar from '@features/shared/components/NavBar';
 import React, { useState } from 'react';
 import {
   Box,
@@ -15,10 +15,10 @@ import {
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import api from '../../shared/api/apiClient';
-import TypeSelector from '../components/TypeSelector';
-import CategoryField from '../components/CategoryField';
-import UploadZone from '../components/UploadZone';
+import api from '@features/shared/api/apiClient';
+import TypeSelector from '@features/upload/components/TypeSelector';
+import CategoryField from '@features/upload/components/CategoryField';
+import UploadZone from '@features/upload/components/UploadZone';
 
 const UploadClothing = () => {
   const [loading, setLoading] = useState(false);

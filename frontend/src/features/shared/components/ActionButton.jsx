@@ -10,7 +10,7 @@ import {
   Alert,
   Divider
 } from '@mui/material';
-import api from '../api/apiClient';
+import api from '@features/shared/api/apiClient';
 
 const CategoryField = ({ onTagsChange, initialSelectedTags = [] }) => {
   const [categories, setCategories] = useState([]);

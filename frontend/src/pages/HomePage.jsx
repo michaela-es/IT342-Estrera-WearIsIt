@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, Box, Typography } from '@mui/material';
-import Navbar from '../components/layout/Navbar';
-import SearchBar from '../components/common/SearchBar';
-import ImageCard from '../components/image/ImageCard';
+import Navbar from '@features/shared/components/layout/Navbar';
+import SearchBar from '@features/shared/components/common/SearchBar';
+import ImageCard from '@features/shared/components/image/ImageCard';
 import { getImages } from '../api/mockApi'; 
-import { useImages } from '../hooks/useImages';
-import useSearch from '../hooks/useSearch';
+import { useImages } from '@features/shared/hooks/useImages';
+import useSearch from '@features/shared/hooks/useSearch';
 
 const HomePage = () => {
   const [search, setSearch] = useState('');
