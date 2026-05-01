@@ -1,5 +1,5 @@
 
-import Navbar from '../components/layout/Navbar';
+import Navbar from '../../../components/layout/Navbar';
 import React, { useState } from 'react';
 import {
   Box,
@@ -15,7 +15,7 @@ import {
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import api from '../api/apiClient';
+import api from '../../../api/apiClient';
 import TypeSelector from '../components/TypeSelector';
 import CategoryField from '../components/CategoryField';
 import UploadZone from '../components/UploadZone';

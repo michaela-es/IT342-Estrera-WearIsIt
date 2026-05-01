@@ -6,7 +6,7 @@ import {
   MenuItem,
   FormHelperText
 } from '@mui/material';
-import api from '../api/apiClient';
+import api from '../../../api/apiClient';
 
 const TypeSelector = ({ value, onChange, error, required = true }) => {
   const [types, setTypes] = useState([]);
