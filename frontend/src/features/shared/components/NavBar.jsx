@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../features/auth/context/AuthContext';
+import { useAuth } from '../../auth/context/AuthContext';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);

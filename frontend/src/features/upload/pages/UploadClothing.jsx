@@ -1,5 +1,5 @@
 
-import Navbar from '../../../components/layout/Navbar';
+import Navbar from '../../shared/components/NavBar';
 import React, { useState } from 'react';
 import {
   Box,
