@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react';
-import api from '../api/apiClient';
+import api from '../../shared/api/apiClient';
 import { ACTIONS, authReducer, initialState } from '../types/authTypes';
 
 export const useAuth = () => {

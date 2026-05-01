@@ -3,7 +3,7 @@ import { Container, Box, Typography } from '@mui/material';
 import Navbar from '../../shared/components/NavBar';
 import SearchBar from '../../search/components/SearchBar';
 import ImageCard from '../components/ImageCard';
-import api from '../../../api/apiClient';
+import api from '../../shared/api/apiClient';
 
 const GalleryPage = () => {
   const [search, setSearch] = useState('');
