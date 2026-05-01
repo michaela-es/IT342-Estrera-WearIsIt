@@ -10,7 +10,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-import MessageBox from '../components/MessageBox';
+import MessageBox from '../../../components/MessageBox';
 import GoogleSignInButton from '../components/GoogleSignInButton';
 
 const AuthPage = () => {
