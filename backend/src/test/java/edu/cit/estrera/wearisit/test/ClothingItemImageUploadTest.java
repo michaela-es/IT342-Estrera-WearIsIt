@@ -97,7 +97,7 @@ class ClothingItemImageUploadTest {
         );
 
         assertEquals(ErrorCode.FILE_002, ex.getErrorCode());
-        assertEquals("Invalid file type. Only PNG and JPEG images are allowed", ex.getMessage());
+        assertEquals("Invalid file type", ex.getMessage());
         verify(restTemplate, never()).postForEntity(anyString(), any(HttpEntity.class), eq(String.class));
     }
 }

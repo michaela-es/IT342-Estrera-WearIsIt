@@ -26,7 +26,7 @@ public enum ErrorCode {
     ITEM_004("ITEM-004", "Category not found"),
     ITEM_005("ITEM-005", "Tag not found"),
 
-    FILE_001("FILE-001", "File too large"),
+    FILE_001("FILE-001", "File size exceeds the maximum limit of 10MB"),
     FILE_002("FILE-002", "Invalid file type"),
 
     SYSTEM_001("SYSTEM-001", "Internal server error");
