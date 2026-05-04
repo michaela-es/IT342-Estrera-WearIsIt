@@ -1,0 +1,155 @@
+Folder PATH listing
+Volume serial number is 8EE4-1D94
+Z:.
+¦   .gitignore
+¦   build.gradle.kts
+¦   gradle.properties
+¦   gradlew
+¦   gradlew.bat
+¦   settings.gradle.kts
+¦   structure.txt
+¦   
++---.idea
+¦       .name
+¦       AndroidProjectSystem.xml
+¦       compiler.xml
+¦       deploymentTargetDropDown.xml
+¦       deploymentTargetSelector.xml
+¦       deviceManager.xml
+¦       gradle.xml
+¦       kotlinc.xml
+¦       migrations.xml
+¦       misc.xml
+¦       runConfigurations.xml
+¦       vcs.xml
+¦       
++---app
+¦   ¦   .gitignore
+¦   ¦   build.gradle.kts
+¦   ¦   proguard-rules.pro
+¦   ¦   
+¦   +---src
+¦       +---androidTest
+¦       ¦   +---java
+¦       ¦       +---edu
+¦       ¦           +---cit
+¦       ¦               +---estrera
+¦       ¦                   +---wearisit
+¦       ¦                           ExampleInstrumentedTest.kt
+¦       ¦                           
+¦       +---main
+¦       ¦   ¦   AndroidManifest.xml
+¦       ¦   ¦   
+¦       ¦   +---java
+¦       ¦   ¦   +---edu
+¦       ¦   ¦       +---cit
+¦       ¦   ¦           +---estrera
+¦       ¦   ¦               +---wearisit
+¦       ¦   ¦                   +---core
+¦       ¦   ¦                   ¦       Result.kt
+¦       ¦   ¦                   ¦       
+¦       ¦   ¦                   +---data
+¦       ¦   ¦                   ¦   +---local
+¦       ¦   ¦                   ¦   ¦       TokenManager.kt
+¦       ¦   ¦                   ¦   ¦       
+¦       ¦   ¦                   ¦   +---models
+¦       ¦   ¦                   ¦   ¦       AuthReponse.kt
+¦       ¦   ¦                   ¦   ¦       LoginRequest.kt
+¦       ¦   ¦                   ¦   ¦       ProfileResponse.kt
+¦       ¦   ¦                   ¦   ¦       RegisterRequest.kt
+¦       ¦   ¦                   ¦   ¦       UserReponse.kt
+¦       ¦   ¦                   ¦   ¦       
+¦       ¦   ¦                   ¦   +---remote
+¦       ¦   ¦                   ¦   ¦       ApiError.kt
+¦       ¦   ¦                   ¦   ¦       ApiResponse.kt
+¦       ¦   ¦                   ¦   ¦       ApiService.kt
+¦       ¦   ¦                   ¦   ¦       AuthInterceptor.kt
+¦       ¦   ¦                   ¦   ¦       Response.ext.kt
+¦       ¦   ¦                   ¦   ¦       RetrofitClient.kt
+¦       ¦   ¦                   ¦   ¦       
+¦       ¦   ¦                   ¦   +---repository
+¦       ¦   ¦                   ¦           AuthRepository.kt
+¦       ¦   ¦                   ¦           
+¦       ¦   ¦                   +---ui
+¦       ¦   ¦                       +---auth
+¦       ¦   ¦                       ¦       AuthActivity.kt
+¦       ¦   ¦                       ¦       LoginFragment.kt
+¦       ¦   ¦                       ¦       RegisterFragment.kt
+¦       ¦   ¦                       ¦       
+¦       ¦   ¦                       +---main
+¦       ¦   ¦                       ¦       MainActivity.kt
+¦       ¦   ¦                       ¦       
+¦       ¦   ¦                       +---profile
+¦       ¦   ¦                       ¦       ProfileFragment.kt
+¦       ¦   ¦                       ¦       ProfileViewModel.kt
+¦       ¦   ¦                       ¦       
+¦       ¦   ¦                       +---viewmodel
+¦       ¦   ¦                               AuthViewModel.kt
+¦       ¦   ¦                               AuthViewModelFactory.kt
+¦       ¦   ¦                               
+¦       ¦   +---res
+¦       ¦       +---drawable
+¦       ¦       ¦       bg_btn_primary.xml
+¦       ¦       ¦       ic_launcher_background.xml
+¦       ¦       ¦       ic_launcher_foreground.xml
+¦       ¦       ¦       
+¦       ¦       +---layout
+¦       ¦       ¦       activity_auth.xml
+¦       ¦       ¦       activity_main.xml
+¦       ¦       ¦       fragment_login.xml
+¦       ¦       ¦       fragment_profile.xml
+¦       ¦       ¦       fragment_register.xml
+¦       ¦       ¦       
+¦       ¦       +---mipmap-anydpi-v26
+¦       ¦       ¦       ic_launcher.xml
+¦       ¦       ¦       ic_launcher_round.xml
+¦       ¦       ¦       
+¦       ¦       +---mipmap-hdpi
+¦       ¦       ¦       ic_launcher.webp
+¦       ¦       ¦       ic_launcher_round.webp
+¦       ¦       ¦       
+¦       ¦       +---mipmap-mdpi
+¦       ¦       ¦       ic_launcher.webp
+¦       ¦       ¦       ic_launcher_round.webp
+¦       ¦       ¦       
+¦       ¦       +---mipmap-xhdpi
+¦       ¦       ¦       ic_launcher.webp
+¦       ¦       ¦       ic_launcher_round.webp
+¦       ¦       ¦       
+¦       ¦       +---mipmap-xxhdpi
+¦       ¦       ¦       ic_launcher.webp
+¦       ¦       ¦       ic_launcher_round.webp
+¦       ¦       ¦       
+¦       ¦       +---mipmap-xxxhdpi
+¦       ¦       ¦       ic_launcher.webp
+¦       ¦       ¦       ic_launcher_round.webp
+¦       ¦       ¦       
+¦       ¦       +---values
+¦       ¦       ¦       colors.xml
+¦       ¦       ¦       strings.xml
+¦       ¦       ¦       themes.xml
+¦       ¦       ¦       
+¦       ¦       +---values-night
+¦       ¦       ¦       themes.xml
+¦       ¦       ¦       
+¦       ¦       +---xml
+¦       ¦               backup_rules.xml
+¦       ¦               data_extraction_rules.xml
+¦       ¦               network_security_config.xml
+¦       ¦               
+¦       +---test
+¦           +---java
+¦               +---edu
+¦                   +---cit
+¦                       +---estrera
+¦                           +---wearisit
+¦                                   ExampleUnitTest.kt
+¦                                   
++---gradle
+    ¦   gradle-daemon-jvm.properties
+    ¦   libs.versions.toml
+    ¦   
+    +---wrapper
+            gradle-wrapper.jar
+            gradle-wrapper.properties
+            
