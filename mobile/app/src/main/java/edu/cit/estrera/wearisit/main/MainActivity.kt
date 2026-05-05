@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-import edu.cit.estrera.wearisit.ui.auth.AuthActivity
+import edu.cit.estrera.wearisit.auth.ui.AuthActivity
 import kotlin.jvm.java
 
 class MainActivity : AppCompatActivity() {

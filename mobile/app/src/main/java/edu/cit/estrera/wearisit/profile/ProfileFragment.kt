@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import edu.cit.estrera.wearisit.R
-import edu.cit.estrera.wearisit.ui.viewmodel.AuthViewModel
+import edu.cit.estrera.wearisit.auth.ui.AuthViewModel
 
 class ProfileFragment : Fragment() {
 
