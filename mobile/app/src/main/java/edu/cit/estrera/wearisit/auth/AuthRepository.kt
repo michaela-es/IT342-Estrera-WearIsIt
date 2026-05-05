@@ -1,10 +1,13 @@
-package edu.cit.estrera.wearisit.data.repository
+package edu.cit.estrera.wearisit.auth
 
-import edu.cit.estrera.wearisit.data.remote.ApiService
-import edu.cit.estrera.wearisit.data.local.TokenManager
-import edu.cit.estrera.wearisit.data.models.*
-import edu.cit.estrera.wearisit.data.remote.unwrap
+import edu.cit.estrera.wearisit.auth.models.AuthResponse
+import edu.cit.estrera.wearisit.auth.models.LoginRequest
+import edu.cit.estrera.wearisit.auth.models.RegisterRequest
+import edu.cit.estrera.wearisit.core.network.ApiService
+import edu.cit.estrera.wearisit.core.local.TokenManager
+import edu.cit.estrera.wearisit.core.network.unwrap
 import edu.cit.estrera.wearisit.core.Result
+import edu.cit.estrera.wearisit.profile.ProfileResponse
 
 class AuthRepository(
     private val api: ApiService,

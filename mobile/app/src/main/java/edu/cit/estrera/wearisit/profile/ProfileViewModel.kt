@@ -1,11 +1,10 @@
-package edu.cit.estrera.wearisit.ui.profile
+package edu.cit.estrera.wearisit.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.cit.estrera.wearisit.core.Result
-import edu.cit.estrera.wearisit.data.models.ProfileResponse
-import edu.cit.estrera.wearisit.data.repository.AuthRepository
+import edu.cit.estrera.wearisit.auth.AuthRepository
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val repo: AuthRepository) : ViewModel() {

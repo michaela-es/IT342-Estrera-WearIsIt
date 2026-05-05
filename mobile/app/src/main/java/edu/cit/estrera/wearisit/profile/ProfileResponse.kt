@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.data.models
+package edu.cit.estrera.wearisit.profile
 
 data class ProfileResponse(
     var username: String? = null,

@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.data.local
+package edu.cit.estrera.wearisit.core.local
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences

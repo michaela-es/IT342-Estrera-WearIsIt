@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.ui.main
+package edu.cit.estrera.wearisit.main
 
 import android.content.Intent
 import android.os.Bundle

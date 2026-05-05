@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.ui.auth
+package edu.cit.estrera.wearisit.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater

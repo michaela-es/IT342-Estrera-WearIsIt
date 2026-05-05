@@ -2,10 +2,10 @@ package edu.cit.estrera.wearisit.ui.viewmodel
 
 import androidx.lifecycle.*
 import edu.cit.estrera.wearisit.core.Result
-import edu.cit.estrera.wearisit.data.local.TokenManager
-import edu.cit.estrera.wearisit.data.models.AuthResponse
-import edu.cit.estrera.wearisit.data.models.ProfileResponse
-import edu.cit.estrera.wearisit.data.repository.AuthRepository
+import edu.cit.estrera.wearisit.core.local.TokenManager
+import edu.cit.estrera.wearisit.auth.models.AuthResponse
+import edu.cit.estrera.wearisit.profile.ProfileResponse
+import edu.cit.estrera.wearisit.auth.AuthRepository
 import kotlinx.coroutines.launch
 
 enum class AuthScreen {

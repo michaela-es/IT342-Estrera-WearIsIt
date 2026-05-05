@@ -1,9 +1,9 @@
-package edu.cit.estrera.wearisit.data.remote
+package edu.cit.estrera.wearisit.core.network
 
-import edu.cit.estrera.wearisit.data.models.AuthResponse
-import edu.cit.estrera.wearisit.data.models.LoginRequest
-import edu.cit.estrera.wearisit.data.models.ProfileResponse
-import edu.cit.estrera.wearisit.data.models.RegisterRequest
+import edu.cit.estrera.wearisit.auth.models.AuthResponse
+import edu.cit.estrera.wearisit.auth.models.LoginRequest
+import edu.cit.estrera.wearisit.profile.ProfileResponse
+import edu.cit.estrera.wearisit.auth.models.RegisterRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

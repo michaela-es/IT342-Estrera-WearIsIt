@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.data.models
+package edu.cit.estrera.wearisit.auth.models
 
 data class AuthResponse(
     var accessToken: String? = null,

@@ -2,8 +2,8 @@ package edu.cit.estrera.wearisit.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import edu.cit.estrera.wearisit.data.local.TokenManager
-import edu.cit.estrera.wearisit.data.repository.AuthRepository
+import edu.cit.estrera.wearisit.core.local.TokenManager
+import edu.cit.estrera.wearisit.auth.AuthRepository
 
 class AuthViewModelFactory(
     private val authRepository: AuthRepository,

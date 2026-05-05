@@ -1,6 +1,8 @@
+package edu.cit.estrera.wearisit.core.network
+
 import okhttp3.Interceptor
 import okhttp3.Response
-import edu.cit.estrera.wearisit.data.local.TokenManager
+import edu.cit.estrera.wearisit.core.local.TokenManager
 
 class AuthInterceptor(private val tokenManager: TokenManager) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

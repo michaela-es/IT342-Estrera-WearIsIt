@@ -10,9 +10,10 @@ import edu.cit.estrera.wearisit.R
 import edu.cit.estrera.wearisit.ui.viewmodel.AuthScreen
 import edu.cit.estrera.wearisit.ui.viewmodel.AuthViewModel
 import edu.cit.estrera.wearisit.ui.viewmodel.AuthViewModelFactory
-import edu.cit.estrera.wearisit.data.local.TokenManager
-import edu.cit.estrera.wearisit.data.remote.RetrofitClient
-import edu.cit.estrera.wearisit.data.repository.AuthRepository
+import edu.cit.estrera.wearisit.core.local.TokenManager
+import edu.cit.estrera.wearisit.core.network.RetrofitClient
+import edu.cit.estrera.wearisit.auth.AuthRepository
+import edu.cit.estrera.wearisit.profile.ProfileFragment
 
 class AuthActivity : AppCompatActivity() {
 

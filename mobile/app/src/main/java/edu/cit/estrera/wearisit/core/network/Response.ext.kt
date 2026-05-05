@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.data.remote
+package edu.cit.estrera.wearisit.core.network
 
 import retrofit2.Response
 import com.google.gson.Gson
