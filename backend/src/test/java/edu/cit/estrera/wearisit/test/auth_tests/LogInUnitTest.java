@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.test;
+package edu.cit.estrera.wearisit.test.auth_tests;
 
 import edu.cit.estrera.wearisit.features.auth.*;
 import edu.cit.estrera.wearisit.features.user_management.User;

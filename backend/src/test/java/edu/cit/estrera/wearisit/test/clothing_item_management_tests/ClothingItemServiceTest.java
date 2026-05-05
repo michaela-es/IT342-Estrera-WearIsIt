@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.test;
+package edu.cit.estrera.wearisit.test.clothing_item_management_tests;
 
 import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
 import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
