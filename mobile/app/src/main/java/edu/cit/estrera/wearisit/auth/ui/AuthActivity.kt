@@ -1,19 +1,18 @@
-package edu.cit.estrera.wearisit.ui.auth
+package edu.cit.estrera.wearisit.auth.ui
 
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import edu.cit.estrera.wearisit.R
-import edu.cit.estrera.wearisit.ui.viewmodel.AuthScreen
-import edu.cit.estrera.wearisit.ui.viewmodel.AuthViewModel
-import edu.cit.estrera.wearisit.ui.viewmodel.AuthViewModelFactory
 import edu.cit.estrera.wearisit.core.local.TokenManager
 import edu.cit.estrera.wearisit.core.network.RetrofitClient
 import edu.cit.estrera.wearisit.auth.AuthRepository
 import edu.cit.estrera.wearisit.profile.ProfileFragment
+import edu.cit.estrera.wearisit.ui.auth.LoginFragment
 
 class AuthActivity : AppCompatActivity() {
 
@@ -38,14 +37,14 @@ class AuthActivity : AppCompatActivity() {
         // Observe errors
         viewModel.error.observe(this) { error ->
             error?.let {
-                android.widget.Toast.makeText(this, it, android.widget.Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         }
 
         // Observe success messages
         viewModel.successMessage.observe(this) { message ->
             message?.let {
-                android.widget.Toast.makeText(this, it, android.widget.Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         }
 

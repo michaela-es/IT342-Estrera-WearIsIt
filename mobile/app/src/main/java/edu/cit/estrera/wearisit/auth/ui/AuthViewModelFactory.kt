@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit.ui.viewmodel
+package edu.cit.estrera.wearisit.auth.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
