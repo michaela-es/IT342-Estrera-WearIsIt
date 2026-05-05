@@ -166,9 +166,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.1.2</version> <!-- stable for JUnit 5 -->
+				<version>3.1.2</version>
 				<configuration>
-					<useModulePath>false</useModulePath> <!-- important for Java 9+ -->
+					<argLine>-Xshare:off -XX:+EnableDynamicAgentLoading</argLine>
+					<useModulePath>false</useModulePath>
+					<useFile>false</useFile>
+					<redirectTestOutputToFile>false</redirectTestOutputToFile>
+					<trimStackTrace>true</trimStackTrace>
+					<printSummary>true</printSummary>
 				</configuration>
 			</plugin>
 		</plugins>

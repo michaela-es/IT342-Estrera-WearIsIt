@@ -112,11 +112,10 @@ public class AuthService {
     }
 
     private UserResponse mapToUserResponse(User user) {
-        UserResponse userResponse = UserResponse.builder()
+        return UserResponse.builder()
                 .email(user.getEmail())
                 .username(user.getUsername())
                 .build();
-        return userResponse;
     }
 
     public User findById(Long userId) {
