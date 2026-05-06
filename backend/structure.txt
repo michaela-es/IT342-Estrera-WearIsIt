@@ -1,0 +1,143 @@
+Folder PATH listing
+Volume serial number is 18FE-F61A
+C:.
+|   .gitattributes
+|   .gitignore
+|   mvnw
+|   mvnw.cmd
+|   old.structure.txt
+|   pom.xml
+|   structure.txt
+|   
++---.mvn
+|   \---wrapper
+|           maven-wrapper.properties
+|           
+\---src
+    +---main
+    |   +---java
+    |   |   \---edu
+    |   |       \---cit
+    |   |           \---estrera
+    |   |               \---wearisit
+    |   |                   |   EstreraApplication.java
+    |   |                   |   
+    |   |                   +---config
+    |   |                   |       AppConfig.java
+    |   |                   |       
+    |   |                   +---features
+    |   |                   |   +---auth
+    |   |                   |   |   |   AuthController.java
+    |   |                   |   |   |   AuthResponse.java
+    |   |                   |   |   |   AuthService.java
+    |   |                   |   |   |   LoginRequest.java
+    |   |                   |   |   |   ProfileResponse.java
+    |   |                   |   |   |   RegisterRequest.java
+    |   |                   |   |   |   
+    |   |                   |   |   \---google_login
+    |   |                   |   |           GoogleAuthController.java
+    |   |                   |   |           GoogleAuthService.java
+    |   |                   |   |           GoogleLoginRequest.java
+    |   |                   |   |           GoogleRegisterRequest.java
+    |   |                   |   |           OAuth2SuccessHandler.java
+    |   |                   |   |           
+    |   |                   |   +---category_management
+    |   |                   |   |       Category.java
+    |   |                   |   |       CategoryController.java
+    |   |                   |   |       CategoryDto.java
+    |   |                   |   |       CategoryRepository.java
+    |   |                   |   |       CategoryService.java
+    |   |                   |   |       CategoryWithTagsDTO.java
+    |   |                   |   |       CreateCategoryRequest.java
+    |   |                   |   |       
+    |   |                   |   +---clothing_item_management
+    |   |                   |   |   |   ClothingItem.java
+    |   |                   |   |   |   ClothingItemController.java
+    |   |                   |   |   |   ClothingItemRepository.java
+    |   |                   |   |   |   ClothingItemService.java
+    |   |                   |   |   |   
+    |   |                   |   |   +---add_image
+    |   |                   |   |   |       ItemImageController.java
+    |   |                   |   |   |       ItemImageService.java
+    |   |                   |   |   |       
+    |   |                   |   |   +---create_item
+    |   |                   |   |   |       ClothingItemResponse.java
+    |   |                   |   |   |       CreateClothingItemRequest.java
+    |   |                   |   |   |       
+    |   |                   |   |   \---item_type
+    |   |                   |   |           ItemType.java
+    |   |                   |   |           ItemTypeController.java
+    |   |                   |   |           ItemTypeDto.java
+    |   |                   |   |           ItemTypeRepository.java
+    |   |                   |   |           ItemTypeService.java
+    |   |                   |   |           
+    |   |                   |   +---image_upload
+    |   |                   |   |       FileStorageService.java
+    |   |                   |   |       
+    |   |                   |   +---tag_management
+    |   |                   |   |       Tag.java
+    |   |                   |   |       TagDto.java
+    |   |                   |   |       TagRepository.java
+    |   |                   |   |       TagService.java
+    |   |                   |   |       
+    |   |                   |   \---user_management
+    |   |                   |           User.java
+    |   |                   |           UserController.java
+    |   |                   |           UserRepository.java
+    |   |                   |           UserResponse.java
+    |   |                   |           
+    |   |                   +---infrastructure
+    |   |                   |   +---api
+    |   |                   |   |   +---error
+    |   |                   |   |   |       ApiError.java
+    |   |                   |   |   |       ErrorCode.java
+    |   |                   |   |   |       
+    |   |                   |   |   +---exceptions
+    |   |                   |   |   |       ApiException.java
+    |   |                   |   |   |       GlobalExceptionHandler.java
+    |   |                   |   |   |       
+    |   |                   |   |   \---response
+    |   |                   |   |           ApiResponse.java
+    |   |                   |   |           ApiResponseWrapper.java
+    |   |                   |   |           
+    |   |                   |   \---security
+    |   |                   |       |   MethodSecurityConfig.java
+    |   |                   |       |   SecurityConfig.java
+    |   |                   |       |   SecurityConstants.java
+    |   |                   |       |   SecurityUtil.java
+    |   |                   |       |   
+    |   |                   |       \---jwt
+    |   |                   |               JwtAuthenticationFilter.java
+    |   |                   |               JwtService.java
+    |   |                   |               RefreshToken.java
+    |   |                   |               RefreshTokenRepository.java
+    |   |                   |               RefreshTokenRequest.java
+    |   |                   |               RefreshTokenService.java
+    |   |                   |               TokenService.java
+    |   |                   |               
+    |   |                   +---service
+    |   |                   |       OutfitImageService.java
+    |   |                   |       
+    |   |                   \---shared
+    |   |                       \---util
+    |   |                           \---regex
+    |   |                                   EmailValidator.java
+    |   |                                   
+    |   \---resources
+    |           application.properties
+    |           
+    \---test
+        \---java
+            \---edu
+                \---cit
+                    \---estrera
+                        +---wearisit
+                        |   \---test
+                        |           AuthServiceUnitTest.java
+                        |           ClothingItemImageUploadTest.java
+                        |           ClothingItemServiceTest.java
+                        |           
+                        \---wearisit2
+                                AuthServiceUnitTest.java
+                                WearisitApplicationTests.java
+                                
