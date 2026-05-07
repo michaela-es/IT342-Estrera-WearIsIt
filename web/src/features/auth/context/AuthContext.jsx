@@ -118,35 +118,55 @@ export const AuthProvider = ({ children }) => {
     }
   };
   
-  const handleOAuthLogin = async (idToken) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await api.post('/auth/google', { idToken });
+  // const handleOAuthLogin = async (idToken) => {
+  //   setLoading(true);
+  //   setError(null);
+  //   try {
+  //     const response = await api.post('/auth/google', { idToken });
       
-      let accessToken, userData;
-      if (response && response.accessToken) {
-        accessToken = response.accessToken;
-        userData = response.user;
-      } else if (response && response.data) {
-        accessToken = response.data.accessToken;
-        userData = response.data.user;
-      } else {
-        throw new Error('Invalid response format');
-      }
+  //     let accessToken, userData;
+  //     if (response && response.accessToken) {
+  //       accessToken = response.accessToken;
+  //       userData = response.user;
+  //     } else if (response && response.data) {
+  //       accessToken = response.data.accessToken;
+  //       userData = response.data.user;
+  //     } else {
+  //       throw new Error('Invalid response format');
+  //     }
       
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData);
+  //     localStorage.setItem('accessToken', accessToken);
+  //     localStorage.setItem('user', JSON.stringify(userData));
+  //     setUser(userData);
       
-      return { success: true, data: userData };
-    } catch (err) {
-      return handleApiError(err, 'Google login failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     return { success: true, data: userData };
+  //   } catch (err) {
+  //     return handleApiError(err, 'Google login failed');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   
+const handleOAuthLogin = async (idToken) => {
+  setLoading(true);
+  setError(null);
+  try {
+    const { accessToken, refreshToken } = await api.post('/auth/google', { idToken });
+
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+
+    const userData = await api.get('/user/me');
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+
+    return { success: true };
+  } catch (err) {
+    return handleApiError(err, 'Google login failed');
+  } finally {
+    setLoading(false);
+  }
+};
   // FIXED: Only run on OAuth callback page
   const checkOAuthCallback = () => {
     const hash = window.location.hash.substring(1);

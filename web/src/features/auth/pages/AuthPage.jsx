@@ -7,7 +7,7 @@ import {
   Divider
 } from '@mui/material';
 import { useAuth } from '@features/auth/context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import {Navigate, useNavigate } from 'react-router-dom';
 import LoginForm from '@features/auth/components/LoginForm';
 import RegisterForm from '@features/auth/components/RegisterForm';
 import MessageBox from '@features/shared/components/MessageBox';
@@ -22,11 +22,14 @@ const AuthPage = () => {
     password: '',
     confirmPassword: ''
   });
+  const accessToken = localStorage.getItem('accessToken');
 
   const { login, register, loading, error, clearError } = useAuth();
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
-
+  if (accessToken) {
+    return <Navigate to="/" replace />;
+  }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (error) clearError();
