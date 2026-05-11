@@ -1,0 +1,125 @@
+Folder PATH listing
+Volume serial number is 18FE-F61A
+C:.
+|   .env
+|   .gitignore
+|   eslint.config.js
+|   import-report.json
+|   imports-output.txt
+|   index.html
+|   jsconfig.json
+|   package-lock.json
+|   package.json
+|   README.md
+|   structure.txt
+|   tailwind.config.js
+|   vite.config.js
+|   
++---codemods
+|       alias-imports.js
+|       fix-page-imports.js
+|       list-imports.js
+|       
++---public
+|   |   vite.svg
+|   |   
+|   \---mock_data
+|           mockImages.json
+|           
+\---src
+    |   App.css
+    |   App.jsx
+    |   colors.css
+    |   index.css
+    |   index.js
+    |   main.jsx
+    |   
+    +---assets
+    |       react.svg
+    |       
+    +---features
+    |   +---auth
+    |   |   +---components
+    |   |   |       GoogleSignInButton.jsx
+    |   |   |       LoginForm.jsx
+    |   |   |       RegisterForm.jsx
+    |   |   |       
+    |   |   +---context
+    |   |   |       AuthContext.jsx
+    |   |   |       
+    |   |   +---hooks
+    |   |   |       useAuth.js
+    |   |   |       
+    |   |   +---pages
+    |   |   |       AuthPage.css
+    |   |   |       AuthPage.jsx
+    |   |   |       OAuthCallback.jsx
+    |   |   |       
+    |   |   +---services
+    |   |   |       googleAuth.js
+    |   |   |       
+    |   |   \---types
+    |   |           authTypes.js
+    |   |           
+    |   +---gallery
+    |   |   +---components
+    |   |   |       ImageCard.jsx
+    |   |   |       
+    |   |   +---hooks
+    |   |   |       useImages.js
+    |   |   |       
+    |   |   \---pages
+    |   |           GalleryPage.jsx
+    |   |           
+    |   +---item-details
+    |   |   +---hooks
+    |   |   |       useItemDetails.js
+    |   |   |       
+    |   |   \---pages
+    |   |           ItemDetails.jsx
+    |   |           
+    |   +---profile
+    |   |   \---pages
+    |   |           ProfilePage.css
+    |   |           ProfilePage.jsx
+    |   |           
+    |   +---search
+    |   |   +---components
+    |   |   |       SearchBar.jsx
+    |   |   |       
+    |   |   \---hooks
+    |   |           useSearch.js
+    |   |           
+    |   +---shared
+    |   |   +---api
+    |   |   |       apiClient.js
+    |   |   |       constants.js
+    |   |   |       
+    |   |   +---components
+    |   |   |       ActionButton.jsx
+    |   |   |       ItemTag.jsx
+    |   |   |       MessageBox.jsx
+    |   |   |       NavBar.jsx
+    |   |   |       
+    |   |   +---hooks
+    |   |   |       useForm.js
+    |   |   |       useTags.js
+    |   |   |       
+    |   |   +---lib
+    |   |   |       utils.ts
+    |   |   |       
+    |   |   \---theme
+    |   |           theme.js
+    |   |           
+    |   \---upload
+    |       +---components
+    |       |       CategoryField.jsx
+    |       |       TypeSelector.jsx
+    |       |       UploadZone.jsx
+    |       |       
+    |       \---pages
+    |               UploadClothing.jsx
+    |               
+    \---pages
+            HomePage.jsx
+            

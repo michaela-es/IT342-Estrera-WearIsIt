@@ -1,0 +1,1626 @@
+[
+  {
+    "file": "src\\features\\search\\hooks\\useSearch.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\hooks\\useTags.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\theme\\theme.js",
+    "import": "@mui/material/styles"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\api\\apiClient.js",
+    "import": "axios"
+  }
+]
+[
+  {
+    "file": "src\\App.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "@mui/material/styles"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "@mui/material/CssBaseline"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./context/AuthContext"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/AuthPage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/ProfilePage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/GalleryPage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/ItemDetails"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/UploadClothing"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./theme"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/OAuthCallback"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./colors.css"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./App.css"
+  }
+]
+[
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "@mui/icons-material/Search"
+  }
+]
+[
+  {
+    "file": "src\\features\\item-details\\hooks\\useItemDetails.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\main.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "react-dom/client"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./colors.css"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./index.css"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./App.jsx"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "@mui/icons-material/Close"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\ItemTag.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ItemTag.jsx",
+    "import": "@mui/material"
+  }
+]
+[
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/layout/Navbar"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/common/SearchBar"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/image/ImageCard"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../api/mockApi"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../hooks/useImages"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../hooks/useSearch"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\hooks\\useForm.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "@mui/icons-material"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../context/AuthContext"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/LoginForm"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/RegisterForm"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../../../components/MessageBox"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/GoogleSignInButton"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../../shared/components/NavBar"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "react-dropzone"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/icons-material/CloudUpload"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/icons-material/CheckCircle"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../../shared/api/apiClient"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/TypeSelector"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/CategoryField"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/UploadZone"
+  }
+]
+[
+  {
+    "file": "src\\index.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "react-dom/client"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "./App"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "./context/AuthContext"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "@mui/icons-material/Menu"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "../../auth/context/AuthContext"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "@mui/icons-material/Google"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../shared/components/NavBar"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../search/components/SearchBar"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../components/ImageCard"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "@mui/material"
+  }
+]
+[
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "../../shared/components/ItemTag"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "@mui/icons-material/ArrowBack"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "@mui/material/styles"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "../../../hooks/useTags"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\hooks\\useImages.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\hooks\\useImages.js",
+    "import": "../api/mockApi"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\context\\AuthContext.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\context\\AuthContext.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "../context/AuthContext"
+  },
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "react-router-dom"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "@mui/icons-material"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "../api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "../../shared/api/apiClient"
+  },
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "../types/authTypes"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "react-dropzone"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "@mui/icons-material/CloudUpload"
+  }
+]
+[
+  {
+    "file": "src\\App.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "@mui/material/styles"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "@mui/material/CssBaseline"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./context/AuthContext"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/AuthPage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/ProfilePage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/GalleryPage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/ItemDetails"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/UploadClothing"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./theme"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/OAuthCallback"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./colors.css"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./App.css"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\theme\\theme.js",
+    "import": "@mui/material/styles"
+  }
+]
+[
+  {
+    "file": "src\\main.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "react-dom/client"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./colors.css"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./index.css"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./App.jsx"
+  }
+]
+[
+  {
+    "file": "src\\index.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "react-dom/client"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "./App"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "./context/AuthContext"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "../api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "../../shared/api/apiClient"
+  },
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "../types/authTypes"
+  }
+]
+[
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/layout/Navbar"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/common/SearchBar"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/image/ImageCard"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../api/mockApi"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../hooks/useImages"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../hooks/useSearch"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\ItemTag.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ItemTag.jsx",
+    "import": "@mui/material"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\hooks\\useImages.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\hooks\\useImages.js",
+    "import": "../api/mockApi"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../context/AuthContext"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/LoginForm"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/RegisterForm"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../../../components/MessageBox"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/GoogleSignInButton"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "@mui/icons-material/Google"
+  }
+]
+[
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "../../shared/components/ItemTag"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "@mui/icons-material/ArrowBack"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "@mui/icons-material/Close"
+  }
+]
+[
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "@mui/icons-material/Search"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\api\\apiClient.js",
+    "import": "axios"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\hooks\\useTags.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\item-details\\hooks\\useItemDetails.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\hooks\\useForm.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "@mui/icons-material/Menu"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "../../auth/context/AuthContext"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\context\\AuthContext.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\context\\AuthContext.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "@mui/material/styles"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "../../../hooks/useTags"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../../shared/components/NavBar"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "react-dropzone"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/icons-material/CloudUpload"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/icons-material/CheckCircle"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../../shared/api/apiClient"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/TypeSelector"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/CategoryField"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/UploadZone"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "@mui/icons-material"
+  }
+]
+[
+  {
+    "file": "src\\features\\search\\hooks\\useSearch.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "../context/AuthContext"
+  },
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "react-router-dom"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "@mui/icons-material"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../shared/components/NavBar"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../search/components/SearchBar"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../components/ImageCard"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "@mui/material"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "react-dropzone"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "@mui/icons-material/CloudUpload"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\TypeSelector.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\App.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "@mui/material/styles"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "@mui/material/CssBaseline"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./context/AuthContext"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/AuthPage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/ProfilePage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/GalleryPage"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/ItemDetails"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/UploadClothing"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./theme"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./pages/OAuthCallback"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./colors.css"
+  },
+  {
+    "file": "src\\App.jsx",
+    "import": "./App.css"
+  }
+]
+[
+  {
+    "file": "src\\index.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "react-dom/client"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "./App"
+  },
+  {
+    "file": "src\\index.js",
+    "import": "./context/AuthContext"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\RegisterForm.jsx",
+    "import": "@mui/icons-material"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "@mui/icons-material/Menu"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\shared\\components\\NavBar.jsx",
+    "import": "../../auth/context/AuthContext"
+  }
+]
+[
+  {
+    "file": "src\\main.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "react-dom/client"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./colors.css"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./index.css"
+  },
+  {
+    "file": "src\\main.jsx",
+    "import": "./App.jsx"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\ItemTag.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ItemTag.jsx",
+    "import": "@mui/material"
+  }
+]
+[
+  {
+    "file": "src\\features\\item-details\\hooks\\useItemDetails.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\GoogleSignInButton.jsx",
+    "import": "@mui/icons-material/Google"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../context/AuthContext"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/LoginForm"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/RegisterForm"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../../../components/MessageBox"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\AuthPage.jsx",
+    "import": "../components/GoogleSignInButton"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\MessageBox.jsx",
+    "import": "@mui/icons-material/Close"
+  }
+]
+[
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/layout/Navbar"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/common/SearchBar"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../components/image/ImageCard"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../api/mockApi"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../hooks/useImages"
+  },
+  {
+    "file": "src\\pages\\HomePage.jsx",
+    "import": "../hooks/useSearch"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\theme\\theme.js",
+    "import": "@mui/material/styles"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\auth\\pages\\OAuthCallback.jsx",
+    "import": "@mui/material"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\api\\apiClient.js",
+    "import": "axios"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../shared/components/NavBar"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../search/components/SearchBar"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../components/ImageCard"
+  },
+  {
+    "file": "src\\features\\gallery\\pages\\GalleryPage.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\hooks\\useTags.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\search\\hooks\\useSearch.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "../../shared/api/apiClient"
+  },
+  {
+    "file": "src\\features\\auth\\hooks\\useAuth.js",
+    "import": "../types/authTypes"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\auth\\components\\LoginForm.jsx",
+    "import": "@mui/icons-material"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\CategoryField.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\hooks\\useImages.js",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\hooks\\useImages.js",
+    "import": "../api/mockApi"
+  }
+]
+[
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "../context/AuthContext"
+  },
+  {
+    "file": "src\\features\\profile\\pages\\ProfilePage.jsx",
+    "import": "react-router-dom"
+  }
+]
+[
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\search\\components\\SearchBar.jsx",
+    "import": "@mui/icons-material/Search"
+  }
+]
+[
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "@mui/material/styles"
+  },
+  {
+    "file": "src\\features\\gallery\\components\\ImageCard.jsx",
+    "import": "../../../hooks/useTags"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "react-dropzone"
+  },
+  {
+    "file": "src\\features\\upload\\components\\UploadZone.jsx",
+    "import": "@mui/icons-material/CloudUpload"
+  }
+]
+[
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "react-router-dom"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "../../shared/components/ItemTag"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "@mui/icons-material/ArrowBack"
+  },
+  {
+    "file": "src\\features\\item-details\\pages\\ItemDetails.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../../shared/components/NavBar"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "react-dropzone"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/icons-material/CloudUpload"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "@mui/icons-material/CheckCircle"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../../shared/api/apiClient"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/TypeSelector"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/CategoryField"
+  },
+  {
+    "file": "src\\features\\upload\\pages\\UploadClothing.jsx",
+    "import": "../components/UploadZone"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\hooks\\useForm.js",
+    "import": "react"
+  }
+]
+[
+  {
+    "file": "src\\features\\auth\\context\\AuthContext.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\auth\\context\\AuthContext.jsx",
+    "import": "../../shared/api/apiClient"
+  }
+]
+[
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "react"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "@mui/material"
+  },
+  {
+    "file": "src\\features\\shared\\components\\ActionButton.jsx",
+    "import": "../api/apiClient"
+  }
+]

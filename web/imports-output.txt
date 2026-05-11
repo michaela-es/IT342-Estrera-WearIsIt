@@ -1,0 +1,49 @@
+// src\features\item-details\pages\ItemDetails.jsx
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import ItemTag from '../../shared/components/ItemTag';
+import {
+  Container,
+  Box,
+  Typography,
+  Button,
+  Paper,
+  Chip,
+  Stack,
+  Grid,
+  CircularProgress
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import api from '../../shared/api/apiClient';
+
+// src\features\gallery\components\ImageCard.jsx
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Chip,
+  Stack,
+  Box,
+  Button
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useTags from '../../../hooks/useTags';
+
+// src\features\gallery\pages\GalleryPage.jsx
+import React, { useState, useEffect, useMemo } from 'react';
+import { Container, Box, Typography } from '@mui/material';
+import Navbar from '../../shared/components/NavBar';
+import SearchBar from '../../search/components/SearchBar';
+import ImageCard from '../components/ImageCard';
+import api from '../../shared/api/apiClient';
+
+// src\features\auth\context\AuthContext.jsx
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import api from '../../shared/api/apiClient';
+
+// src\features\gallery\hooks\useImages.js
+import { useState, useEffect } from 'react';
+import { getImages } from '../api/mockApi';

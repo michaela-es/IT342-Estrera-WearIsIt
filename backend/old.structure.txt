@@ -1,0 +1,123 @@
+Folder PATH listing
+Volume serial number is 18FE-F61A
+C:.
+|   .gitattributes
+|   .gitignore
+|   mvnw
+|   mvnw.cmd
+|   old.structure.txt
+|   pom.xml
+|   structure.txt
+|   
++---.mvn
+|   \---wrapper
+|           maven-wrapper.properties
+|           
+\---src
+    +---main
+    |   +---java
+    |   |   \---edu
+    |   |       \---cit
+    |   |           \---estrera
+    |   |               \---wearisit
+    |   |                   |   EstreraApplication.java
+    |   |                   |   
+    |   |                   +---api
+    |   |                   |       ApiError.java
+    |   |                   |       ApiException.java
+    |   |                   |       ApiResponse.java
+    |   |                   |       ApiResponseWrapper.java
+    |   |                   |       ErrorCode.java
+    |   |                   |       GlobalExceptionHandler.java
+    |   |                   |       
+    |   |                   +---config
+    |   |                   |       AppConfig.java
+    |   |                   |       JwtAuthenticationFilter.java
+    |   |                   |       MethodSecurityConfig.java
+    |   |                   |       SecurityConfig.java
+    |   |                   |       SecurityConstants.java
+    |   |                   |       
+    |   |                   +---controller
+    |   |                   |       AuthController.java
+    |   |                   |       CategoryController.java
+    |   |                   |       ClothingItemController.java
+    |   |                   |       GoogleAuthController.java
+    |   |                   |       ItemImageController.java
+    |   |                   |       ItemTypeController.java
+    |   |                   |       UserController.java
+    |   |                   |       
+    |   |                   +---dto
+    |   |                   |       AuthResponse.java
+    |   |                   |       CategoryDto.java
+    |   |                   |       CategoryWithTagsDTO.java
+    |   |                   |       ClothingItemResponse.java
+    |   |                   |       CreateCategoryRequest.java
+    |   |                   |       CreateClothingItemRequest.java
+    |   |                   |       GoogleLoginRequest.java
+    |   |                   |       GoogleRegisterRequest.java
+    |   |                   |       ItemTypeDto.java
+    |   |                   |       LoginRequest.java
+    |   |                   |       ProfileResponse.java
+    |   |                   |       RefreshTokenRequest.java
+    |   |                   |       RegisterRequest.java
+    |   |                   |       TagDto.java
+    |   |                   |       UserResponse.java
+    |   |                   |       
+    |   |                   +---entity
+    |   |                   |       Category.java
+    |   |                   |       ClothingItem.java
+    |   |                   |       ItemType.java
+    |   |                   |       RefreshToken.java
+    |   |                   |       Tag.java
+    |   |                   |       User.java
+    |   |                   |       
+    |   |                   +---repository
+    |   |                   |       CategoryRepository.java
+    |   |                   |       ClothingItemRepository.java
+    |   |                   |       ItemTypeRepository.java
+    |   |                   |       RefreshTokenRepository.java
+    |   |                   |       TagRepository.java
+    |   |                   |       UserRepository.java
+    |   |                   |       
+    |   |                   +---security
+    |   |                   |   \---oauth
+    |   |                   |           OAuth2SuccessHandler.java
+    |   |                   |           
+    |   |                   +---service
+    |   |                   |       AuthService.java
+    |   |                   |       CategoryService.java
+    |   |                   |       ClothingItemService.java
+    |   |                   |       EmailService.java
+    |   |                   |       FileStorageService.java
+    |   |                   |       GoogleAuthService.java
+    |   |                   |       ItemImageService.java
+    |   |                   |       ItemTypeService.java
+    |   |                   |       JwtService.java
+    |   |                   |       OutfitImageService.java
+    |   |                   |       RefreshTokenService.java
+    |   |                   |       TagService.java
+    |   |                   |       TokenService.java
+    |   |                   |       
+    |   |                   \---util
+    |   |                       |   SecurityUtil.java
+    |   |                       |   
+    |   |                       \---regex
+    |   |                               EmailValidator.java
+    |   |                               
+    |   \---resources
+    |           application.properties
+    |           
+    \---test
+        \---java
+            \---edu
+                \---cit
+                    \---estrera
+                        +---wearisit
+                        |   \---test
+                        |           AuthServiceUnitTest.java
+                        |           ClothingItemServiceTest.java
+                        |           
+                        \---wearisit2
+                                AuthServiceUnitTest.java
+                                WearisitApplicationTests.java
+                                

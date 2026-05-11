@@ -1,0 +1,100 @@
+Folder PATH listing
+Volume serial number is 18FE-F61A
+C:.
+|   App.css
+|   App.jsx
+|   colors.css
+|   frontend_structure.txt
+|   index.css
+|   index.js
+|   main.jsx
+|   
++---assets
+|       react.svg
+|       
++---features
+|   +---auth
+|   |   +---components
+|   |   |       GoogleSignInButton.jsx
+|   |   |       LoginForm.jsx
+|   |   |       RegisterForm.jsx
+|   |   |       
+|   |   +---context
+|   |   |       AuthContext.jsx
+|   |   |       
+|   |   +---hooks
+|   |   |       useAuth.js
+|   |   |       
+|   |   +---pages
+|   |   |       AuthPage.css
+|   |   |       AuthPage.jsx
+|   |   |       OAuthCallback.jsx
+|   |   |       
+|   |   +---services
+|   |   |       googleAuth.js
+|   |   |       
+|   |   \---types
+|   |           authTypes.js
+|   |           
+|   +---gallery
+|   |   +---components
+|   |   |       ImageCard.jsx
+|   |   |       
+|   |   +---hooks
+|   |   |       useImages.js
+|   |   |       
+|   |   \---pages
+|   |           GalleryPage.jsx
+|   |           
+|   +---item-details
+|   |   +---hooks
+|   |   |       useItemDetails.js
+|   |   |       
+|   |   \---pages
+|   |           ItemDetails.jsx
+|   |           
+|   +---profile
+|   |   \---pages
+|   |           ProfilePage.css
+|   |           ProfilePage.jsx
+|   |           
+|   +---search
+|   |   +---components
+|   |   |       SearchBar.jsx
+|   |   |       
+|   |   \---hooks
+|   |           useSearch.js
+|   |           
+|   +---shared
+|   |   +---api
+|   |   |       apiClient.js
+|   |   |       constants.js
+|   |   |       
+|   |   +---components
+|   |   |       ActionButton.jsx
+|   |   |       ItemTag.jsx
+|   |   |       MessageBox.jsx
+|   |   |       NavBar.jsx
+|   |   |       
+|   |   +---hooks
+|   |   |       useForm.js
+|   |   |       useTags.js
+|   |   |       
+|   |   +---lib
+|   |   |       utils.ts
+|   |   |       
+|   |   \---theme
+|   |           theme.js
+|   |           
+|   \---upload
+|       +---components
+|       |       CategoryField.jsx
+|       |       TypeSelector.jsx
+|       |       UploadZone.jsx
+|       |       
+|       \---pages
+|               UploadClothing.jsx
+|               
+\---pages
+        HomePage.jsx
+        

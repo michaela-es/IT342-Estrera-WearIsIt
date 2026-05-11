@@ -1,0 +1,93 @@
+Folder PATH listing
+Volume serial number is 18FE-F61A
+C:.
+|   .env
+|   .gitignore
+|   eslint.config.js
+|   index.html
+|   old-structure.txt
+|   package-lock.json
+|   package.json
+|   README.md
+|   structure.txt
+|   tailwind.config.js
+|   vite.config.js
+|   
++---public
+|   |   vite.svg
+|   |   
+|   \---mock_data
+|           mockImages.json
+|           
+\---src
+    |   App.css
+    |   App.jsx
+    |   AuthPage.css
+    |   colors.css
+    |   index.css
+    |   index.js
+    |   main.jsx
+    |   ProfilePage.css
+    |   theme.js
+    |   
+    +---api
+    |       apiClient.js
+    |       constants.js
+    |       mockApi.js
+    |       
+    +---assets
+    |       react.svg
+    |       
+    +---components
+    |   |   ActionButton.jsx
+    |   |   CategoryField.jsx
+    |   |   GoogleSignInButton.jsx
+    |   |   LoginForm-old.jsx
+    |   |   LoginForm.jsx
+    |   |   MessageBox.jsx
+    |   |   RegisterForm-old.jsx
+    |   |   RegisterForm.jsx
+    |   |   TypeSelector.jsx
+    |   |   UploadZone.jsx
+    |   |   
+    |   +---common
+    |   |       SearchBar.jsx
+    |   |       
+    |   +---image
+    |   |       ImageCard.jsx
+    |   |       
+    |   +---layout
+    |   |       NavBar.jsx
+    |   |       
+    |   \---small
+    |           ItemTag.jsx
+    |           
+    +---context
+    |       AuthContext.jsx
+    |       
+    +---hooks
+    |       useAuth.js
+    |       useForm.js
+    |       useImages.js
+    |       useItemDetails.js
+    |       useSearch.js
+    |       useTags.js
+    |       
+    +---lib
+    |       utils.ts
+    |       
+    +---pages
+    |       AuthPage.jsx
+    |       GalleryPage.jsx
+    |       HomePage.jsx
+    |       ItemDetails.jsx
+    |       OAuthCallback.jsx
+    |       ProfilePage.jsx
+    |       UploadClothing.jsx
+    |       
+    +---services
+    |       googleAuth.js
+    |       
+    \---types
+            authTypes.js
+            

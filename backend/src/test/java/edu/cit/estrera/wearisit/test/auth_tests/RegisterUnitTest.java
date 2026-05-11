@@ -1,4 +1,4 @@
-package edu.cit.estrera.wearisit2;
+package edu.cit.estrera.wearisit.test.auth_tests;
 
 import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
 import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class AuthServiceUnitTest {
+class RegisterUnitTest {
 
     @Mock
     private UserRepository userRepository;
