@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -167,5 +168,22 @@ public class ClothingItemService {
                 .lastWorn(item.getLastWorn())
                 .createdAt(item.getCreatedAt())
                 .build();
+    }
+
+    @Transactional
+    public ClothingItemResponse wearClothingItem(Long itemId) {
+        User currentUser = securityUtil.getCurrentUser();
+        Long userId = currentUser.getUser_id();
+
+        ClothingItem item = clothingItemRepository.findByIdAndUser_Id(itemId, userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+
+        int newWearCount = (item.getItemWc() != null ? item.getItemWc() : 0) + 1;
+        item.setItemWc(newWearCount);
+
+        item.setLastWorn(LocalDateTime.now());
+
+        ClothingItem savedItem = clothingItemRepository.save(item);
+        return convertToResponse(savedItem);
     }
 }
