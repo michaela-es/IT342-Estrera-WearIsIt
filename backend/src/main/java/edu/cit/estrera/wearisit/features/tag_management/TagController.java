@@ -1,34 +1,106 @@
 package edu.cit.estrera.wearisit.features.tag_management;
 
 import edu.cit.estrera.wearisit.features.user_management.User;
+import edu.cit.estrera.wearisit.infrastructure.api.response.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/tags")
+@RequestMapping("/api/tags")
 @RequiredArgsConstructor
 public class TagController {
 
     private final TagService tagService;
 
     @PostMapping
-    public ResponseEntity<TagResponse> createTag(
+    public ResponseEntity<ApiResponse<TagDto>> createTag(
             @Valid @RequestBody CreateTagRequest request,
             Authentication authentication
     ) {
-
         User user = (User) authentication.getPrincipal();
-
         Tag tag = tagService.createTag(request, user);
 
+        TagDto tagDto = TagDto.builder()
+                .id(tag.getId())
+                .name(tag.getName())
+                .categoryId(tag.getCategory().getId())
+                .categoryName(tag.getCategory().getName())
+                .build();
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(TagResponse.from(tag));
+                .body(ApiResponse.success(tagDto));
+    }
+
+    @PutMapping("/{tagId}")
+    public ResponseEntity<ApiResponse<TagDto>> editTag(
+            @PathVariable Long tagId,
+            @Valid @RequestBody EditTagRequest request,
+            Authentication authentication
+    ) {
+        User user = (User) authentication.getPrincipal();
+        Tag tag = tagService.editTag(tagId, request, user);
+
+        TagDto tagDto = TagDto.builder()
+                .id(tag.getId())
+                .name(tag.getName())
+                .categoryId(tag.getCategory().getId())
+                .categoryName(tag.getCategory().getName())
+                .build();
+
+        return ResponseEntity.ok(ApiResponse.success(tagDto));
+    }
+
+    @DeleteMapping("/{tagId}")
+    public ResponseEntity<ApiResponse<Void>> deleteTag(
+            @PathVariable Long tagId,
+            Authentication authentication
+    ) {
+        User user = (User) authentication.getPrincipal();
+        tagService.deleteTag(tagId, user);
+        return ResponseEntity.ok(ApiResponse.success(null));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<TagDto>>> getUserTags(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        List<Tag> tags = tagService.getTagsByUser(user.getUser_id());
+
+        List<TagDto> tagDtos = tags.stream()
+                .map(tag -> TagDto.builder()
+                        .id(tag.getId())
+                        .name(tag.getName())
+                        .categoryId(tag.getCategory().getId())
+                        .categoryName(tag.getCategory().getName())
+                        .build())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(ApiResponse.success(tagDtos));
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<ApiResponse<List<TagDto>>> getTagsByCategory(
+            @PathVariable Long categoryId,
+            Authentication authentication
+    ) {
+        User user = (User) authentication.getPrincipal();
+        List<Tag> tags = tagService.getTagsByCategoryAndUser(categoryId, user.getUser_id());
+
+        List<TagDto> tagDtos = tags.stream()
+                .map(tag -> TagDto.builder()
+                        .id(tag.getId())
+                        .name(tag.getName())
+                        .categoryId(categoryId)
+                        .categoryName(tag.getCategory().getName())
+                        .build())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(ApiResponse.success(tagDtos));
     }
 }

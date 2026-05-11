@@ -33,8 +33,8 @@ public enum ErrorCode {
     CAT_001("CAT-001", "Category not found"),
     CAT_002("CAT-002", "Category already exists"),
     CAT_003("CAT-003", "Cannot delete category with existing tags"),
-    CAT_004("CAT-004", "Category name cannot be empty");
-
+    CAT_004("CAT-004", "Category name cannot be empty"),
+    TAG_001("TAG-001", "Tag is in use and cannot be deleted");
     private final String code;
     private final String message;
 

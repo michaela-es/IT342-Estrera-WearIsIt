@@ -25,4 +25,10 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
     Optional<Tag> findByIdAndUserId(Long id, Long userId);
 
     boolean existsByCategoryId(Long categoryId);
+
+    List<Tag> findByUserId(Long userId);
+    List<Tag> findByCategoryIdAndUserId(Long categoryId, Long userId);
+
+    @Query("SELECT COUNT(i) > 0 FROM ClothingItem i JOIN i.tags t WHERE t.id = :tagId")
+    boolean isReferencedInItems(Long tagId);
 }

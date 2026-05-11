@@ -103,7 +103,18 @@ public class TagService {
     public void deleteTag(Long tagId, User user) {
         Tag tag = tagRepository.findByIdAndUserId(tagId, user.getUser_id())
                 .orElseThrow(() -> new ApiException(ErrorCode.ITEM_005, "Tag not found or doesn't belong to you"));
+        if (tagRepository.isReferencedInItems(tagId)) {
+            throw new ApiException(ErrorCode.TAG_001);
+        }
 
         tagRepository.delete(tag);
+    }
+
+    public List<Tag> getTagsByUser(Long userId) {
+        return tagRepository.findByUserId(userId);
+    }
+
+    public List<Tag> getTagsByCategoryAndUser(Long categoryId, Long userId) {
+        return tagRepository.findByCategoryIdAndUserId(categoryId, userId);
     }
 }
