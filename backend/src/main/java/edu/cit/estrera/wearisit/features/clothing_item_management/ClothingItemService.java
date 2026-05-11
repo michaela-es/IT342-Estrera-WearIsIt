@@ -17,6 +17,9 @@ import edu.cit.estrera.wearisit.features.tag_management.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -185,5 +188,14 @@ public class ClothingItemService {
 
         ClothingItem savedItem = clothingItemRepository.save(item);
         return convertToResponse(savedItem);
+    }
+
+    public Page<ClothingItemResponse> getUserClothingItems(int page, int size) {
+        User currentUser = securityUtil.getCurrentUser();
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<ClothingItem> items = clothingItemRepository.findByUser_Id(currentUser.getUser_id(), pageable);
+
+        return items.map(this::convertToResponse);
     }
 }
