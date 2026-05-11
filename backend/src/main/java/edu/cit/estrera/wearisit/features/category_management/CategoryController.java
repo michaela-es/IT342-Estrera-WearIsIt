@@ -47,17 +47,26 @@ public class CategoryController {
     }
 
     @PutMapping("/{categoryId}")
-    public ResponseEntity<ApiResponse<Category>> editCategory(@PathVariable Long categoryId,
-                                                              @RequestBody EditCategoryRequest request) {
+    public ResponseEntity<ApiResponse<CategoryDto>> editCategory(
+            @PathVariable Long categoryId,
+            @RequestBody EditCategoryRequest request) {
+
         User user = securityUtil.getCurrentUser();
         Category category = categoryService.editCategory(categoryId, request, user);
-        return ResponseEntity.ok(ApiResponse.success(category));
+
+        CategoryDto dto = CategoryDto.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .build();
+
+        return ResponseEntity.ok(ApiResponse.success(dto));
     }
 
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable Long categoryId) {
+    public ResponseEntity<ApiResponse<String>> deleteCategory(@PathVariable Long categoryId) {
         User user = securityUtil.getCurrentUser();
         categoryService.deleteCategory(categoryId, user);
-        return ResponseEntity.ok(ApiResponse.success(null));
+
+        return ResponseEntity.ok(ApiResponse.success("Category deleted successfully"));
     }
 }
