@@ -48,7 +48,7 @@ public class CategoryService {
         List<Category> categories = categoryRepository.findByIdInAndUser_Id(categoryIds, userId);
 
         if (categories.size() != categoryIds.size()) {
-            throw new ApiException(ErrorCode.ITEM_003, "One or more categories not found or don't belong to you");
+            throw new ApiException(ErrorCode.CAT_001);
         }
 
         return categories;
@@ -81,4 +81,39 @@ public class CategoryService {
                 })
                 .collect(Collectors.toList());
     }
+    public Category editCategory(Long categoryId, EditCategoryRequest request, User user) {
+        Category category = categoryRepository.findByIdAndUser_Id(categoryId, user.getUser_id())
+                .orElseThrow(() -> new ApiException(ErrorCode.CAT_001));
+
+        if (request.getName() != null && !request.getName().equals(category.getName())) {
+            boolean exists = categoryRepository.existsByNameAndUser_IdAndIdNot(
+                    request.getName(),
+                    user.getUser_id(),
+                    categoryId
+            );
+
+            if (exists) {
+                throw new ApiException(ErrorCode.CAT_002);
+            }
+
+            category.setName(request.getName());
+        }
+
+        return categoryRepository.save(category);
+    }
+
+    @Transactional
+    public void deleteCategory(Long categoryId, User user) {
+        Category category = categoryRepository.findByIdAndUser_Id(categoryId, user.getUser_id())
+                .orElseThrow(() -> new ApiException(ErrorCode.CAT_001));
+
+        boolean hasTags = tagRepository.existsByCategoryId(categoryId);
+
+        if (hasTags) {
+            throw new ApiException(ErrorCode.CAT_003);
+        }
+
+        categoryRepository.delete(category);
+    }
+
 }

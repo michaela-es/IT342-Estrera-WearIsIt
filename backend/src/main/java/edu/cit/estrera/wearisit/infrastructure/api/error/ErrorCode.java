@@ -28,8 +28,12 @@ public enum ErrorCode {
 
     FILE_001("FILE-001", "File size exceeds the maximum limit of 10MB"),
     FILE_002("FILE-002", "Invalid file type"),
+    SYSTEM_001("SYSTEM-001", "Internal server error"),
 
-    SYSTEM_001("SYSTEM-001", "Internal server error");
+    CAT_001("CAT-001", "Category not found"),
+    CAT_002("CAT-002", "Category already exists"),
+    CAT_003("CAT-003", "Cannot delete category with existing tags"),
+    CAT_004("CAT-004", "Category name cannot be empty");
 
     private final String code;
     private final String message;

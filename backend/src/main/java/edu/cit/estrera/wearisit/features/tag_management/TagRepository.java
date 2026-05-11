@@ -23,4 +23,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
     boolean existsByNameAndCategoryIdAndUserId(@NotBlank String name, Long id, Long userId);
 
     Optional<Tag> findByIdAndUserId(Long id, Long userId);
+
+    boolean existsByCategoryId(Long categoryId);
 }

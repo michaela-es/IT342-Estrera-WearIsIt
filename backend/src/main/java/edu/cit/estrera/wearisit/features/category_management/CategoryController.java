@@ -1,5 +1,6 @@
 package edu.cit.estrera.wearisit.features.category_management;
 
+import edu.cit.estrera.wearisit.features.user_management.User;
 import edu.cit.estrera.wearisit.infrastructure.api.response.ApiResponse;
 import edu.cit.estrera.wearisit.infrastructure.security.SecurityUtil;
 import jakarta.validation.Valid;
@@ -40,8 +41,23 @@ public class CategoryController {
     }
 
     @GetMapping("/with-tags")
-    public ResponseEntity<List<CategoryWithTagsDTO>> getCategoriesWithTags() {
+    public ResponseEntity<ApiResponse<List<CategoryWithTagsDTO>>> getCategoriesWithTags() {
         List<CategoryWithTagsDTO> categories = categoryService.getCategoriesWithTagsForCurrentUser();
-        return ResponseEntity.ok(categories);
+        return ResponseEntity.ok(ApiResponse.success(categories));
+    }
+
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<ApiResponse<Category>> editCategory(@PathVariable Long categoryId,
+                                                              @RequestBody EditCategoryRequest request) {
+        User user = securityUtil.getCurrentUser();
+        Category category = categoryService.editCategory(categoryId, request, user);
+        return ResponseEntity.ok(ApiResponse.success(category));
+    }
+
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable Long categoryId) {
+        User user = securityUtil.getCurrentUser();
+        categoryService.deleteCategory(categoryId, user);
+        return ResponseEntity.ok(ApiResponse.success(null));
     }
 }
