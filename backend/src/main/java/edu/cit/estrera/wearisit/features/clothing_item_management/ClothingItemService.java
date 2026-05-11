@@ -64,6 +64,55 @@ public class ClothingItemService {
         return convertToResponse(savedItem);
     }
 
+    @Transactional
+    public ClothingItemResponse editClothingItem(Long itemId, EditClothingItemRequest request) {
+        User currentUser = securityUtil.getCurrentUser();
+        Long userId = currentUser.getUser_id();
+
+        ClothingItem item = clothingItemRepository.findByIdAndUser_Id(itemId, userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+
+        if (request.getItemName() != null && !request.getItemName().equals(item.getItemName())) {
+            item.setItemName(request.getItemName());
+        }
+
+        if (request.getTypeId() != null && !request.getTypeId().equals(item.getType().getId())) {
+            ItemType type = itemTypeRepository.findById(request.getTypeId())
+                    .orElseThrow(() -> new ApiException(ErrorCode.ITEM_003));
+            item.setType(type);
+        }
+
+        if (request.getCategoryIds() != null) {
+            List<Category> categories = categoryService.getCategoriesByIdsAndUser(request.getCategoryIds(), userId);
+            item.getCategories().clear();
+            if (!categories.isEmpty()) {
+                item.getCategories().addAll(new HashSet<>(categories));
+            }
+        }
+
+        if (request.getTagIds() != null) {
+            List<Tag> tags = tagService.getTagsByIdsAndUser(request.getTagIds(), userId);
+            item.getTags().clear();
+            if (!tags.isEmpty()) {
+                item.getTags().addAll(new ArrayList<>(tags));
+            }
+        }
+
+        ClothingItem savedItem = clothingItemRepository.save(item);
+        return convertToResponse(savedItem);
+    }
+
+    @Transactional
+    public void deleteClothingItem(Long itemId) {
+        User currentUser = securityUtil.getCurrentUser();
+        Long userId = currentUser.getUser_id();
+
+        ClothingItem item = clothingItemRepository.findByIdAndUser_Id(itemId, userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+
+        clothingItemRepository.delete(item);
+    }
+
     @Transactional(readOnly = true)
     public ClothingItemResponse getClothingItem(Long id) {
         User currentUser = securityUtil.getCurrentUser();
