@@ -40,7 +40,6 @@ public class CategoryService {
                 categoryRepository.findById(categoryId).map(Category::getName).orElse(null) : null;
     }
 
-
     public List<Category> getCategoriesByIdsAndUser(List<Long> categoryIds, Long userId) {
         if (categoryIds == null || categoryIds.isEmpty()) {
             return new ArrayList<>();
