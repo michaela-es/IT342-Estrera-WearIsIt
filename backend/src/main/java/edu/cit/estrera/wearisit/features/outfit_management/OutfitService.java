@@ -116,7 +116,11 @@ public class OutfitService {
         }
 
         for (Map.Entry<Long, Integer> entry : typeCount.entrySet()) {
-            String typeName = typeNames.get(entry.getKey()).toUpperCase();
+            String typeName = Optional.ofNullable(typeNames.get(entry.getKey()))
+                    .orElse("")
+                    .trim()
+                    .toUpperCase();
+
             int count = entry.getValue();
             switch (typeName) {
                 case "TOP"       -> { if (count > MAX_TOP)        violations.add("Max " + MAX_TOP + " TOP item(s), found " + count); }
