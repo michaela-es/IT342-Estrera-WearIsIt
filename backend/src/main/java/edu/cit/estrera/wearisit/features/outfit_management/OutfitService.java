@@ -146,7 +146,7 @@ public class OutfitService {
             CreateOutfitItemRequest dto = dtos.get(i);
             ClothingItem ci = clothingItemRepository.findById(dto.getItemId())
                     .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
-            if (!ci.getUser().getId().equals(userId)) {
+            if (!ci.getUser().getUser_id().equals(userId)) {
                 throw new ApiException(ErrorCode.OUTFIT_005);
             }
             OutfitItem oi = new OutfitItem();
