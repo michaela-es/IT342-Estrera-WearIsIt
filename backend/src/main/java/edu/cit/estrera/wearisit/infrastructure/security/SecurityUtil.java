@@ -1,5 +1,6 @@
 package edu.cit.estrera.wearisit.infrastructure.security;
 
+import edu.cit.estrera.wearisit.features.outfit_management.OutfitRepository;
 import edu.cit.estrera.wearisit.features.user_management.User;
 import edu.cit.estrera.wearisit.features.category_management.CategoryRepository;
 import edu.cit.estrera.wearisit.features.clothing_item_management.ClothingItemRepository;
@@ -11,9 +12,12 @@ import org.springframework.stereotype.Component;
 public class SecurityUtil {
     private final ClothingItemRepository clothingItemRepository;
     private final CategoryRepository categoryRepository;
-    public SecurityUtil(ClothingItemRepository clothingItemRepository, CategoryRepository categoryRepository) {
+    private final OutfitRepository outfitRepository;
+
+    public SecurityUtil(ClothingItemRepository clothingItemRepository, CategoryRepository categoryRepository, OutfitRepository outfitRepository) {
         this.clothingItemRepository = clothingItemRepository;
         this.categoryRepository = categoryRepository;
+        this.outfitRepository = outfitRepository;
     }
 
     public User getCurrentUser() {
@@ -49,5 +53,12 @@ public class SecurityUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean isOutfitOwner(Long outfitId) {
+        Long currentUserId = getCurrentUserId();
+        return outfitRepository.findById(outfitId)
+                .map(outfit -> outfit.getUser().getUser_id().equals(currentUserId))
+                .orElse(false);
     }
 }
