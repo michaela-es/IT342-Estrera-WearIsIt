@@ -34,7 +34,15 @@ public enum ErrorCode {
     CAT_002("CAT-002", "Category already exists"),
     CAT_003("CAT-003", "Cannot delete category with existing tags"),
     CAT_004("CAT-004", "Category name cannot be empty"),
-    TAG_001("TAG-001", "Tag is in use and cannot be deleted");
+    TAG_001("TAG-001", "Tag is in use and cannot be deleted"),
+
+    OUTFIT_001("OUTFIT-001", "Outfit not found"),
+    OUTFIT_002("OUTFIT-002", "You don't own this outfit"),
+    OUTFIT_003("OUTFIT-003", "Invalid outfit composition"),
+    OUTFIT_004("OUTFIT-004", "Duplicate items in outfit"),
+    OUTFIT_005("OUTFIT-005", "Item does not belong to user"),
+    OUTFIT_006("OUTFIT-006", "Unknown item type"),
+    OUTFIT_007("OUTFIT-007", "Outfit must have between 2 and 8 items");
     private final String code;
     private final String message;
 
