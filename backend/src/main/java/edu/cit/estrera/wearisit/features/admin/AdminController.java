@@ -14,14 +14,14 @@ public class AdminController {
     private final AdminService adminWhitelistService;
     private final AdminService adminService;
 
-    @GetMapping("/check-email")
+    @GetMapping("pre/check-email")
     public ResponseEntity<ApiResponse<CheckEmailResponse>> checkEmail(@RequestParam("email") String email) {
         boolean allowed = adminWhitelistService.isEmailWhitelisted(email);
         CheckEmailResponse resp = new CheckEmailResponse(email, allowed);
         return ResponseEntity.ok(ApiResponse.success(resp));
     }
 
-    @PostMapping("/register")
+    @PostMapping("pre/register")
     public ResponseEntity<ApiResponse<AuthResponse>> register(@RequestBody RegisterRequest request) {
         AuthResponse response = adminService.registerAdminIfWhitelisted(request);
         return ResponseEntity.ok(ApiResponse.success(response));
