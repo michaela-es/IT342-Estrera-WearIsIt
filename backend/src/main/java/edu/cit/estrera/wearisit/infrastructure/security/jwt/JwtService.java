@@ -80,7 +80,7 @@ public class JwtService {
                     .claim("email", email)
                     .claim("type", "verification")
                     .issuedAt(new Date(System.currentTimeMillis()))
-                    .expiration(new Date(System.currentTimeMillis() + 900000))
+                    .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
                     .signWith(getSignInKey(), Jwts.SIG.HS256)
                     .compact();
         } catch (Exception e) {
@@ -142,5 +142,17 @@ public class JwtService {
 
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
+    }
+
+    public String extractEmailFromVerificationToken(String token) {
+        try {
+            if (!isTokenValid(token) || !isTokenType(token, "verification")) {
+                return null;
+            }
+            return extractEmail(token);
+        } catch (Exception e) {
+            System.err.println("ERROR extracting email from verification token: " + e.getMessage());
+            return null;
+        }
     }
 }

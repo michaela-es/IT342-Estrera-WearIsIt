@@ -1,5 +1,8 @@
 package edu.cit.estrera.wearisit.infrastructure.api.error;
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorCode {
 
     AUTH_001("AUTH-001", "Invalid credentials"),
@@ -12,6 +15,7 @@ public enum ErrorCode {
     AUTH_008("AUTH-008", "Username cannot be empty"),
     AUTH_009("AUTH-009", "Username already exists"),
 
+    AUTH_010("AUTH-010","Invalid or expired token" ),
 
     VALID_001("VALID-001", "Validation failed"),
     VALID_002("VALID-002", "Missing required field"),
@@ -53,11 +57,4 @@ public enum ErrorCode {
         this.message = message;
     }
 
-    public String getCode(){
-        return code;
-    }
-
-    public String getMessage(){
-        return message;
-    }
 }
