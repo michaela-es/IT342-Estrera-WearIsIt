@@ -42,7 +42,9 @@ public enum ErrorCode {
     OUTFIT_004("OUTFIT-004", "Duplicate items in outfit"),
     OUTFIT_005("OUTFIT-005", "Item does not belong to user"),
     OUTFIT_006("OUTFIT-006", "Unknown item type"),
-    OUTFIT_007("OUTFIT-007", "Outfit must have between 2 and 8 items");
+    OUTFIT_007("OUTFIT-007", "Outfit must have between 2 and 8 items"),
+    ADMIN_001("ADMIN-001", "Email address is not authorized to register as an administrator.");
+
     private final String code;
     private final String message;
 

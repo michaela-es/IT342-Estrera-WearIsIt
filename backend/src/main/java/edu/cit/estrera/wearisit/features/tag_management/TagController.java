@@ -84,7 +84,7 @@ public class TagController {
         return ResponseEntity.ok(ApiResponse.success(tagDtos));
     }
 
-    @GetMapping("/category/{categoryId}")
+    @GetMapping("/category/{categoryId}/tags")
     public ResponseEntity<ApiResponse<List<TagDto>>> getTagsByCategory(
             @PathVariable Long categoryId,
             Authentication authentication

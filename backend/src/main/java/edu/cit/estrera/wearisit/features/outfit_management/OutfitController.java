@@ -24,7 +24,7 @@ public class OutfitController {
     private final OutfitService outfitService;
     private final SecurityUtil securityUtil;
 
-    @PostMapping
+    @PostMapping("/new")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ApiResponse<OutfitResponse>> createOutfit(
             @Valid @RequestBody CreateOutfitRequest request) {
