@@ -5,6 +5,7 @@ import edu.cit.estrera.wearisit.infrastructure.api.response.ApiResponse;
 import edu.cit.estrera.wearisit.infrastructure.security.SecurityUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class CategoryController {
 
     @PostMapping
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<ApiResponse<Map<String, Object>>> createCategory(
+    public ResponseEntity<ApiResponse<Object>> createCategory(
             @Valid @RequestBody CreateCategoryRequest request) {
 
         Category category = categoryService.createCategory(
@@ -32,15 +33,16 @@ public class CategoryController {
                 securityUtil.getCurrentUser()
         );
 
-        Map<String, Object> categoryData = new HashMap<>();
-        categoryData.put("id", category.getId());
-        categoryData.put("name", category.getName());
-        categoryData.put("itemCount", 0);
-        categoryData.put("createdAt", category.getCreatedAt());
+        CategoryResponseDTO responseDTO = CategoryResponseDTO.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .itemCount(0)
+                .createdAt(category.getCreatedAt())
+                .build();
 
-        return ResponseEntity.ok(ApiResponse.success(categoryData));
+        return ResponseEntity.ok(ApiResponse.success(responseDTO));
     }
-
+    
     @GetMapping("/with-tags")
     public ResponseEntity<ApiResponse<List<CategoryWithTagsDTO>>> getCategoriesWithTags() {
         List<CategoryWithTagsDTO> categories = categoryService.getCategoriesWithTagsForCurrentUser();
