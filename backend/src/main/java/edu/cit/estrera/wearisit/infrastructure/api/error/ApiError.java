@@ -13,6 +13,17 @@ public class ApiError {
         this.message = message;
         this.details = details;
     }
+    public ApiError(ErrorCode errorCode) {
+        this.code = errorCode.getCode();
+        this.message = errorCode.getMessage();
+        this.details = null;
+    }
+
+    public ApiError(ErrorCode errorCode, Object details) {
+        this.code = errorCode.getCode();
+        this.message = errorCode.getMessage();
+        this.details = details;
+    }
 
     public String getCode() {
         return code;

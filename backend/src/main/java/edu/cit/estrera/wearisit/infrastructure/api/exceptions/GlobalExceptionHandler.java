@@ -1,4 +1,5 @@
 package edu.cit.estrera.wearisit.infrastructure.api.exceptions;
+import org.springframework.security.access.AccessDeniedException;
 
 import edu.cit.estrera.wearisit.infrastructure.api.error.ApiError;
 import edu.cit.estrera.wearisit.infrastructure.api.response.ApiResponse;
@@ -44,4 +45,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ApiResponse.error(error));
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiResponse<?>> handleAccessDenied(AccessDeniedException e) {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(ApiResponse.error(new ApiError(ErrorCode.ADMIN_002)));
+    }
 }
