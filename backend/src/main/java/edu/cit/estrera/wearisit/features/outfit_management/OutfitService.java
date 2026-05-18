@@ -44,7 +44,6 @@ public class OutfitService {
 
         Outfit outfit = new Outfit();
         outfit.setOutfitName(request.getOutfitName());
-        outfit.setCoverImageUrl(request.getCoverImageUrl());
         outfit.setUser(user);
         outfit.setOutfitItems(buildOutfitItems(outfit, request.getItems(), userId));
         outfit.setOutfitWc(sumWc(outfit.getOutfitItems()));

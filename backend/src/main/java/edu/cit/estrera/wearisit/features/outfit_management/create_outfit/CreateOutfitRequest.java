@@ -13,8 +13,6 @@ public class CreateOutfitRequest {
     @NotBlank(message = "Outfit name is required")
     private String outfitName;
 
-    private String coverImageUrl;
-
     @NotNull(message = "Items list is required")
     @Size(min = 2, max = 8, message = "Outfit must have between 2 and 8 items")
     @Valid

@@ -4,6 +4,7 @@ import edu.cit.estrera.wearisit.infrastructure.api.response.ApiResponse;
 import edu.cit.estrera.wearisit.infrastructure.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,4 +34,12 @@ public class OutfitImageController {
 
         return ResponseEntity.ok(ApiResponse.success(data));
     }
+
+    @DeleteMapping("/{id}/image")
+    @PreAuthorize("@securityUtil.isOutfitOwner(#outfitId)")
+    public ResponseEntity<ApiResponse<Void>> deleteOutfitImage(@PathVariable("id") Long outfitId) {
+        outfitImageService.deleteOutfitImage(outfitId);
+        return ResponseEntity.ok(ApiResponse.success(null));
+    }
+
 }

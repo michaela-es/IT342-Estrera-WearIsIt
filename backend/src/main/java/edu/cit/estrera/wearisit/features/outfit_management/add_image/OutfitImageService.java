@@ -24,22 +24,51 @@ public class OutfitImageService {
 
     @Transactional
     public String saveOutfitImage(Long outfitId, MultipartFile file) throws IOException {
+        Outfit outfit = getOwnedOutfit(outfitId);
+        String imageUrl = uploadImage(file);
+        outfit.setCoverImageUrl(imageUrl);
+        outfitRepository.save(outfit);
+        return imageUrl;
+    }
 
+    @Transactional
+    public String updateOutfitImage(Long outfitId, MultipartFile file) throws IOException {
+        Outfit outfit = getOwnedOutfit(outfitId);
+
+        if (outfit.getCoverImageUrl() != null && !outfit.getCoverImageUrl().isEmpty()) {
+            fileStorageService.deleteFile(outfit.getCoverImageUrl());
+        }
+
+        String imageUrl = uploadImage(file);
+        outfit.setCoverImageUrl(imageUrl);
+        outfitRepository.save(outfit);
+        return imageUrl;
+    }
+
+    @Transactional
+    public void deleteOutfitImage(Long outfitId) {
+        Outfit outfit = getOwnedOutfit(outfitId);
+
+        if (outfit.getCoverImageUrl() != null && !outfit.getCoverImageUrl().isEmpty()) {
+            fileStorageService.deleteFile(outfit.getCoverImageUrl());
+            outfit.setCoverImageUrl(null);
+            outfitRepository.save(outfit);
+        }
+    }
+
+    private Outfit getOwnedOutfit(Long outfitId) {
         Outfit outfit = outfitRepository.findById(outfitId)
                 .orElseThrow(() -> new ApiException(ErrorCode.OUTFIT_001));
 
         if (!outfit.getUser().getUser_id().equals(securityUtil.getCurrentUser().getUser_id())) {
             throw new ApiException(ErrorCode.OUTFIT_002);
         }
+        return outfit;
+    }
 
+    private String uploadImage(MultipartFile file) throws IOException {
         String userFolderSecret = UUID.randomUUID().toString();
         String folderPath = "users/" + userFolderSecret + "/outfits";
-
-        String imageUrl = fileStorageService.uploadFile(file, folderPath);
-
-        outfit.setCoverImageUrl(imageUrl);
-        outfitRepository.save(outfit);
-
-        return imageUrl;
+        return fileStorageService.uploadFile(file, folderPath);
     }
 }
