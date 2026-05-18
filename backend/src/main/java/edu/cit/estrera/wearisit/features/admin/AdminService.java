@@ -3,14 +3,22 @@ package edu.cit.estrera.wearisit.features.admin;
 import edu.cit.estrera.wearisit.features.auth.AuthResponse;
 import edu.cit.estrera.wearisit.features.auth.AuthService;
 import edu.cit.estrera.wearisit.features.auth.RegisterRequest;
-import edu.cit.estrera.wearisit.features.user_management.User;
-import edu.cit.estrera.wearisit.features.user_management.UserRepository;
+import edu.cit.estrera.wearisit.features.clothing_item_management.ClothingItemRepository;
+import edu.cit.estrera.wearisit.features.outfit_management.OutfitRepository;
+import edu.cit.estrera.wearisit.features.user_management.*;
 import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
 import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
 import edu.cit.estrera.wearisit.infrastructure.security.jwt.JwtService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +28,9 @@ public class AdminService {
     private final AuthService authService;
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final ClothingItemRepository clothingItemRepository;
+    private final OutfitRepository outfitRepository;
+
 
     public boolean isEmailWhitelisted(String email) {
         if (email == null) return false;
@@ -47,6 +58,63 @@ public class AdminService {
                 .accessToken(adminAccess)
                 .refreshToken(resp.getRefreshToken())
                 .user(resp.getUser())
+                .build();
+    }
+
+    public PaginatedUserResponse getAllUsers(int page, int limit) {
+        Pageable pageable = PageRequest.of(page - 1, limit);
+        Page<User> userPage = userRepository.findAllValidUsers(pageable);
+
+        List<User> users = userPage.getContent();
+
+        List<Long> userIds = users.stream().map(User::getUser_id).toList();
+
+        Map<Long, Object[]> itemStats = clothingItemRepository.getStatsByUserIds(userIds)
+                .stream().collect(Collectors.toMap(arr -> (Long) arr[0], arr -> arr));
+
+        Map<Long, Long> outfitCounts = outfitRepository.getOutfitCountsByUserIds(userIds)
+                .stream().collect(Collectors.toMap(arr -> (Long) arr[0], arr -> (Long) arr[1]));
+
+        List<AdminUserResponse> userResponses = users.stream()
+                .map(user -> mapToAdminResponse(user, itemStats, outfitCounts))
+                .collect(Collectors.toList());
+
+        long totalUsers = userRepository.countValidUsers();
+        int totalPages = (int) Math.ceil((double) totalUsers / limit);
+
+        return PaginatedUserResponse.builder()
+                .users(userResponses)
+                .pagination(PaginatedUserResponse.Pagination.builder()
+                        .currentPage(page)
+                        .totalPages(totalPages)
+                        .totalUsers(totalUsers)
+                        .limit(limit)
+                        .build())
+                .build();
+    }
+
+    private AdminUserResponse mapToAdminResponse(User user,
+                                                 Map<Long, Object[]> itemStats,
+                                                 Map<Long, Long> outfitCounts) {
+        Object[] stats = itemStats.get(user.getUser_id());
+        int totalItems = stats != null ? ((Long) stats[1]).intValue() : 0;
+        int totalWears = stats != null ? ((Long) stats[2]).intValue() : 0;
+        int totalOutfits = outfitCounts.getOrDefault(user.getUser_id(), 0L).intValue();
+
+        return AdminUserResponse.builder()
+                .id(user.getUser_id())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .role(user.getRole() != null ? user.getRole() : "USER")
+                .provider(user.getProvider() != null ? user.getProvider() : "LOCAL")
+                .createdAt(user.getCreatedAt())
+                .stats(UserStats.builder()
+                        .totalItems(totalItems)
+                        .totalOutfits(totalOutfits)
+                        .totalWears(totalWears)
+                        .lastActive(user.getLastLogin() != null ?
+                                user.getLastLogin().toString() : null)
+                        .build())
                 .build();
     }
 }

@@ -18,4 +18,10 @@ public interface OutfitRepository extends JpaRepository<Outfit, Long> {
     List<Outfit> findRecentByUserId(@Param("userId") Long userId, Pageable pageable);
     Optional<Outfit> findByIdAndUser_Id(Long itemId, Long userId);
 
+    @Query("SELECT o.user.id, COUNT(o) " +
+            "FROM Outfit o " +
+            "WHERE o.user.id IN :userIds " +
+            "GROUP BY o.user.id")
+    List<Object[]> getOutfitCountsByUserIds(@Param("userIds") List<Long> userIds);
+
 }

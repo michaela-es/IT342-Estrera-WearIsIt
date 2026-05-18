@@ -6,6 +6,8 @@ import edu.cit.estrera.wearisit.infrastructure.api.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import edu.cit.estrera.wearisit.features.user_management.PaginatedUserResponse;
+
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
@@ -27,4 +29,12 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<ApiResponse<PaginatedUserResponse>> getAllUsers(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "50") int limit
+    ) {
+        PaginatedUserResponse response = adminService.getAllUsers(page, limit);
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
 }

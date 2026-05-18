@@ -53,13 +53,13 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                     newUser.setProvider("GOOGLE");
                     newUser.setProviderId(googleId);
                     newUser.setEnabled(true);
-                    newUser.setIs_active(true);
+                    newUser.setIsActive(true);
                     newUser.setRole("USER");
-                    newUser.setCreated_at(LocalDateTime.now());
+                    newUser.setCreatedAt(LocalDateTime.now());
                     return userRepository.save(newUser);
                 });
 
-        user.setLast_login(LocalDateTime.now());
+        user.setLastLogin(LocalDateTime.now());
         userRepository.save(user);
 
         String accessToken = jwtService.generateAccessToken(user.getUser_id());

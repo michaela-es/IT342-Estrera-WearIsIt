@@ -99,7 +99,7 @@ public AuthResponse register(RegisterRequest request) {
     user.setEmail(request.getEmail());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setEnabled(false);
-    user.setIs_active(true);
+    user.setIsActive(true);
     user.setEnabled(false);
 
     user = userRepository.save(user);
@@ -134,7 +134,7 @@ public AuthResponse register(RegisterRequest request) {
             throw new ApiException(ErrorCode.AUTH_001);
         }
 
-        user.setLast_login(LocalDateTime.now());
+        user.setLastLogin(LocalDateTime.now());
         userRepository.save(user);
 
         String accessToken = jwtService.generateAccessToken(user.getUser_id());
@@ -181,7 +181,7 @@ public AuthResponse register(RegisterRequest request) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ApiException(ErrorCode.AUTH_005));
 
-        if (user.isEnabled()) {
+        if (user.getEnabled()) {
             return;
         }
 

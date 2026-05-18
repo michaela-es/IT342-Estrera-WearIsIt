@@ -2,6 +2,7 @@ package edu.cit.estrera.wearisit.features.clothing_item_management;
 
 import edu.cit.estrera.wearisit.features.user_management.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Page;
@@ -24,4 +25,10 @@ public interface ClothingItemRepository extends JpaRepository<ClothingItem, Long
     Optional<ClothingItem> findByIdAndUser_Id(Long itemId, Long userId);
 
     Page<ClothingItem> findByUser_Id(Long userId, Pageable pageable);
+
+    @Query("SELECT i.user.id, COUNT(i), COALESCE(SUM(i.itemWc), 0) " +
+            "FROM ClothingItem i " +
+            "WHERE i.user.id IN :userIds " +
+            "GROUP BY i.user.id")
+    List<Object[]> getStatsByUserIds(@Param("userIds") List<Long> userIds);
 }
