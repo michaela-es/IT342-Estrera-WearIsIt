@@ -56,6 +56,46 @@ public class FileStorageService {
         return supabaseUrl + "/storage/v1/object/public/" + bucketName + "/" + fullPath;
     }
 
+//    public void deleteFile(String imageUrl) {
+//        if (imageUrl == null || imageUrl.isBlank()) {
+//            System.err.println("Delete skipped: Provided image URL is null or empty.");
+//            return;
+//        }
+//
+//        try {
+//            String path = extractPathFromUrl(imageUrl);
+//
+//            String deleteUrl = supabaseUrl + "/storage/v1/object/remove/" + bucketName;
+//
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.set("Authorization", "Bearer " + serviceRoleKey);
+//            headers.set("apikey", serviceRoleKey);
+//            headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//            Map<String, Object> body = Collections.singletonMap(
+//                    "prefixes",
+//                    Collections.singletonList(path)
+//            );
+//
+//            HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
+//
+//            ResponseEntity<String> response = restTemplate.postForEntity(deleteUrl, entity, String.class);
+//
+//            if (response.getStatusCode().is2xxSuccessful()) {
+//                System.out.println("Successfully deleted file from Supabase: " + path);
+//            } else {
+//                System.err.println("Supabase responded with an error status: " + response.getStatusCode()
+//                        + " - " + response.getBody());
+//            }
+//
+//        } catch (ApiException e) {
+//            System.err.println("Failed to parse image URL: " + e.getMessage());
+//        } catch (Exception e) {
+//            System.err.println("An unexpected error occurred while deleting file: " + imageUrl);
+//            e.printStackTrace();
+//        }
+//    }
+
     public void deleteFile(String imageUrl) {
         if (imageUrl == null || imageUrl.isBlank()) {
             System.err.println("Delete skipped: Provided image URL is null or empty.");
@@ -63,29 +103,31 @@ public class FileStorageService {
         }
 
         try {
+            // 1. Extract relative path (e.g., "users/abc/items/xyz.png")
             String path = extractPathFromUrl(imageUrl);
 
-            String deleteUrl = supabaseUrl + "/storage/v1/object/list/" + bucketName;
+            // 2. Build the exact endpoint URL matching the Supabase REST spec
+            String deleteUrl = supabaseUrl + "/storage/v1/object/" + bucketName + "/" + path;
 
+            // 3. Attach authentication tokens
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + serviceRoleKey);
             headers.set("apikey", serviceRoleKey);
-            headers.setContentType(MediaType.APPLICATION_JSON);
 
-            Map<String, Object> body = Collections.singletonMap(
-                    "prefixes",
-                    Collections.singletonList(path)
+            HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+            // 4. Use the proper HTTP DELETE method
+            ResponseEntity<Void> response = restTemplate.exchange(
+                    deleteUrl,
+                    HttpMethod.DELETE,
+                    entity,
+                    Void.class
             );
-
-            HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
-
-            ResponseEntity<String> response = restTemplate.postForEntity(deleteUrl, entity, String.class);
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 System.out.println("Successfully deleted file from Supabase: " + path);
             } else {
-                System.err.println("Supabase responded with an error status: " + response.getStatusCode()
-                        + " - " + response.getBody());
+                System.err.println("Supabase responded with status: " + response.getStatusCode());
             }
 
         } catch (ApiException e) {
