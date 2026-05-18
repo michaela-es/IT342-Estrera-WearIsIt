@@ -37,4 +37,12 @@ public class AdminController {
         PaginatedUserResponse response = adminService.getAllUsers(page, limit);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
+
+    @GetMapping("/stats")
+    public ResponseEntity<ApiResponse<SystemStatsResponse>> getSystemStats() {
+
+        SystemStatsResponse response = adminService.getSystemStats();
+
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
 }

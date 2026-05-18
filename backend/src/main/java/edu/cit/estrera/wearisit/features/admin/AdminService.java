@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import edu.cit.estrera.wearisit.features.admin.SystemStatsResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,6 @@ public class AdminService {
     private final JwtService jwtService;
     private final ClothingItemRepository clothingItemRepository;
     private final OutfitRepository outfitRepository;
-
 
     public boolean isEmailWhitelisted(String email) {
         if (email == null) return false;
@@ -115,6 +115,54 @@ public class AdminService {
                         .lastActive(user.getLastLogin() != null ?
                                 user.getLastLogin().toString() : null)
                         .build())
+                .build();
+    }
+
+    public SystemStatsResponse getSystemStats() {
+
+        SystemStatsProjection p = userRepository.getSystemStats();
+
+        SystemStatsResponse.OverviewStats overview =
+                SystemStatsResponse.OverviewStats.builder()
+                        .totalUsers(p.getTotalUsers())
+                        .totalItems(p.getTotalItems())
+                        .totalOutfits(p.getTotalOutfits())
+                        .totalWears(p.getTotalWears())
+                        .totalCategories(p.getTotalCategories())
+                        .totalTags(p.getTotalTags())
+                        .build();
+
+        SystemStatsResponse.UserStats userStats =
+                SystemStatsResponse.UserStats.builder()
+                        .activeToday(p.getActiveToday())
+                        .activeThisWeek(p.getActiveWeek())
+                        .activeThisMonth(p.getActiveMonth())
+                        .newUsersThisMonth(p.getNewUsersMonth())
+                        .build();
+
+        SystemStatsResponse.MostActiveUser mostActiveUser = null;
+
+        if (p.getMostActiveUserId() != null) {
+            mostActiveUser = SystemStatsResponse.MostActiveUser.builder()
+                    .id(p.getMostActiveUserId())
+                    .username(p.getMostActiveUsername())
+                    .totalWears(p.getMostActiveUserWears())
+                    .build();
+        }
+
+        SystemStatsResponse.SystemStats systemStats =
+                SystemStatsResponse.SystemStats.builder()
+                        .averageItemsPerUser(
+                                p.getTotalUsers() == 0 ? 0 :
+                                        Math.round(((double) p.getTotalItems() / p.getTotalUsers()) * 10) / 10.0
+                        )
+                        .mostActiveUser(mostActiveUser)
+                        .build();
+
+        return SystemStatsResponse.builder()
+                .overview(overview)
+                .userStats(userStats)
+                .systemStats(systemStats)
                 .build();
     }
 }
