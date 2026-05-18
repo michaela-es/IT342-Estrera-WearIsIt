@@ -1,5 +1,6 @@
 package edu.cit.estrera.wearisit.features.clothing_item_management;
 
+import edu.cit.estrera.wearisit.features.clothing_item_management.add_image.ItemImageService;
 import edu.cit.estrera.wearisit.features.clothing_item_management.create_item.ClothingItemResponse;
 import edu.cit.estrera.wearisit.features.clothing_item_management.create_item.CreateClothingItemRequest;
 import edu.cit.estrera.wearisit.infrastructure.api.response.ApiResponse;
@@ -10,6 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/items")
@@ -18,7 +22,7 @@ public class ClothingItemController {
 
     private final ClothingItemService clothingItemService;
     private final SecurityUtil securityUtil;
-
+    private final ItemImageService itemImageService;
     @PostMapping
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ApiResponse<ClothingItemResponse>> createClothingItem(
@@ -61,6 +65,22 @@ public class ClothingItemController {
         return ResponseEntity.ok(
                 ApiResponse.success("Clothing item deleted successfully")
         );
+    }
+    @DeleteMapping("/{id}/image")
+    @PreAuthorize("@securityUtil.isItemOwner(#id)")
+    public ResponseEntity<ApiResponse<Void>> removeItemImage(@PathVariable Long id) {
+        itemImageService.deleteItemImage(id);
+        return ResponseEntity.ok(ApiResponse.success(null));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("@securityUtil.isItemOwner(#id)")
+    public ResponseEntity<ApiResponse<ClothingItemResponse>> editClothingItem(
+            @PathVariable Long id,
+            @Valid @RequestBody EditClothingItemRequest request) {
+
+        ClothingItemResponse response = clothingItemService.editClothingItem(id, request);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
 }

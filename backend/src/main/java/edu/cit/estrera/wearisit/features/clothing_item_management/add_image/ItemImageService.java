@@ -41,4 +41,44 @@ public class ItemImageService {
 
         return imageUrl;
     }
+
+    @Transactional
+    public void deleteItemImage(Long itemId) {
+        ClothingItem item = clothingItemRepository.findById(itemId)
+                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+
+        if (!item.getUser().getUser_id().equals(securityUtil.getCurrentUser().getUser_id())) {
+            throw new ApiException(ErrorCode.ITEM_002);
+        }
+
+        if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
+            fileStorageService.deleteFile(item.getImageUrl());
+            item.setImageUrl(null);
+            clothingItemRepository.save(item);
+        }
+    }
+
+    @Transactional
+    public String updateItemImage(Long itemId, MultipartFile file) throws IOException {
+        ClothingItem item = clothingItemRepository.findById(itemId)
+                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+
+        if (!item.getUser().getUser_id().equals(securityUtil.getCurrentUser().getUser_id())) {
+            throw new ApiException(ErrorCode.ITEM_002);
+        }
+
+        if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
+            fileStorageService.deleteFile(item.getImageUrl());
+        }
+
+        String userFolderSecret = UUID.randomUUID().toString();
+        String folderPath = "users/" + userFolderSecret + "/items";
+        String imageUrl = fileStorageService.uploadFile(file, folderPath);
+
+        item.setImageUrl(imageUrl);
+        clothingItemRepository.save(item);
+
+        return imageUrl;
+    }
+
 }

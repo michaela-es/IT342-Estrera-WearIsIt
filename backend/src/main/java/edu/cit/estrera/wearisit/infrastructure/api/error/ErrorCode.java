@@ -48,7 +48,8 @@ public enum ErrorCode {
     OUTFIT_006("OUTFIT-006", "Unknown item type"),
     OUTFIT_007("OUTFIT-007", "Outfit must have between 2 and 8 items"),
     ADMIN_001("ADMIN-001", "Email address is not authorized to register as an administrator."),
-    ADMIN_002("ADMIN-002", "Access denied. Admin role required.");
+    ADMIN_002("ADMIN-002", "Access denied. Admin role required."),
+    FILE_003("FILE-003","Invalid image URL format" );
 
     private final String code;
     private final String message;

@@ -53,4 +53,32 @@ public class FileStorageService {
 
         return supabaseUrl + "/storage/v1/object/public/" + bucketName + "/" + fullPath;
     }
+
+    public void deleteFile(String imageUrl) {
+        try {
+            String path = extractPathFromUrl(imageUrl);
+
+            String deleteUrl = supabaseUrl + "/storage/v1/object/" + bucketName + "/" + path;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + serviceRoleKey);
+            headers.set("apikey", serviceRoleKey);
+
+            HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+            restTemplate.exchange(deleteUrl, HttpMethod.DELETE, entity, Void.class);
+
+        } catch (Exception e) {
+            System.err.println("Failed to delete file: " + imageUrl + " - " + e.getMessage());
+        }
+    }
+
+    private String extractPathFromUrl(String imageUrl) {
+        String searchString = "/object/public/" + bucketName + "/";
+        int startIndex = imageUrl.indexOf(searchString);
+        if (startIndex != -1) {
+            return imageUrl.substring(startIndex + searchString.length());
+        }
+        throw new ApiException(ErrorCode.FILE_003);
+    }
 }
