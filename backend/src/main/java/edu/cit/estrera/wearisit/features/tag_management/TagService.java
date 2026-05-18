@@ -117,4 +117,10 @@ public class TagService {
     public List<Tag> getTagsByCategoryAndUser(Long categoryId, Long userId) {
         return tagRepository.findByCategoryIdAndUserId(categoryId, userId);
     }
+    public Tag getTagById(Long tagId, Long userId) {
+        return tagRepository.findByIdAndUserId(tagId, userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.TAG_001,
+                        "Tag not found with id: " + tagId));
+    }
+
 }

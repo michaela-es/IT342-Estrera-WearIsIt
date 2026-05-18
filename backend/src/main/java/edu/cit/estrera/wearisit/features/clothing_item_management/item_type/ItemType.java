@@ -30,4 +30,7 @@ public class ItemType {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(nullable = true)
+    private Integer maxPerOutfit;
 }

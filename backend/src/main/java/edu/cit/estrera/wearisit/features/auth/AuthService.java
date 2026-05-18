@@ -2,6 +2,7 @@ package edu.cit.estrera.wearisit.features.auth;
 
 import edu.cit.estrera.wearisit.features.email.EmailService;
 import edu.cit.estrera.wearisit.features.user_management.UserResponse;
+import edu.cit.estrera.wearisit.features.user_management.events.UserRegisteredEvent;
 import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
 import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
 import edu.cit.estrera.wearisit.features.user_management.User;
@@ -13,6 +14,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.LocalDateTime;
 
@@ -24,14 +26,16 @@ public class AuthService {
     private final JwtService jwtService;
     private final RefreshTokenService refreshTokenService;
     private final EmailService emailService;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                       JwtService jwtService, RefreshTokenService refreshTokenService,EmailService emailService) {
+                       JwtService jwtService, RefreshTokenService refreshTokenService,EmailService emailService, ApplicationEventPublisher applicationEventPublisher) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.refreshTokenService = refreshTokenService;
         this.emailService = emailService;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
 //    public AuthResponse register(RegisterRequest request) {
@@ -105,7 +109,7 @@ public AuthResponse register(RegisterRequest request) {
 
     UserResponse userResponse = mapToUserResponse(user);
 
-    emailService.sendVerificationEmail(user.getEmail(), user.getUsername());
+    applicationEventPublisher.publishEvent(new UserRegisteredEvent(user));
 
     return AuthResponse.builder()
             .accessToken(accessToken)

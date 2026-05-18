@@ -60,4 +60,15 @@ public class OutfitController {
         OutfitValidationResponse validation = outfitService.validateComposition(items);
         return ResponseEntity.ok(ApiResponse.success(validation));
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("@securityUtil.isItemOwner(#id)")
+    public ResponseEntity<ApiResponse<String>> deleteOutfit(@PathVariable Long id) {
+
+        outfitService.deleteOutfit(id);
+
+        return ResponseEntity.ok(
+                ApiResponse.success("Outfit deleted successfully")
+        );
+    }
 }

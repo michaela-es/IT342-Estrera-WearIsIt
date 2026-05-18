@@ -32,10 +32,7 @@ public class OutfitService {
     private final OutfitMapper outfitMapper;
     private final SecurityUtil securityUtil;
 
-    private static final int MAX_TOP = 1;
-    private static final int MAX_BOTTOM = 1;
-    private static final int MAX_SHOES = 1;
-    private static final int MAX_ACCESSORIES = 5;
+    private static final int MIN_ITEMS = 2;
 
     @Transactional
     public OutfitResponse createOutfit(CreateOutfitRequest request) {
@@ -43,22 +40,64 @@ public class OutfitService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ApiException(ErrorCode.AUTH_005));
 
-        OutfitValidationResponse validation = validateComposition(request.getItems());
-        if (!validation.isValid()) {
-            throw new ApiException(ErrorCode.OUTFIT_003,
-                    String.join("; ", validation.getViolations()));
-        }
+        validateOutfitComposition(request.getItems(), userId);
 
         Outfit outfit = new Outfit();
         outfit.setOutfitName(request.getOutfitName());
         outfit.setCoverImageUrl(request.getCoverImageUrl());
         outfit.setUser(user);
-
-        List<OutfitItem> outfitItems = buildOutfitItems(outfit, request.getItems(), userId);
-        outfit.setOutfitItems(outfitItems);
-        outfit.setOutfitWc(sumWc(outfitItems));
+        outfit.setOutfitItems(buildOutfitItems(outfit, request.getItems(), userId));
+        outfit.setOutfitWc(sumWc(outfit.getOutfitItems()));
 
         return outfitMapper.toResponse(outfitRepository.save(outfit));
+    }
+
+    private void validateOutfitComposition(List<CreateOutfitItemRequest> items, Long userId) {
+        if (items == null || items.size() < MIN_ITEMS) {
+            throw new ApiException(ErrorCode.OUTFIT_003,
+                    "Outfit must contain at least " + MIN_ITEMS + " items");
+        }
+
+        List<Long> itemIds = items.stream()
+                .map(CreateOutfitItemRequest::getItemId)
+                .toList();
+
+        List<ClothingItem> clothingItems = clothingItemRepository.findAllById(itemIds);
+
+        if (clothingItems.size() != itemIds.size()) {
+            throw new ApiException(ErrorCode.OUTFIT_003, "One or more items not found");
+        }
+
+        for (ClothingItem item : clothingItems) {
+            if (!item.getUser().getUser_id().equals(userId)) {
+                throw new ApiException(ErrorCode.OUTFIT_005, "Item doesn't belong to user");
+            }
+        }
+
+        if (itemIds.size() != new HashSet<>(itemIds).size()) {
+            throw new ApiException(ErrorCode.OUTFIT_004, "Duplicate items not allowed");
+        }
+
+        Map<ItemType, Long> typeCounts = clothingItems.stream()
+                .collect(Collectors.groupingBy(ClothingItem::getType, Collectors.counting()));
+
+        for (Map.Entry<ItemType, Long> entry : typeCounts.entrySet()) {
+            ItemType type = entry.getKey();
+            int count = entry.getValue().intValue();
+            Integer maxAllowed = type.getMaxPerOutfit();
+
+            if (maxAllowed != null && count > maxAllowed) {
+                throw new ApiException(ErrorCode.OUTFIT_003,
+                        String.format("Too many %s items: maximum %d, got %d",
+                                type.getName(), maxAllowed, count));
+            }
+        }
+    }
+
+    private User getCurrentUser() {
+        Long userId = securityUtil.getCurrentUserId();
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.AUTH_005));
     }
 
     public OutfitResponse getOutfit(Long outfitId) {
@@ -84,56 +123,51 @@ public class OutfitService {
     }
 
     public OutfitValidationResponse validateComposition(List<CreateOutfitItemRequest> items) {
+
         List<String> violations = new ArrayList<>();
 
-        if (items == null || items.isEmpty()) {
+        if (items == null || items.size() < 2) {
             violations.add("Outfit must contain at least 2 items");
             return new OutfitValidationResponse(false, violations);
         }
 
         List<Long> itemIds = items.stream()
                 .map(CreateOutfitItemRequest::getItemId)
-                .collect(Collectors.toList());
+                .toList();
 
-        // Duplicate check
         if (new HashSet<>(itemIds).size() != itemIds.size()) {
             violations.add(ErrorCode.OUTFIT_004.getMessage());
         }
 
         List<ClothingItem> clothingItems = clothingItemRepository.findAllById(itemIds);
+
         if (clothingItems.size() != itemIds.size()) {
             violations.add("One or more items not found");
             return new OutfitValidationResponse(false, violations);
         }
 
-        // Count by type
-        Map<Long, Integer> typeCount = new HashMap<>();
-        Map<Long, String> typeNames = new HashMap<>();
-        for (ClothingItem item : clothingItems) {
-            ItemType type = item.getType();
-            typeCount.merge(type.getId(), 1, Integer::sum);
-            typeNames.put(type.getId(), type.getName());
-        }
+        Map<ItemType, Long> typeCounts = clothingItems.stream()
+                .collect(Collectors.groupingBy(
+                        ClothingItem::getType,
+                        Collectors.counting()
+                ));
 
-        for (Map.Entry<Long, Integer> entry : typeCount.entrySet()) {
-            String typeName = Optional.ofNullable(typeNames.get(entry.getKey()))
-                    .orElse("")
-                    .trim()
-                    .toUpperCase();
+        for (Map.Entry<ItemType, Long> entry : typeCounts.entrySet()) {
 
-            int count = entry.getValue();
-            switch (typeName) {
-                case "TOP"       -> { if (count > MAX_TOP)        violations.add("Max " + MAX_TOP + " TOP item(s), found " + count); }
-                case "BOTTOM"    -> { if (count > MAX_BOTTOM)     violations.add("Max " + MAX_BOTTOM + " BOTTOM item(s), found " + count); }
-                case "SHOES"     -> { if (count > MAX_SHOES)      violations.add("Max " + MAX_SHOES + " SHOES item(s), found " + count); }
-                case "ACCESSORY" -> { if (count > MAX_ACCESSORIES)violations.add("Max " + MAX_ACCESSORIES + " ACCESSORY item(s), found " + count); }
-                default          -> violations.add(ErrorCode.OUTFIT_006.getMessage() + ": " + typeName);
+            ItemType type = entry.getKey();
+            long count = entry.getValue();
+
+            Integer maxAllowed = type.getMaxPerOutfit();
+
+            if (maxAllowed != null && count > maxAllowed) {
+                violations.add(
+                        type.getName() + " max is " + maxAllowed + ", found " + count
+                );
             }
         }
 
         return new OutfitValidationResponse(violations.isEmpty(), violations);
     }
-
     // ── Helpers ───────────────────────────────────────────────────────────────
 
     private Outfit findOwnedOutfit(Long outfitId) {
@@ -167,5 +201,16 @@ public class OutfitService {
         return items.stream()
                 .mapToInt(oi -> oi.getClothingItem().getItemWc())
                 .sum();
+    }
+
+    @Transactional
+    public void deleteOutfit(Long itemId) {
+        User currentUser = securityUtil.getCurrentUser();
+        Long userId = currentUser.getUser_id();
+
+        Outfit outfit = outfitRepository.findByIdAndUser_Id(itemId, userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+
+        outfitRepository.delete(outfit);
     }
 }

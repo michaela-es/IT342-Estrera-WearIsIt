@@ -16,4 +16,6 @@ public class OutfitResponse {
     private List<OutfitItemResponse> items;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }
+

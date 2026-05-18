@@ -38,14 +38,14 @@ public class TagController {
                 .body(ApiResponse.success(tagDto));
     }
 
-    @PutMapping("/{tagId}")
+    @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<TagDto>> editTag(
-            @PathVariable Long tagId,
+            @PathVariable Long id,
             @Valid @RequestBody EditTagRequest request,
             Authentication authentication
     ) {
         User user = (User) authentication.getPrincipal();
-        Tag tag = tagService.editTag(tagId, request, user);
+        Tag tag = tagService.editTag(id, request, user);
 
         TagDto tagDto = TagDto.builder()
                 .id(tag.getId())
@@ -57,13 +57,13 @@ public class TagController {
         return ResponseEntity.ok(ApiResponse.success(tagDto));
     }
 
-    @DeleteMapping("/{tagId}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteTag(
-            @PathVariable Long tagId,
+            @PathVariable Long id,
             Authentication authentication
     ) {
         User user = (User) authentication.getPrincipal();
-        tagService.deleteTag(tagId, user);
+        tagService.deleteTag(id, user);
         return ResponseEntity.ok(ApiResponse.success(null));
     }
 
@@ -102,5 +102,30 @@ public class TagController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(ApiResponse.success(tagDtos));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<TagDetailDto>> getTag(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        User user = (User) authentication.getPrincipal();
+        Tag tag = tagService.getTagById(id, user.getUser_id());
+
+        TagDetailDto tagDetail = TagDetailDto.builder()
+                .id(tag.getId())
+                .name(tag.getName())
+                .categoryId(tag.getCategory().getId())
+                .categoryName(tag.getCategory().getName())
+                .itemCount(tag.getItems().size())
+                .items(tag.getItems().stream()
+                        .map(item -> TagItemDto.builder()
+                                .id(item.getId())
+                                .itemName(item.getItemName())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+
+        return ResponseEntity.ok(ApiResponse.success(tagDetail));
     }
 }

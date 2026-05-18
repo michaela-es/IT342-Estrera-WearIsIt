@@ -51,4 +51,16 @@ public class ClothingItemController {
         ClothingItemResponse response = clothingItemService.wearClothingItem(id);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("@securityUtil.isItemOwner(#id)")
+    public ResponseEntity<ApiResponse<String>> deleteClothingItem(@PathVariable Long id) {
+
+        clothingItemService.deleteClothingItem(id);
+
+        return ResponseEntity.ok(
+                ApiResponse.success("Clothing item deleted successfully")
+        );
+    }
+
 }
