@@ -4,6 +4,7 @@ import edu.cit.estrera.wearisit.features.category_management.Category;
 import edu.cit.estrera.wearisit.features.category_management.CategoryService;
 import edu.cit.estrera.wearisit.features.clothing_item_management.item_type.ItemType;
 import edu.cit.estrera.wearisit.features.clothing_item_management.item_type.ItemTypeRepository;
+import edu.cit.estrera.wearisit.features.image_upload.FileStorageService;
 import edu.cit.estrera.wearisit.features.tag_management.Tag;
 import edu.cit.estrera.wearisit.features.user_management.User;
 import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
@@ -34,7 +35,8 @@ public class ClothingItemService {
     private final ItemTypeRepository itemTypeRepository;
     private final CategoryService categoryService;
     private final TagService tagService;
-
+    private final FileStorageService fileStorageService;
+    
     @Transactional
     public ClothingItemResponse createClothingItem(CreateClothingItemRequest request) {
         User currentUser = securityUtil.getCurrentUser();
@@ -113,6 +115,14 @@ public class ClothingItemService {
 
         ClothingItem item = clothingItemRepository.findByIdAndUser_Id(itemId, userId)
                 .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+
+        if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
+            try {
+                fileStorageService.deleteFile(item.getImageUrl());
+            } catch (Exception e) {
+                System.err.println("Failed to delete cloud file during item deletion: " + e.getMessage());
+            }
+        }
 
         clothingItemRepository.delete(item);
     }

@@ -3,6 +3,7 @@ package edu.cit.estrera.wearisit.features.outfit_management;
 import edu.cit.estrera.wearisit.features.clothing_item_management.ClothingItem;
 import edu.cit.estrera.wearisit.features.clothing_item_management.ClothingItemRepository;
 import edu.cit.estrera.wearisit.features.clothing_item_management.item_type.ItemType;
+import edu.cit.estrera.wearisit.features.image_upload.FileStorageService;
 import edu.cit.estrera.wearisit.features.outfit_management.create_outfit.CreateOutfitItemRequest;
 import edu.cit.estrera.wearisit.features.outfit_management.create_outfit.CreateOutfitRequest;
 import edu.cit.estrera.wearisit.features.outfit_management.get_outfit.OutfitResponse;
@@ -31,6 +32,7 @@ public class OutfitService {
     private final UserRepository userRepository;
     private final OutfitMapper outfitMapper;
     private final SecurityUtil securityUtil;
+    private final FileStorageService fileStorageService;
 
     private static final int MIN_ITEMS = 2;
 
@@ -167,7 +169,6 @@ public class OutfitService {
 
         return new OutfitValidationResponse(violations.isEmpty(), violations);
     }
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private Outfit findOwnedOutfit(Long outfitId) {
         Long userId = securityUtil.getCurrentUserId();
@@ -203,12 +204,20 @@ public class OutfitService {
     }
 
     @Transactional
-    public void deleteOutfit(Long itemId) {
+    public void deleteOutfit(Long outfitId) {
         User currentUser = securityUtil.getCurrentUser();
         Long userId = currentUser.getUser_id();
 
-        Outfit outfit = outfitRepository.findByIdAndUser_Id(itemId, userId)
-                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+        Outfit outfit = outfitRepository.findByIdAndUser_Id(outfitId, userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.OUTFIT_001));
+
+        if (outfit.getCoverImageUrl() != null && !outfit.getCoverImageUrl().isEmpty()) {
+            try {
+                fileStorageService.deleteFile(outfit.getCoverImageUrl());
+            } catch (Exception e) {
+                System.err.println("Failed to delete cloud file during outfit deletion: " + e.getMessage());
+            }
+        }
 
         outfitRepository.delete(outfit);
     }
