@@ -221,4 +221,25 @@ public class OutfitService {
 
         outfitRepository.delete(outfit);
     }
+
+    @Transactional
+    public OutfitResponse editOutfit(Long outfitId, EditOutfitRequest request) {
+        Long userId = securityUtil.getCurrentUserId();
+        Outfit outfit = findOwnedOutfit(outfitId);
+
+        if (request.getOutfitName() != null) {
+            outfit.setOutfitName(request.getOutfitName());
+        }
+
+        if (request.getItems() != null) {
+            outfitItemRepository.deleteAll(outfit.getOutfitItems());
+            outfit.getOutfitItems().clear();
+
+            List<OutfitItem> newItems = buildOutfitItems(outfit, request.getItems(), userId);
+            outfit.getOutfitItems().addAll(newItems);
+            outfit.setOutfitWc(sumWc(newItems));
+        }
+
+        return outfitMapper.toResponse(outfitRepository.save(outfit));
+    }
 }

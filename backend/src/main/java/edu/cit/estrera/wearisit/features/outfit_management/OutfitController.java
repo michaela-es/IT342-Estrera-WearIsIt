@@ -62,7 +62,7 @@ public class OutfitController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("@securityUtil.isItemOwner(#id)")
+    @PreAuthorize("@securityUtil.isOutfitOwner(#id)")
     public ResponseEntity<ApiResponse<String>> deleteOutfit(@PathVariable Long id) {
 
         outfitService.deleteOutfit(id);
@@ -70,5 +70,14 @@ public class OutfitController {
         return ResponseEntity.ok(
                 ApiResponse.success("Outfit deleted successfully")
         );
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("@securityUtil.isOutfitOwner(#id)")
+    public ResponseEntity<ApiResponse<OutfitResponse>> editOutfit(
+            @PathVariable Long id,
+            @Valid @RequestBody EditOutfitRequest request) {
+        OutfitResponse response = outfitService.editOutfit(id, request);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 }
