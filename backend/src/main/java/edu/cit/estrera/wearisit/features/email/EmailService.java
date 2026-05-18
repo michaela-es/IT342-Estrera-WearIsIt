@@ -65,6 +65,23 @@ public class EmailService {
 //        sendEmail(to, username, template);
 //    }
 
+    public void sendPasswordResetEmail(String email, String username) {
+        String token = jwtService.generatePasswordResetToken(email);
+        String resetLink = appBaseUrl + "/api/auth/reset-password?token=" + token;
+
+        EmailTemplate template = EmailTemplate.builder()
+                .title("Reset your Wearisit Password")
+                .heading("Forgot your password?")
+                .greeting("Hello " + username + ",")
+                .bodyText("We received a request to reset your password. Click the button below to create a new password.")
+                .buttonText("Reset Password")
+                .buttonLink(resetLink)
+                .footerNote("This link will expire in 1 hour. If you didn't request this, you can safely ignore this email.")
+                .build();
+
+        sendEmail(email, username, template);
+    }
+
     private void sendEmail(String to, String username, EmailTemplate template) {
         try {
             log.info("Sending email to: {}", to);

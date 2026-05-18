@@ -189,4 +189,20 @@ public AuthResponse register(RegisterRequest request) {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void forgotPassword(ForgotPasswordRequest request) {
+        userRepository.findByEmail(request.getEmail()).ifPresent(user ->
+                emailService.sendPasswordResetEmail(user.getEmail(), user.getUsername())
+        );
+    }
+
+    @Transactional
+    public void resetPassword(ResetPasswordRequest request) {
+        String email = jwtService.extractEmailFromPasswordResetToken(request.getToken());
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiException(ErrorCode.AUTH_005));
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+    }
+
 }

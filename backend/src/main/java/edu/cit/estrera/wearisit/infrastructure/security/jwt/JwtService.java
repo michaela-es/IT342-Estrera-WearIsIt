@@ -155,4 +155,34 @@ public class JwtService {
             return null;
         }
     }
+
+    public String generatePasswordResetToken(String email) {
+        System.out.println("DEBUG: Generating password reset token for email=" + email);
+
+        try {
+            return Jwts.builder()
+                    .claim("email", email)
+                    .claim("type", "reset")
+                    .issuedAt(new Date(System.currentTimeMillis()))
+                    .expiration(new Date(System.currentTimeMillis() + 3600000))
+                    .signWith(getSignInKey(), Jwts.SIG.HS256)
+                    .compact();
+        } catch (Exception e) {
+            System.err.println("ERROR generating password reset token: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Failed to generate password reset token", e);
+        }
+    }
+
+    public String extractEmailFromPasswordResetToken(String token) {
+        try {
+            if (!isTokenValid(token) || !isTokenType(token, "reset")) {
+                return null;
+            }
+            return extractEmail(token);
+        } catch (Exception e) {
+            System.err.println("ERROR extracting email from password reset token: " + e.getMessage());
+            return null;
+        }
+    }
 }
