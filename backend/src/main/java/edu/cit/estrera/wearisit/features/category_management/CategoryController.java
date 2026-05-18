@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -69,4 +70,44 @@ public class CategoryController {
 
         return ResponseEntity.ok(ApiResponse.success("Category deleted successfully"));
     }
+
+    @GetMapping
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse<List<CategoryDto>>> getAllCategories() {
+        User user = securityUtil.getCurrentUser();
+        List<Category> categories = categoryService.getCategoriesByUser(user.getUser_id());
+
+        List<CategoryDto> categoryDtos = categories.stream()
+                .map(category -> CategoryDto.builder()
+                        .id(category.getId())
+                        .name(category.getName())
+                        .build())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(ApiResponse.success(categoryDtos));
+    }
+
+    @GetMapping("/{categoryId}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse<SingleCategoryDTO>> getCategoryById(@PathVariable Long categoryId) {
+        User user = securityUtil.getCurrentUser();
+        Category category = categoryService.getCategoryByIdAndUser(categoryId, user.getUser_id());
+
+        SingleCategoryDTO dto = SingleCategoryDTO.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .itemCount(category.getItems() != null ? category.getItems().size() : 0)
+                .createdAt(category.getCreatedAt())
+                .updatedAt(category.getUpdatedAt())
+                .tags(category.getTags().stream()
+                        .map(tag -> SingleCategoryDTO.CategoryTagDto.builder()
+                                .id(tag.getId())
+                                .name(tag.getName())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+
+        return ResponseEntity.ok(ApiResponse.success(dto));
+    }
+
 }

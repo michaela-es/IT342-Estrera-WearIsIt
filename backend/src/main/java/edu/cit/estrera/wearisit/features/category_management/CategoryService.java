@@ -116,4 +116,12 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
+    public List<Category> getCategoriesByUser(Long userId) {
+        return categoryRepository.findByUserId(userId);
+    }
+
+    public Category getCategoryByIdAndUser(Long categoryId, Long userId) {
+        return categoryRepository.findByIdAndUserId(categoryId, userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.CAT_001));
+    }
 }
