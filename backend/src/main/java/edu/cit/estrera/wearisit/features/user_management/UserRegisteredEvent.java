@@ -1,6 +1,5 @@
-package edu.cit.estrera.wearisit.features.user_management.events;
+package edu.cit.estrera.wearisit.features.user_management;
 
-import edu.cit.estrera.wearisit.features.user_management.User;
 import lombok.Getter;
 
 @Getter

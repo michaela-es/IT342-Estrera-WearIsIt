@@ -2,7 +2,8 @@ package edu.cit.estrera.wearisit.features.auth;
 
 import edu.cit.estrera.wearisit.features.email.EmailService;
 import edu.cit.estrera.wearisit.features.user_management.UserResponse;
-import edu.cit.estrera.wearisit.features.user_management.events.UserRegisteredEvent;
+import edu.cit.estrera.wearisit.features.user_management.UserRegisteredEvent;
+import edu.cit.estrera.wearisit.features.user_preferences.UserPreferencesService;
 import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
 import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
 import edu.cit.estrera.wearisit.features.user_management.User;
@@ -11,6 +12,8 @@ import edu.cit.estrera.wearisit.infrastructure.security.jwt.JwtService;
 import edu.cit.estrera.wearisit.infrastructure.security.jwt.RefreshTokenService;
 import edu.cit.estrera.wearisit.shared.util.regex.EmailValidator;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
@@ -27,18 +31,9 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
     private final EmailService emailService;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final UserPreferencesService userPreferencesService;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                       JwtService jwtService, RefreshTokenService refreshTokenService,EmailService emailService, ApplicationEventPublisher applicationEventPublisher) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.refreshTokenService = refreshTokenService;
-        this.emailService = emailService;
-        this.applicationEventPublisher = applicationEventPublisher;
-    }
-
-//    public AuthResponse register(RegisterRequest request) {
+    //    public AuthResponse register(RegisterRequest request) {
 //        if (request.getEmail() == null || !EmailValidator.isValid(request.getEmail()))
 //            throw new ApiException(ErrorCode.AUTH_006);
 //
@@ -106,6 +101,8 @@ public AuthResponse register(RegisterRequest request) {
 
     String accessToken = jwtService.generateAccessToken(user.getUser_id());
     String refreshToken = refreshTokenService.createRefreshToken(user.getUser_id());
+
+    userPreferencesService.createDefaultPreferences(user.getId());
 
     UserResponse userResponse = mapToUserResponse(user);
 

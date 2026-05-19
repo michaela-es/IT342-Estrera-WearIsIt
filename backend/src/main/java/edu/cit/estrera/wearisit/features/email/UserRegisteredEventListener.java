@@ -1,6 +1,6 @@
 package edu.cit.estrera.wearisit.features.email;
 
-import edu.cit.estrera.wearisit.features.user_management.events.UserRegisteredEvent;
+import edu.cit.estrera.wearisit.features.user_management.UserRegisteredEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
