@@ -31,8 +31,8 @@ const CategoryField = ({ onTagsChange, initialSelectedTags = [] }) => {
     try {
       setLoading(true);
       const response = await api.get('/categories/with-tags');
-      const categoriesData = response.data || response;
-      
+      const categoriesData = response;
+
       // Only show categories that have tags
       const categoriesWithTags = categoriesData.filter(cat => cat.tags && cat.tags.length > 0);
       setCategories(categoriesWithTags);
@@ -96,7 +96,7 @@ const CategoryField = ({ onTagsChange, initialSelectedTags = [] }) => {
       </Typography>
       
       <Box sx={{ display: 'flex', gap: 2, minHeight: '300px' }}>
-=        <Paper 
+        <Paper
           variant="outlined"
           sx={{ 
             width: '200px', 
@@ -132,7 +132,7 @@ const CategoryField = ({ onTagsChange, initialSelectedTags = [] }) => {
           </List>
         </Paper>
 
-=        <Paper 
+        <Paper
           variant="outlined"
           sx={{ 
             flex: 1, 

@@ -7,15 +7,11 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 30000, 
+  timeout: 30000,
 });
 
 api.interceptors.request.use(
   (config) => {
-        if (config.data instanceof FormData) {
-      delete config.headers['Content-Type'];
-    }
-
     const isPublicEndpoint = config.url.includes('/auth/login') || 
                              config.url.includes('/auth/register') ||
                              config.url.includes('/auth/google');
@@ -29,29 +25,17 @@ api.interceptors.request.use(
     
     return config;
   },
-  (error) => {
-    console.error('Request Error:', error);
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 api.interceptors.response.use(
   (response) => {
-  const method = response.config.method?.toLowerCase();
-  const isWriteOperation = ['post', 'put', 'delete', 'patch'].includes(method);
-
-  if (isWriteOperation) {
-    sessionStorage.removeItem('gallery_items'); // ← Clear cache
-  }
-
     if (response.data && response.data.success === false) {
       return Promise.reject(response.data);
     }
-    
     if (response.data && response.data.data !== undefined) {
       return response.data.data;
     }
-    
     return response.data;
   },
   (error) => {
@@ -59,18 +43,15 @@ api.interceptors.response.use(
       url: error.config?.url,
       method: error.config?.method,
       status: error.response?.status,
-      data: error.response?.data,
-      message: error.message
+      data: error.response?.data
     });
     
     let errorMessage = 'Network error or server not reachable';
     let errorCode = null;
-    let statusCode = error.response?.status;
     
     if (error.response?.data) {
       errorMessage = error.response.data.error?.message || 
                     error.response.data.message ||
-                    error.response.data.errorMessage ||
                     `Server error: ${error.response.status}`;
       errorCode = error.response.data.code;
     } else if (error.request) {
@@ -81,7 +62,7 @@ api.interceptors.response.use(
       success: false,
       message: errorMessage,
       code: errorCode,
-      status: statusCode,
+      status: error.response?.status,
       originalError: error
     });
   }
@@ -92,49 +73,21 @@ class ApiClient {
     this.api = api;
   }
 
-  getToken() {
-    return localStorage.getItem('accessToken');
-  }
-
-  async request(endpoint, options = {}) {
-    try {
-      const response = await this.api({
-        url: endpoint,
-        method: options.method || 'GET',
-        data: options.body,
-        params: options.params,
-        headers: options.headers,
-      });
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
   get(endpoint, params = {}) {
-    return this.request(endpoint, { method: 'GET', params });
+    return this.api.get(endpoint, { params });
   }
 
   post(endpoint, body) {
-    return this.request(endpoint, { method: 'POST', body });
+    return this.api.post(endpoint, body);
   }
 
   put(endpoint, body) {
-    return this.request(endpoint, { method: 'PUT', body });
-  }
-
-  patch(endpoint, body) {
-    return this.request(endpoint, { method: 'PATCH', body });
+    return this.api.put(endpoint, body);
   }
 
   delete(endpoint) {
-    return this.request(endpoint, { method: 'DELETE' });
+    return this.api.delete(endpoint);
   }
-
-upload(endpoint, formData) {
-  return this.api.post(endpoint, formData); 
-}
-
 }
 
 export const apiClient = new ApiClient();

@@ -3,40 +3,10 @@ import { Box, Typography, Button } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-const UploadZone = ({ imagePreview, setImageFile, setImagePreview, setError }) => {
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: (acceptedFiles, rejectedFiles) => {
-      if (rejectedFiles && rejectedFiles.length > 0) {
-        const rejection = rejectedFiles[0];
-        if (rejection.errors[0].code === 'file-invalid-type') {
-          setError('Only PNG and JPEG images are allowed!');
-        } else if (rejection.errors[0].code === 'file-too-large') {
-          setError('File size must be less than 10MB');
-        }
-        return;
-      }
-      
-      const file = acceptedFiles[0];
-      if (file) {
-        setImageFile(file);
-        const previewUrl = URL.createObjectURL(file);
-        setImagePreview(previewUrl);
-        setError(null);
-      }
-    },
-    accept: {
-      'image/png': ['.png'],
-      'image/jpeg': ['.jpg', '.jpeg']
-    },
-    maxFiles: 1,
-    multiple: false,
-    maxSize: 10 * 1024 * 1024
-  });
-
+const UploadZone = ({ imagePreview, setImageFile, setError, getRootProps, getInputProps, isDragActive }) => {
   const handleClearImage = (e) => {
     e.stopPropagation();
     setImageFile(null);
-    setImagePreview(null);
   };
 
   return (
