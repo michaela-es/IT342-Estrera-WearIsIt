@@ -1,3 +1,4 @@
+// src/features/shared/components/Navbar.jsx
 import React, { useState } from 'react';
 import {
   IconButton,
@@ -17,25 +18,22 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
 
-  const handleNavigation = (text) => {
+  const menuItems = [
+    { text: 'Home', path: '/' },
+    { text: 'Profile', path: '/profile' },
+    { text: 'Upload Clothing', path: '/upload' },
+    { text: 'Categories & Tags', path: '/categories-tags' }, // ✅ Added here
+    { text: 'Logout', path: null, action: 'logout' }
+  ];
+
+  const handleNavigation = (item) => {
     setOpen(false);
     
-    switch(text) {
-      case 'Home':
-        navigate('/');
-        break;
-      case 'Profile':
-        navigate('/profile');
-        break;
-      case 'Upload Clothing':
-        navigate('/upload');
-        break;
-      case 'Logout':
-        logout();
-        navigate('/login');
-        break;
-      default:
-        break;
+    if (item.action === 'logout') {
+      logout();
+      navigate('/login');
+    } else if (item.path) {
+      navigate(item.path);
     }
   };
 
@@ -56,15 +54,15 @@ const Navbar = () => {
 
       <Drawer open={open} onClose={() => setOpen(false)}>
         <List sx={{ width: 250 }}>
-          {['Home', 'Profile', 'Upload Clothing', 'Logout'].map((text, index) => (
-            <React.Fragment key={text}>
+          {menuItems.map((item, index) => (
+            <React.Fragment key={item.text}>
               <ListItem 
                 button 
-                onClick={() => handleNavigation(text)}
+                onClick={() => handleNavigation(item)}
               >
-                <ListItemText primary={text} />
+                <ListItemText primary={item.text} />
               </ListItem>
-              {text === 'Profile' && <Divider />}
+              {item.text === 'Profile' && <Divider />}
             </React.Fragment>
           ))}
         </List>
