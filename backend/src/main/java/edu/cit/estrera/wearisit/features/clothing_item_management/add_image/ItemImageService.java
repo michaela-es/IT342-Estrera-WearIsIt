@@ -1,5 +1,7 @@
 package edu.cit.estrera.wearisit.features.clothing_item_management.add_image;
 
+import edu.cit.estrera.wearisit.features.clothing_item_management.ClothingItemService;
+import edu.cit.estrera.wearisit.features.clothing_item_management.create_item.ClothingItemResponse;
 import edu.cit.estrera.wearisit.features.image_upload.FileStorageService;
 import edu.cit.estrera.wearisit.infrastructure.api.exceptions.ApiException;
 import edu.cit.estrera.wearisit.infrastructure.api.error.ErrorCode;
@@ -20,6 +22,7 @@ public class ItemImageService {
     private final ClothingItemRepository clothingItemRepository;
     private final FileStorageService fileStorageService;
     private final SecurityUtil securityUtil;
+    private final ClothingItemService clothingItemService;
 
     @Transactional
     public String saveItemImage(Long itemId, MultipartFile file) throws IOException {
@@ -58,8 +61,32 @@ public class ItemImageService {
         }
     }
 
+//    @Transactional
+//    public String updateItemImage(Long itemId, MultipartFile file) throws IOException {
+//        ClothingItem item = clothingItemRepository.findById(itemId)
+//                .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
+//
+//        if (!item.getUser().getUser_id().equals(securityUtil.getCurrentUser().getUser_id())) {
+//            throw new ApiException(ErrorCode.ITEM_002);
+//        }
+//
+//        if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
+//            fileStorageService.deleteFile(item.getImageUrl());
+//        }
+//
+//        String userFolderSecret = UUID.randomUUID().toString();
+//        String folderPath = "users/" + userFolderSecret + "/items";
+//        String imageUrl = fileStorageService.uploadFile(file, folderPath);
+//
+//        item.setImageUrl(imageUrl);
+//        clothingItemRepository.save(item);
+//
+//        return imageUrl;
+//    }
+
     @Transactional
-    public String updateItemImage(Long itemId, MultipartFile file) throws IOException {
+    public ClothingItemResponse updateItemImage(Long itemId, MultipartFile file) throws IOException {
+
         ClothingItem item = clothingItemRepository.findById(itemId)
                 .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001));
 
@@ -71,14 +98,13 @@ public class ItemImageService {
             fileStorageService.deleteFile(item.getImageUrl());
         }
 
-        String userFolderSecret = UUID.randomUUID().toString();
-        String folderPath = "users/" + userFolderSecret + "/items";
+        String folderPath = "users/" + item.getUser().getUser_id() + "/items";
         String imageUrl = fileStorageService.uploadFile(file, folderPath);
 
         item.setImageUrl(imageUrl);
-        clothingItemRepository.save(item);
 
-        return imageUrl;
+        ClothingItem saved = clothingItemRepository.saveAndFlush(item);
+
+        return clothingItemService.convertToResponse(saved);
     }
-
 }

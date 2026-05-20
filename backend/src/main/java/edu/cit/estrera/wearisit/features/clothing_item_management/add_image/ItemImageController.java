@@ -1,5 +1,6 @@
 package edu.cit.estrera.wearisit.features.clothing_item_management.add_image;
 
+import edu.cit.estrera.wearisit.features.clothing_item_management.create_item.ClothingItemResponse;
 import edu.cit.estrera.wearisit.infrastructure.api.response.ApiResponse;
 import edu.cit.estrera.wearisit.infrastructure.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,15 @@ public class ItemImageController {
         );
 
         return ResponseEntity.ok(ApiResponse.success(data));
+    }
+
+    @PutMapping("/{id}/image")
+    public ResponseEntity<ApiResponse<ClothingItemResponse>> updateItemImage(
+            @PathVariable("id") Long itemId,
+            @RequestParam("image") MultipartFile file) throws IOException {
+
+        ClothingItemResponse response = itemImageService.updateItemImage(itemId, file);
+
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 }

@@ -146,7 +146,7 @@ public class ClothingItemService {
                 .collect(Collectors.toList());
     }
 
-    private ClothingItemResponse convertToResponse(ClothingItem item) {
+    public ClothingItemResponse convertToResponse(ClothingItem item) {
         List<CategoryDto> categories = new ArrayList<>();
         if (item.getCategories() != null) {
             for (Category category : item.getCategories()) {

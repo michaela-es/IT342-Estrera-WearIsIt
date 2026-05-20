@@ -119,6 +119,7 @@ public class OutfitService {
         Outfit outfit = findOwnedOutfit(outfitId);
         LocalDateTime now = LocalDateTime.now();
         outfit.setLastWorn(now);
+        outfit.setOutfitWc(outfit.getOutfitWc()+1);
         outfit.getOutfitItems().forEach(oi -> oi.getClothingItem().setLastWorn(now));
         return outfitMapper.toResponse(outfitRepository.save(outfit));
     }
@@ -233,13 +234,36 @@ public class OutfitService {
 
         if (request.getItems() != null) {
             outfitItemRepository.deleteAll(outfit.getOutfitItems());
+
+            // Clear the collection
             outfit.getOutfitItems().clear();
 
-            List<OutfitItem> newItems = buildOutfitItems(outfit, request.getItems(), userId);
-            outfit.getOutfitItems().addAll(newItems);
-            outfit.setOutfitWc(sumWc(newItems));
+            // Force flush to ensure deletion is persisted
+            outfitItemRepository.flush();
+
+            // Add new items
+            for (int i = 0; i < request.getItems().size(); i++) {
+                CreateOutfitItemRequest itemReq = request.getItems().get(i);
+
+                ClothingItem clothingItem = clothingItemRepository.findById(itemReq.getItemId())
+                        .orElseThrow(() -> new ApiException(ErrorCode.ITEM_001,
+                                "Item not found: " + itemReq.getItemId()));
+
+                if (!clothingItem.getUser().getUser_id().equals(userId)) {
+                    throw new ApiException(ErrorCode.OUTFIT_005,
+                            "Item doesn't belong to you: " + clothingItem.getItemName());
+                }
+
+                OutfitItem newItem = new OutfitItem();
+                newItem.setOutfit(outfit);
+                newItem.setClothingItem(clothingItem);
+                newItem.setPosition(itemReq.getPosition() != null ? itemReq.getPosition() : i);
+                newItem.setNotes(itemReq.getNotes());
+
+                outfit.getOutfitItems().add(newItem);
+            }
+
         }
 
         return outfitMapper.toResponse(outfitRepository.save(outfit));
-    }
-}
+    }}
