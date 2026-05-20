@@ -119,6 +119,7 @@ public class OutfitService {
         Outfit outfit = findOwnedOutfit(outfitId);
         LocalDateTime now = LocalDateTime.now();
         outfit.setLastWorn(now);
+        outfit.setOutfitWc(outfit.getOutfitWc()+1);
         outfit.getOutfitItems().forEach(oi -> oi.getClothingItem().setLastWorn(now));
         return outfitMapper.toResponse(outfitRepository.save(outfit));
     }
