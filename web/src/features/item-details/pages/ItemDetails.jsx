@@ -276,7 +276,7 @@ const ItemDetails = () => {
                   onClick={handleLogWear}
                   sx={{ mt: 4, py: 1.5 }}
                 >
-                  Wear This Outfit
+                  Wear This Item
                 </Button>
               </Box>
             </Grid>

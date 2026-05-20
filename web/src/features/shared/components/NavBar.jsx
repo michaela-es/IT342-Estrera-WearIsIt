@@ -5,6 +5,7 @@ import {
   Drawer,
   List,
   ListItem,
+  ListItemButton,
   ListItemText,
   Box,
   Divider
@@ -20,6 +21,7 @@ const Navbar = () => {
 
   const menuItems = [
     { text: 'Home', path: '/' },
+    { text: 'Outfits', path: '/outfits' },
     { text: 'Profile', path: '/profile' },
     { text: 'Upload Clothing', path: '/upload' },
     { text: 'Categories & Tags', path: '/categories-tags' }, // ✅ Added here
@@ -56,11 +58,10 @@ const Navbar = () => {
         <List sx={{ width: 250 }}>
           {menuItems.map((item, index) => (
             <React.Fragment key={item.text}>
-              <ListItem 
-                button 
-                onClick={() => handleNavigation(item)}
-              >
-                <ListItemText primary={item.text} />
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => handleNavigation(item)}>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
               </ListItem>
               {item.text === 'Profile' && <Divider />}
             </React.Fragment>

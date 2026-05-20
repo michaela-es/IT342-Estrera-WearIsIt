@@ -13,6 +13,8 @@ import OAuthCallback from '@features/auth/pages/OAuthCallback';
 import Layout from '@features/shared/components/Layout'; 
 import theme from '@features/shared/theme/theme';
 import EditClothingItem from '@features/clothing-item/pages/EditClothingItem';
+import OutfitKanbanPage from '@features/outfit-management/pages/OutfitKanbanPage';
+import OutfitDetailsPage from '@features/outfit-management/pages/OutfitDetailsPage';
 
 import './colors.css';
 import './App.css';
@@ -49,6 +51,8 @@ function AppContent() {
       <Route path="/items/:id" element={<ProtectedLayout><ItemDetails /></ProtectedLayout>} />
       <Route path="/profile" element={<ProtectedLayout><ProfilePage /></ProtectedLayout>} />
       <Route path="/upload" element={<ProtectedLayout><UploadClothing /></ProtectedLayout>} />
+      <Route path="/outfits" element={<ProtectedLayout><OutfitKanbanPage /></ProtectedLayout>} />
+      <Route path="/outfits/:id" element={<ProtectedLayout><OutfitDetailsPage /></ProtectedLayout>} />
 <Route path="/items/:id/edit" element={<ProtectedLayout><EditClothingItem /></ProtectedLayout>} />
       <Route 
         path="/categories-tags" 
