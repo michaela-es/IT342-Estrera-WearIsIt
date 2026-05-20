@@ -24,7 +24,12 @@ public interface ClothingItemRepository extends JpaRepository<ClothingItem, Long
 
     Optional<ClothingItem> findByIdAndUser_Id(Long itemId, Long userId);
 
-    Page<ClothingItem> findByUser_Id(Long userId, Pageable pageable);
+    @Query("SELECT DISTINCT i FROM ClothingItem i " +
+            "LEFT JOIN FETCH i.categories " +
+            "LEFT JOIN FETCH i.tags t " +
+            "LEFT JOIN FETCH t.category " +
+            "WHERE i.user.id = :userId")
+    Page<ClothingItem> findByUser_Id(@Param("userId") Long userId, Pageable pageable);
 
     @Query("SELECT i.user.id, COUNT(i), COALESCE(SUM(i.itemWc), 0) " +
             "FROM ClothingItem i " +
